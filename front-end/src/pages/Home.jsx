@@ -26,7 +26,7 @@ function Home(){
                     <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" viewBox="0 0 20.884 27.105"><path d="M9.358,6.463a5,5,0,0,1,8.388,0l4.347,6.7A5,5,0,0,1,17.9,20.884H9.205a5,5,0,0,1-4.194-7.722Z" transform="translate(0 27.105) rotate(-90)" fill="#fff"></path></svg>
                 </Button>
 
-                <Button to='/students/comments' classes="mr-4 bg-[var(--light-purple)] text-[var(--dark-purple)] py-2.5 px-5 rounded-2xl">
+                <Button to='/students-comments' classes="mr-4 bg-[var(--light-purple)] text-[var(--dark-purple)] py-2.5 px-5 rounded-2xl">
                     نظرات دانشجویان
                 </Button>
             </div>
