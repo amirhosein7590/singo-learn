@@ -23,6 +23,7 @@ function Button(props) {
         to={props.to}
         onClick={props.onclick}
         className={`${props.classes} md:text-[16px] text-[14px] lg:py-2.5 lg:px-5 px-2`}
+        target={props.target}
       >
         {props.children}
       </Link>

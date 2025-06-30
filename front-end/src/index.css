@@ -4,19 +4,9 @@
     --light-gray : rgb(232, 234, 246);
     --dark-gray : rgb(94, 129, 209);
 }
-
 @font-face {
-    font-family: Vazir;
-    src: url(../public/fonts/Vazir.woff) , format(woff);
-}
-
-@font-face {
-    font-family: Vazir-Bold;
-    src: url(../public/fonts/Vazirmatn-Bold.woff2) , format(woff2);
-}
-
-.vazir-bold{
-    font-family: Vazir-Bold
+    font-family: Yekan Bakh;
+    src: url(../public/fonts/e1d06869ee86ac98052a5a1788122235.woff2) , format(woff2);
 }
 
 @import "tailwindcss";

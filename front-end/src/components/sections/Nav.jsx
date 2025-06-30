@@ -174,7 +174,7 @@ function Nav() {
           </Button>
         </div>
       </nav>
-      {isMenuShown && <SideMenu menuShowHandler={setIsMenuShown} />}
+       <SideMenu menuShowHandler={setIsMenuShown} isMenuShown={isMenuShown} />
     </>
   );
 }

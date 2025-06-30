@@ -1,13 +1,13 @@
 import Button from "../ui/Button";
-function SideMenu({ menuShowHandler }) {
+function SideMenu({ menuShowHandler , isMenuShown }) {
   const closeMenu = () => {
     menuShowHandler((prev) => !prev);
   };
 
   return (
     <>
-      <div className="overlay transition duration-300 w-[100vw] lg:hidden h-[100vh] bg-[rgba(0,0,0,0.5)] absolute inset-0">
-        <div className="side-menu absolute right-0 top-0 h-full w-8/12 md:w-4/12 lg:hidden bg-white  flex flex-col">
+      <div className={`overlay transition duration-300 w-[100vw] h-[100vh] bg-[rgba(0,0,0,0.5)] fixed inset-0 ${isMenuShown ? 'block' : 'hidden'}`}>
+        <div className={`side-menu transition duration-300 absolute top-0 h-full w-8/12 md:w-4/12 bg-white  flex flex-col ${isMenuShown ? 'right-0' : 'right-[-1000px]'}`}>
           <div className="row flex flex-row-reverse my-1">
             <Button
               classes="p-1.5 rounded-full cursor-pointer hover:bg-[#efefef] transition duration-300"

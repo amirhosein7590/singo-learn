@@ -1,5 +1,6 @@
 import { Outlet } from "react-router"
 import Nav from "../components/sections/Nav"
+import Footer from "../components/sections/Footer"
 
 function DefaultLayout() {
   return (
@@ -9,6 +10,7 @@ function DefaultLayout() {
     </header>
     <div className="container w-10/12 lg:w-8/12 mx-auto">
     <Outlet />
+    <Footer />
     </div>
     </>
   )
