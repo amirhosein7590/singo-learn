@@ -6,8 +6,8 @@ function SideMenu({ menuShowHandler , isMenuShown }) {
 
   return (
     <>
-      <div className={`overlay transition duration-300 w-[100vw] h-[100vh] bg-[rgba(0,0,0,0.5)] fixed inset-0 ${isMenuShown ? 'block' : 'hidden'}`}>
-        <div className={`side-menu transition duration-300 absolute top-0 h-full w-8/12 md:w-4/12 bg-white  flex flex-col ${isMenuShown ? 'right-0' : 'right-[-1000px]'}`}>
+      <div className={`overlay transition duration-300 w-[100vw] h-[100vh] bg-[rgba(0,0,0,0.5)] fixed inset-0 z-1000 ${isMenuShown ? 'block' : 'hidden'}`}>
+        <div className={`side-menu transition duration-300 absolute top-0 h-full w-8/12 md:w-4/12 bg-white z-1000 flex flex-col ${isMenuShown ? 'right-0' : 'right-[-1000px]'}`}>
           <div className="row flex flex-row-reverse my-1">
             <Button
               classes="p-1.5 rounded-full cursor-pointer hover:bg-[#efefef] transition duration-300"
