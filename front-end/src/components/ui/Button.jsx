@@ -9,6 +9,7 @@ function Button(props) {
     return isNavLink ? (
       <NavLink
         to={props.to}
+        disabled={props.disabled}
         onClick={props.onclick}
         className={typeof props.classes === 'function' ? 
           ({ isActive }) => props.classes(isActive) : 
@@ -24,6 +25,7 @@ function Button(props) {
         onClick={props.onclick}
         className={`${props.classes} md:text-[16px] text-[14px] lg:py-2.5 lg:px-5 px-2`}
         target={props.target}
+        disabled={props.disabled}
       >
         {props.children}
       </Link>
@@ -35,6 +37,7 @@ function Button(props) {
       onClick={props.onclick}
       className={`cursor-pointer md:text-[16px] text-[14px] lg:py-2.5 lg:px-5 px-2 ${props.classes}`}
       type={props.type}
+      disabled={props.disabled}
     >
       {props.children}
     </button>

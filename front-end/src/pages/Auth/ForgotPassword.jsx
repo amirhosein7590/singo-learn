@@ -1,31 +1,20 @@
-import { useEffect, useState } from "react";
-import Input from "../../components/ui/Input";
 import { useForm, Controller } from "react-hook-form";
+import AuthForm from "../../components/sections/AuthForm";
 import Button from "../../components/ui/Button";
 import useMutate from "../../hooks/useAxiosMutate";
-import AuthForm from "../../components/sections/AuthForm";
+import Input from "../../components/ui/Input";
+import { useEffect, useState } from "react";
 
-function Login() {
-  useEffect(() => {
-    document.title = "ورود";
-  }, []);
-
+function ForgotPassword() {
   return (
     <>
       <AuthForm>
         {({ setShowToast }) => {
           const {
             handleSubmit,
-            formState: { errors, submitCount },
             control,
+            formState: { errors , submitCount },
           } = useForm({ mode: "onSubmit", reValidateMode: "onSubmit" });
-
-          const { mutate, isPending } = useMutate(
-            "login",
-            null,
-            "/login",
-            "post"
-          );
 
           useEffect(()=>{
             let error = Object.values(errors)[0]?.message;
@@ -34,19 +23,24 @@ function Login() {
             }
           },[submitCount])
 
+          const { mutate, isPending } = useMutate(
+            "forgot-password",
+            null,
+            "/forgot-password",
+            "post"
+          );
+
           const submit = (data) => {
             mutate(data, {
-              onSuccess: (userInfos) => {
-                localStorage.setItem("userInfos", JSON.stringify(userInfos))
-                setShowToast({message : userInfos.message , icon : 'success'})
+              onSuccess: (resonse) => {
+                setShowToast({message : resonse.message , icon : 'success'})
               },
               onError: (err) => {
                 let errorMessage = err.response.data.error;
                 setShowToast({message : errorMessage , icon : 'error'})
-              }
+              },
             });
           };
-
 
           const [showPassword, setShowPassword] = useState(false);
 
@@ -69,7 +63,7 @@ function Login() {
               },
             },
             {
-              name: "password",
+              name: "newPassword",
               type: "password",
               classes:
                 "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
@@ -96,13 +90,13 @@ function Login() {
               <div className="login_register_buttons flex mb-4 justify-center items-center">
                 <Button
                   to="/login"
-                  classes="bg-[var(--dark-purple)] text-white ml-4 md:py-2 !py-2 !px-3 rounded-sm text-[16px] shadow-sm flex items-center"
+                  classes="border-1 border-[var(--dark-purple)] text-[var(--dark-purple)] md:py-2 !py-2 !px-3 ml-4 rounded-sm text-[16px] shadow-sm flex items-center"
                 >
                   <svg
                     className="ml-2"
                     xmlns="http://www.w3.org/2000/svg"
                     width="15"
-                    fill="#fff"
+                    fill="var(--dark-purple)"
                     viewBox="0 0 17.14 21.425"
                   >
                     <g
@@ -115,14 +109,14 @@ function Login() {
                         data-name="Path 170"
                         d="M130.627,42.712a3.487,3.487,0,0,1,.626-.052h8.489a3.209,3.209,0,0,1,3.214,2.778,5.762,5.762,0,0,1,.031.806V60.2a5.76,5.76,0,0,1-.1,1.443,3.231,3.231,0,0,1-2.3,2.332,5.637,5.637,0,0,1-1.5.106H131.2a3.22,3.22,0,0,1-3.212-3.179c0-1.071,0-2.142,0-3.213a1.071,1.071,0,1,1,2.141-.053c0,1.089,0,2.177,0,3.266a1.075,1.075,0,0,0,1.067,1.036q4.3,0,8.59,0a1.076,1.076,0,0,0,1.053-1.085q0-7.332,0-14.665a1.873,1.873,0,0,0-.07-.7,1.073,1.073,0,0,0-.984-.69q-4.294,0-8.588,0a1.074,1.074,0,0,0-1.068,1.04c0,.986,0,1.972,0,2.958a1.516,1.516,0,0,1-.118.773,1.07,1.07,0,0,1-2.023-.472q0-1.631,0-3.264a3.221,3.221,0,0,1,2.636-3.127Z"
                         transform="translate(-40.503 0)"
-                        fill="#fff"
+                        fill="var(--dark-purple)"
                       ></path>
                       <path
                         id="Path_171"
                         data-name="Path 171"
                         d="M93.612,170.98a1.072,1.072,0,0,1,1.057.253c1.042,1.033,2.071,2.08,3.118,3.108a1.107,1.107,0,0,1,.4,1.068,1.254,1.254,0,0,1-.475.731c-1.025,1.017-2.041,2.044-3.066,3.06a1.07,1.07,0,0,1-1.708-1.214,1.6,1.6,0,0,1,.4-.5c.407-.4.807-.814,1.218-1.213q-4.06.006-8.119,0a1.071,1.071,0,0,1-.362-2.085,1.634,1.634,0,0,1,.563-.058c2.639,0,5.279,0,7.918,0-.461-.448-.91-.908-1.367-1.361a1.071,1.071,0,0,1,.429-1.794Z"
                         transform="translate(0 -121.831)"
-                        fill="#fff"
+                        fill="var(--dark-purple)"
                       ></path>
                     </g>
                   </svg>
@@ -131,7 +125,7 @@ function Login() {
 
                 <Button
                   to="/register"
-                  classes="border-1 border-[var(--dark-purple)] text-[var(--dark-purple)] md:py-2 !py-2 !px-3  rounded-sm text-[16px] shadow-sm flex items-center"
+                  classes="border-1 border-[var(--dark-purple)] text-[var(--dark-purple)] rounded-sm md:py-2 !py-2 !px-3 shadow-sm flex items-center"
                 >
                   <svg
                     className="ml-1"
@@ -149,7 +143,7 @@ function Login() {
                 </Button>
               </div>
               <h5 className="text-center my-7 text-2xl text-[#00000099]">
-                ورود به سینگو لرن
+                بازیابی رمز عبور
               </h5>
 
               {inputPatterns.map((input) => (
@@ -173,13 +167,9 @@ function Login() {
                 />
               ))}
 
-              <Button to="/forgot-password" classes="text-[var(--dark-purple)]">
-                رمز عبور خود را فراموش کرده اید ؟
-              </Button>
-
               <Button
                 type="submit"
-                classes="text-white bg-[var(--dark-purple)] py-1.5 text-[16px] rounded-sm shadow-sm mt-3"
+                classes="text-white bg-[var(--dark-purple)] py-1 text-[16px] rounded-sm shadow-sm mt-3"
                 disabled={isPending}
               >
                 {isPending ? "درحال ارسال" : "ورود"}
@@ -191,4 +181,5 @@ function Login() {
     </>
   );
 }
-export default Login;
+
+export default ForgotPassword;

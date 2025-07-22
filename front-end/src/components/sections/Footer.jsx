@@ -1,4 +1,4 @@
-import React from "react";
+import {memo} from "react";
 import Button from "../ui/Button";
 
 function Footer() {
@@ -126,4 +126,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

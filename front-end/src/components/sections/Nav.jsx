@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState , memo } from "react";
 import Button from "../ui/Button";
 import SideMenu from "./SideMenu";
 
-function Nav() {
+function Nav({userInfos}) {
   const [isMenuShown, setIsMenuShown] = useState(false);
 
   const showMenuHandler = () => {
@@ -138,7 +138,12 @@ function Nav() {
             </svg>
           </Button>
 
-          <Button
+          {userInfos?.role ? <Button
+            to={`/dashboard/${userInfos.role}`}
+            classes="login-btn bg-[var(--light-purple)] text-[var(--dark-purple)] py-2 px-4 rounded-xl flex py-0.5 px-1 mr-5"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"><path fill="#7C3AED" fillRule="evenodd" d="M134 2009c-2.217 0-4.019-1.794-4.019-4s1.802-4 4.019-4 4.019 1.794 4.019 4-1.802 4-4.019 4m3.776.673a5.978 5.978 0 0 0 2.182-5.603c-.397-2.623-2.589-4.722-5.236-5.028-3.652-.423-6.75 2.407-6.75 5.958 0 1.89.88 3.574 2.252 4.673-3.372 1.261-5.834 4.222-6.22 8.218a1.012 1.012 0 0 0 1.004 1.109.99.99 0 0 0 .993-.891c.403-4.463 3.836-7.109 7.999-7.109s7.596 2.646 7.999 7.109a.99.99 0 0 0 .993.891c.596 0 1.06-.518 1.003-1.109-.385-3.996-2.847-6.957-6.22-8.218" transform="translate(-124 -1999)"></path></svg>
+          </Button> : <Button
             to="/login"
             classes="login-btn bg-[var(--light-purple)] text-[var(--dark-purple)] py-2 px-4 rounded-xl flex py-0.5 px-1 mr-5"
           >
@@ -171,7 +176,8 @@ function Nav() {
               </g>
             </svg>
             ورود
-          </Button>
+          </Button> }
+          
         </div>
       </nav>
        <SideMenu menuShowHandler={setIsMenuShown} isMenuShown={isMenuShown} />
@@ -179,4 +185,4 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default memo(Nav);

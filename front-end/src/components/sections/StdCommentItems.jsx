@@ -1,4 +1,4 @@
-import React from 'react'
+import {memo} from 'react'
 
 function StdCommentItems({name , opinion , courses}) {
   return (
@@ -26,4 +26,4 @@ function StdCommentItems({name , opinion , courses}) {
   )
 }
 
-export default StdCommentItems
+export default memo(StdCommentItems)

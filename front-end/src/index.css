@@ -6,7 +6,14 @@
 }
 @font-face {
     font-family: Yekan Bakh;
-    src: url(../public/fonts/e1d06869ee86ac98052a5a1788122235.woff2) , format(woff2);
+    src: url(../public/fonts/YekanBakh-Bold.bbd877a3.woff) , format(woff);
+}
+@font-face {
+    font-family: Yekan Bakh Fat;
+    src: url(../public/fonts/YekanBakh-Fat.e508fcc6.woff);
 }
 
+h1,h2,h3,h4,h5{
+    font-family: Yekan Bakh Fat
+}
 @import "tailwindcss";

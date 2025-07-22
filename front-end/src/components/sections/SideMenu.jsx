@@ -1,4 +1,5 @@
 import Button from "../ui/Button";
+import { memo } from "react";
 function SideMenu({ menuShowHandler , isMenuShown }) {
   const closeMenu = () => {
     menuShowHandler((prev) => !prev);
@@ -135,4 +136,4 @@ function SideMenu({ menuShowHandler , isMenuShown }) {
   );
 }
 
-export default SideMenu;
+export default memo(SideMenu);

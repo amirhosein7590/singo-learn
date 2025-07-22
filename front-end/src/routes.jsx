@@ -7,6 +7,7 @@ import Register from "./pages/Auth/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import DefaultLayout from "./layouts/defaultLayout";
 import StudentsCommnets from './pages/StudentsComments'
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 import Cart from './pages/Cart'
 const routes = [
@@ -14,10 +15,17 @@ const routes = [
         {path : '/' , element : <Home />},
         {path : '/login' , element : <Login />},
         {path : '/register' , element : <Register />},
+        {path : '/forgot-password' , element : <ForgotPassword />},
         {path : '/courses/*' , element : <Courses />},
         {path : '/courses/:id' , element : <Course />},
         {path : '/about-us' , element : <AboutUs />},
-        {path : '/dashboard' , element : <Dashboard />},
+        {path : '/dashboard/*' , element : <Dashboard /> , children : [
+            // {path : 'user' , element : <></> , children : []},
+            // {path : 'teacher' , element : <></> , children : []},
+            // {path : 'admin' , element : <></> , children : []}
+
+            // these routes will completed later
+        ]},
         {path : '/cart' , element : <Cart />},
         {path : '/students-comments' , element : <StudentsCommnets />}
     ]}
