@@ -11,8 +11,8 @@ function AboutUs() {
       {data && data.map(user => (
         <p key={user.id}>{user.fullname}</p>
       ))}
-      {isPending && <h1>loading ...</h1>}
-      {isError && <h1 className="text-red-600">error ...</h1>}
+      {isPending && console.log('pending')}
+      {isError && console.log('error')}
     </>
   );
 }
