@@ -1,10 +1,24 @@
-import React from "react";
 import Button from "../ui/Button";
+import useCart from "../../hooks/useCart";
+import Toast from "../sections/Toast";
+import { memo, useEffect, useState } from "react";
+function CourseItem({ icon, title, price, duration, stdCount, courseId }) {
+  const { addToCart, isInCart, error, isPending, cartData } = useCart();
+  const [showToast, setShowToast] = useState(false);
 
-function CourseItem({ icon, title, price, duration, stdCount , courseId }) {
+  useEffect(() => {
+    if (cartData?.message) {
+      setShowToast({ message: cartData.message, icon: "success" });
+    } else if (error) {
+      console.log(error);
+      setShowToast({ message: error.response.data.error, icon: "error" });
+    }
+  }, [cartData, error]);
   return (
-    <div className="card flex flex-col my-5 flex-1 md:mx-2 p-7 shadow-lg rounded-xl w-full md:w-1/2 lg:w-3/12">
-      <div className="card__icon mb-7"><img className="w-[80px] h-[80px]" src={icon} alt="" /></div>
+    <div className="card flex flex-col p-4 shadow-lg rounded-xl">
+      <div className="card__icon mb-7">
+        <img className="w-[80px] h-[80px]" src={icon} alt="" />
+      </div>
       <div className="card__course-title mb-7">
         <h4>{title}</h4>
       </div>
@@ -24,7 +38,9 @@ function CourseItem({ icon, title, price, duration, stdCount , courseId }) {
             fill="#7C3AED"
           ></path>
         </svg>
-        <p className="text-sm mr-2 mt-1 text-[var(--dark-purple)]">{duration} ساعت</p>
+        <p className="text-sm mr-2 mt-1 text-[var(--dark-purple)]">
+          {duration} ساعت
+        </p>
       </div>
       <div className="card__course-desc mb-7 flex justify-between items-center">
         <div className="students-count flex items-center bg-[var(--light-gray)] rounded-full py-1 px-4">
@@ -40,20 +56,57 @@ function CourseItem({ icon, title, price, duration, stdCount , courseId }) {
               ></path>
             </g>
           </svg>
-          <p className="mr-2 mt-[3px] text-sm text-[var(--dark-gray)]">{stdCount} نفر</p>
+          <p className="mr-2 mt-[3px] text-sm text-[var(--dark-gray)]">
+            {stdCount} نفر
+          </p>
         </div>
-        <p className="price text-[#00000099]">{price} تومان</p>
+        <p className="price text-[#00000099]">{price == "رایگان" ? price : `${price} تومان`}</p>
       </div>
       <div className="card__button-wrapper border-t flex justify-between items-center border-t-[#0000001f] pt-4">
-        <Button classes="bg-[var(--dark-purple)] text-white py-2 px-6 rounded-lg">ثبت نام</Button>
+        {isInCart(courseId) ? (
+          <Button
+            to="/cart"
+            classes="bg-white text-black border-1 border-[var(--dark-purple) rounded-lg !py-2]"
+          >
+            ادامه سفارش
+          </Button>
+        ) : (
+          <Button
+            onclick={() => addToCart(courseId)}
+            classes="bg-[var(--dark-purple)] text-white !py-2 rounded-lg"
+          >
+            {isPending ? "در حال ارسال ..." : "ثبت نام"}
+          </Button>
+        )}
 
-        <Button to={`/courses/${courseId}`} classes='flex items-center text-[var(--dark-purple)]'>
-        مشاهده دوره
-        <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" viewBox="0 0 20.884 27.105"><path d="M9.358,6.463a5,5,0,0,1,8.388,0l4.347,6.7A5,5,0,0,1,17.9,20.884H9.205a5,5,0,0,1-4.194-7.722Z" transform="translate(0 27.105) rotate(-90)" fill="#7C3AED"></path></svg>
+        <Button
+          to={`/courses/${courseId}`}
+          classes="flex items-center !px-2 text-[var(--dark-purple)]"
+        >
+          مشاهده دوره
+          <svg
+            className="mr-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            viewBox="0 0 20.884 27.105"
+          >
+            <path
+              d="M9.358,6.463a5,5,0,0,1,8.388,0l4.347,6.7A5,5,0,0,1,17.9,20.884H9.205a5,5,0,0,1-4.194-7.722Z"
+              transform="translate(0 27.105) rotate(-90)"
+              fill="#7C3AED"
+            ></path>
+          </svg>
         </Button>
+        {showToast && (
+          <Toast
+            icon={showToast?.icon}
+            message={showToast?.message}
+            setShowToast={setShowToast}
+          />
+        )}
       </div>
     </div>
   );
 }
 
-export default CourseItem;
+export default memo(CourseItem);

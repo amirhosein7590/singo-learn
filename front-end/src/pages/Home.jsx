@@ -10,7 +10,7 @@ function Home() {
   }, []);
 
   const { data, isError, isPending } = useAxiosQuery(
-    "courses/get-All",
+    "courses",
     null,
     "/courses",
     false
@@ -174,7 +174,7 @@ function Home() {
             </svg>
             <h2 className="mr-3 text-2xl">جدیدترین دوره ها</h2>
           </div>
-          <Button classes="!p-0 !text-lg text-[var(--dark-purple)] flex">
+          <Button to="/courses" classes="!p-0 !text-lg text-[var(--dark-purple)] flex">
             بیشتر
             <svg
               className="mr-3"
@@ -191,14 +191,14 @@ function Home() {
           </Button>
         </div>
 
-        <div className="courses flex flex-col mt-4 md:flex-row md:flex-wrap">
+        <div className="courses mt-10 grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-6 p-4">
           {data &&
-            data.map((course) => (
+            data.slice(0 , 14).map((course) => (
               <CourseItem
                 key={course.id}
                 title={course.description}
                 courseId={course.id}
-                price={PriceToPersian(course.price)}
+                price={course.price == 0 ? "رایگان" :  PriceToPersian(course.price)}
                 icon={course.icon}
                 duration={PriceToPersian(course.duration)}
                 stdCount={PriceToPersian(course.studentsCount)}

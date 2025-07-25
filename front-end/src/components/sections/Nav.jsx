@@ -1,13 +1,19 @@
-import { useState , memo } from "react";
+import { useState , memo, useEffect } from "react";
 import Button from "../ui/Button";
 import SideMenu from "./SideMenu";
+import useAxiosQuery from "../../hooks/useAxiosQuery";
 
 function Nav({userInfos}) {
   const [isMenuShown, setIsMenuShown] = useState(false);
+  let accessToken = JSON.parse(localStorage.getItem('userInfos'))?.token;
+  const reqHeader = {'Authorization' : `Bearer ${accessToken}`};
+
+  const {data , isPending , isError} = useAxiosQuery('cart' , null , '/cart' , reqHeader , true)
 
   const showMenuHandler = () => {
     setIsMenuShown((prev) => !prev);
   };
+
   return (
     <>
       <nav className="flex justify-between items-center p-1.5 bg-white">
@@ -100,8 +106,9 @@ function Nav({userInfos}) {
 
           <Button
             to="/cart"
-            classes="cart-btn bg-[var(--light-purple)] p-2 rounded-xl"
+            classes="cart-btn relative bg-[var(--light-purple)] p-2 rounded-xl"
           >
+            {data?.cart.length > 0 && <span className="coursesCount absolute rounded-full w-4 h-4 text-center bg-red-600 text-white bottom-2/3 left-2/3">{data.cart.length}</span>}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22px"
