@@ -1,21 +1,21 @@
-import { Outlet } from "react-router"
-import Nav from "../components/sections/Nav"
-import Footer from "../components/sections/Footer"
+import { Outlet } from "react-router";
+import Nav from "../components/sections/Nav";
+import Footer from "../components/sections/Footer";
 
 function DefaultLayout() {
-  const userInfos = JSON.parse(localStorage.getItem('userInfos')) || {};
-  
+  const userInfos = JSON.parse(localStorage.getItem("userInfos")) || {};
+
   return (
     <>
-    <header className="sticky z-100 top-0 w-10/12 lg:w-8/12 mx-auto mb-10">
-    <Nav userInfos={userInfos} />
-    </header>
-    <div className="container w-10/12 lg:w-8/12 mx-auto">
-    <Outlet userInfos={userInfos} />
-    <Footer userInfos={userInfos} />
-    </div>
+      <header className="sticky z-100 top-0 w-10/12 lg:w-8/12 mx-auto mb-10">
+        <Nav userInfos={userInfos} />
+      </header>
+      <div className="container w-10/12 lg:w-8/12 mx-auto">
+        <Outlet userInfos={userInfos} />
+        <Footer userInfos={userInfos} />
+      </div>
     </>
-  )
+  );
 }
 
-export default DefaultLayout
+export default DefaultLayout;

@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router";
-
 const axiosPrivate = axios.create({
   baseURL: "http://localhost:8080",
 });
@@ -12,7 +10,7 @@ axiosPrivate.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
       return config;
     }
-    useNavigate("/login");
+    return Promise.reject({login : false})
   },
   (error) => Promise.reject(error)
 );

@@ -1,17 +1,36 @@
 import Button from "../ui/Button";
 import useCart from "../../hooks/useCart";
 import Toast from "../sections/Toast";
-import { memo, useEffect, useState } from "react";
-function CourseItem({ icon, title, price, duration, stdCount, courseId }) {
+import { memo, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { showToastHandler } from "../../utils/ToastController";
+
+function CourseItem({
+  icon,
+  title,
+  price,
+  duration,
+  stdCount,
+  courseId,
+  showToast,
+}) {
   const { addToCart, isInCart, error, isPending, cartData } = useCart();
-  const [showToast, setShowToast] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (cartData?.message) {
-      setShowToast({ message: cartData.message, icon: "success" });
+      showToastHandler(cartData.message, "success");
     } else if (error) {
-      console.log(error);
-      setShowToast({ message: error.response.data.error, icon: "error" });
+      if (error?.login == false) {
+        showToastHandler(
+          "برای ثبت نام وارد حساب کاربری خود شوید",
+          "error"
+        ).then(() => {
+          navigate("/login");
+        });
+      } else {
+        showToastHandler(error.response.data.error, "error");
+      }
     }
   }, [cartData, error]);
   return (
@@ -60,13 +79,15 @@ function CourseItem({ icon, title, price, duration, stdCount, courseId }) {
             {stdCount} نفر
           </p>
         </div>
-        <p className="price text-[#00000099]">{price == "رایگان" ? price : `${price} تومان`}</p>
+        <p className="price text-[#00000099]">
+          {price == "رایگان" ? price : `${price} تومان`}
+        </p>
       </div>
       <div className="card__button-wrapper border-t flex justify-between items-center border-t-[#0000001f] pt-4">
         {isInCart(courseId) ? (
           <Button
             to="/cart"
-            classes="bg-white text-black border-1 border-[var(--dark-purple) rounded-lg !py-2]"
+            classes="bg-white text-black border-1 border-[var(--dark-purple) rounded-lg !py-2"
           >
             ادامه سفارش
           </Button>
@@ -97,13 +118,7 @@ function CourseItem({ icon, title, price, duration, stdCount, courseId }) {
             ></path>
           </svg>
         </Button>
-        {showToast && (
-          <Toast
-            icon={showToast?.icon}
-            message={showToast?.message}
-            setShowToast={setShowToast}
-          />
-        )}
+        {showToast?.visible && <Toast {...showToast} />}
       </div>
     </div>
   );

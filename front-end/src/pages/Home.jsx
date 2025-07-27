@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
 import useAxiosQuery from "../hooks/useAxiosQuery";
 import CourseItem from "../components/sections/courseItem";
 import PriceToPersian from "../utils/PriceToPersian";
+import { resgisterToastSetter } from "../utils/ToastController";
 
 function Home() {
   useEffect(() => {
@@ -15,6 +16,9 @@ function Home() {
     "/courses",
     false
   );
+
+  const [showToast , setShowToast] = useState({});
+  resgisterToastSetter(setShowToast)
 
   return (
     <>
@@ -202,6 +206,7 @@ function Home() {
                 icon={course.icon}
                 duration={PriceToPersian(course.duration)}
                 stdCount={PriceToPersian(course.studentsCount)}
+                showToast={{...showToast}}
               />
             ))}
         </div>
