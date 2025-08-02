@@ -138,13 +138,13 @@ function Register() {
   return (
     <AuthForm>
       <form
-        className="shadow-2xl rounded-lg py-10 px-5 flex flex-col"
+        className="shadow-[var(--cart-shadow)] rounded-lg py-10 px-5 flex flex-col"
         onSubmit={handleSubmit(submit)}
       >
         <div className="login_register_buttons flex mb-4 justify-center items-center">
           <Button
             to="/login"
-            classes=" border-1 border-[var(--dark-purple)] text-[var(--dark-purple)] ml-4 md:py-2 !py-2 !px-3 rounded-sm text-[16px] shadow-sm flex items-center"
+            classes=" border-1 border-[var(--dark-purple)] text-[var(--dark-purple)] ml-4 md:py-2 !py-2 !px-3 rounded-sm text-[16px] shadow-[var(--cart-shadow)] flex items-center"
           >
             <svg
               className="ml-2"
@@ -179,7 +179,7 @@ function Register() {
 
           <Button
             to="/register"
-            classes="bg-[var(--dark-purple)] text-white md:py-2 !py-2 !px-3 rounded-sm text-[16px] shadow-sm flex items-center"
+            classes="bg-[var(--dark-purple)] text-white md:py-2 !py-2 !px-3 rounded-sm text-[16px] shadow-[var(--cart-shadow)] flex items-center"
           >
             <svg
               className="ml-1"
@@ -223,7 +223,7 @@ function Register() {
 
         <Button
           type="submit"
-          classes="text-white bg-[var(--dark-purple)] py-1.5 text-[16px] rounded-sm shadow-sm mt-3"
+          classes="text-white bg-[var(--dark-purple)] py-1.5 text-[16px] rounded-sm shadow-[var(--cart-shadow)] mt-3"
           disabled={isPending}
         >
           {isPending ? "در حال ارسال" : "ثبت نام"}

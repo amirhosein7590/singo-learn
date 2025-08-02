@@ -7,10 +7,10 @@ function DefaultLayout() {
 
   return (
     <>
-      <header className="sticky z-100 top-0 w-10/12 lg:w-8/12 mx-auto mb-10">
+      <header className="sticky z-100 bg-white top-0 mb-10">
         <Nav userInfos={userInfos} />
       </header>
-      <div className="container w-10/12 lg:w-8/12 mx-auto">
+      <div className="container w-10/12 mx-auto">
         <Outlet userInfos={userInfos} />
         <Footer userInfos={userInfos} />
       </div>

@@ -1,9 +1,9 @@
 import Button from "../ui/Button";
 import useCart from "../../hooks/useCart";
-import Toast from "../sections/Toast";
-import { memo, useEffect } from "react";
+import { lazy, memo, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { showToastHandler } from "../../utils/ToastController";
+const Toast = lazy(() => import("./Toast"));
 
 function CourseItem({
   icon,
@@ -14,14 +14,21 @@ function CourseItem({
   courseId,
   showToast,
 }) {
-  const { addToCart, isInCart, error, isPending, cartData } = useCart();
+  const {
+    addToCart,
+    isInCart,
+    addCartError,
+    addCartPending,
+    addCartData,
+    isPurchasedCourse,
+  } = useCart();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    if (cartData?.message) {
-      showToastHandler(cartData.message, "success");
-    } else if (error) {
-      if (error?.login == false) {
+    if (addCartData?.message) {
+      showToastHandler(addCartData.message, "success");
+    } else if (addCartError) {
+      if (addCartError?.login == false) {
         showToastHandler(
           "برای ثبت نام وارد حساب کاربری خود شوید",
           "error"
@@ -29,12 +36,14 @@ function CourseItem({
           navigate("/login");
         });
       } else {
-        showToastHandler(error.response.data.error, "error");
+        showToastHandler(addCartError.response, "error");
+        console.log(addCartError);
       }
     }
-  }, [cartData, error]);
+  }, [addCartData, addCartError]);
+
   return (
-    <div className="card flex flex-col p-4 shadow-lg rounded-xl">
+    <div className="card flex flex-col p-4 shadow-[var(--cart-shadow)] rounded-xl">
       <div className="card__icon mb-7">
         <img className="w-[80px] h-[80px]" src={icon} alt="" />
       </div>
@@ -62,8 +71,9 @@ function CourseItem({
         </p>
       </div>
       <div className="card__course-desc mb-7 flex justify-between items-center">
-        <div className="students-count flex items-center bg-[var(--light-gray)] rounded-full py-1 px-4">
+        <div className="students-count flex items-center bg-[var(--light-gray)] rounded-full py-1.5 px-4">
           <svg
+            className="self-end"
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             viewBox="0 0 24.802 21.788"
@@ -75,51 +85,57 @@ function CourseItem({
               ></path>
             </g>
           </svg>
-          <p className="mr-2 mt-[3px] text-sm text-[var(--dark-gray)]">
-            {stdCount} نفر
-          </p>
+          <p className="mr-2 text-sm text-[var(--dark-gray)]">{stdCount} نفر</p>
         </div>
-        <p className="price text-[#00000099]">
+        <p className="price text-[#00000099] text-sm md:text-[16px]">
           {price == "رایگان" ? price : `${price} تومان`}
         </p>
       </div>
-      <div className="card__button-wrapper border-t flex justify-between items-center border-t-[#0000001f] pt-4">
-        {isInCart(courseId) ? (
-          <Button
-            to="/cart"
-            classes="bg-white text-black border-1 border-[var(--dark-purple) rounded-lg !py-2"
-          >
-            ادامه سفارش
+      {isPurchasedCourse(courseId) ? (
+        <div className="border-t pt-5 flex justify-center border-t-[#0000001f]">
+          <Button to={`/courses/${courseId}`} classes='border !text-sm rounded-lg py-2 border-[var(--dark-purple)] text-[var(--dark-purple)]'>
+          دانشجوی دوره هستید . مشاهده دوره ؟
           </Button>
-        ) : (
-          <Button
-            onclick={() => addToCart(courseId)}
-            classes="bg-[var(--dark-purple)] text-white !py-2 rounded-lg"
-          >
-            {isPending ? "در حال ارسال ..." : "ثبت نام"}
-          </Button>
-        )}
+        </div>
+      ) : (
+        <div className="card__button-wrapper border-t flex justify-between items-center border-t-[#0000001f] pt-4">
+          {isInCart(courseId) ? (
+            <Button
+              to="/cart"
+              classes="bg-white text-black border-1 border-[var(--dark-purple) rounded-lg !py-2 !px-4"
+            >
+              ادامه سفارش
+            </Button>
+          ) : (
+            <Button
+              onclick={() => addToCart(courseId)}
+              classes="bg-[var(--dark-purple)] text-white !py-2 px-5 rounded-lg"
+            >
+              {addCartPending ? "در حال ارسال ..." : "ثبت نام"}
+            </Button>
+          )}
 
-        <Button
-          to={`/courses/${courseId}`}
-          classes="flex items-center !px-2 text-[var(--dark-purple)]"
-        >
-          مشاهده دوره
-          <svg
-            className="mr-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            viewBox="0 0 20.884 27.105"
+          <Button
+            to={`/courses/${courseId}`}
+            classes="flex items-center !px-2 text-[var(--dark-purple)]"
           >
-            <path
-              d="M9.358,6.463a5,5,0,0,1,8.388,0l4.347,6.7A5,5,0,0,1,17.9,20.884H9.205a5,5,0,0,1-4.194-7.722Z"
-              transform="translate(0 27.105) rotate(-90)"
-              fill="#7C3AED"
-            ></path>
-          </svg>
-        </Button>
-        {showToast?.visible && <Toast {...showToast} />}
-      </div>
+            مشاهده دوره
+            <svg
+              className="mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              viewBox="0 0 20.884 27.105"
+            >
+              <path
+                d="M9.358,6.463a5,5,0,0,1,8.388,0l4.347,6.7A5,5,0,0,1,17.9,20.884H9.205a5,5,0,0,1-4.194-7.722Z"
+                transform="translate(0 27.105) rotate(-90)"
+                fill="#7C3AED"
+              ></path>
+            </svg>
+          </Button>
+          {showToast?.visible && <Toast {...showToast} />}
+        </div>
+      )}
     </div>
   );
 }

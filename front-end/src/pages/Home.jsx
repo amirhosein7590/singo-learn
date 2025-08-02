@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
 import useAxiosQuery from "../hooks/useAxiosQuery";
-import CourseItem from "../components/sections/courseItem";
+import CourseItem from "../components/sections/CourseItem";
 import PriceToPersian from "../utils/PriceToPersian";
 import { resgisterToastSetter } from "../utils/ToastController";
 
@@ -17,8 +17,8 @@ function Home() {
     false
   );
 
-  const [showToast , setShowToast] = useState({});
-  resgisterToastSetter(setShowToast)
+  const [showToast, setShowToast] = useState({});
+  resgisterToastSetter(setShowToast);
 
   return (
     <>
@@ -178,7 +178,10 @@ function Home() {
             </svg>
             <h2 className="mr-3 text-2xl">جدیدترین دوره ها</h2>
           </div>
-          <Button to="/courses" classes="!p-0 !text-lg text-[var(--dark-purple)] flex">
+          <Button
+            to="/courses"
+            classes="!p-0 !text-lg text-[var(--dark-purple)] flex"
+          >
             بیشتر
             <svg
               className="mr-3"
@@ -197,18 +200,22 @@ function Home() {
 
         <div className="courses mt-10 grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-6 p-4">
           {data &&
-            data.slice(0 , 14).map((course) => (
-              <CourseItem
-                key={course.id}
-                title={course.description}
-                courseId={course.id}
-                price={course.price == 0 ? "رایگان" :  PriceToPersian(course.price)}
-                icon={course.icon}
-                duration={PriceToPersian(course.duration)}
-                stdCount={PriceToPersian(course.studentsCount)}
-                showToast={{...showToast}}
-              />
-            ))}
+            data
+              .slice(0, 14)
+              .map((course) => (
+                <CourseItem
+                  key={course.id}
+                  title={course.title}
+                  courseId={course.id}
+                  price={
+                    course.price == 0 ? "رایگان" : PriceToPersian(course.price)
+                  }
+                  icon={course.icon}
+                  duration={PriceToPersian(course.duration)}
+                  stdCount={PriceToPersian(course.studentsCount)}
+                  showToast={{ ...showToast }}
+                />
+              ))}
         </div>
       </main>
     </>

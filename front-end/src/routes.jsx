@@ -17,7 +17,7 @@ const routes = [
         {path : '/register' , element : <Register />},
         {path : '/forgot-password' , element : <ForgotPassword />},
         {path : '/courses/*' , element : <Courses />},
-        {path : '/courses/:id' , element : <Course />},
+        {path : '/courses/:courseId' , element : <Course />},
         {path : '/about-us' , element : <AboutUs />},
         {path : '/dashboard/*' , element : <Dashboard /> , children : [
             // {path : 'user' , element : <></> , children : []},

@@ -14,7 +14,8 @@ function useMutate(key, deps, url , headers = null, reqType, isPrivate = false) 
       else {
         return client[reqType](url, data , {headers}).then((res) => res.data)
       }
-    }
+
+    },
   });
 }
 

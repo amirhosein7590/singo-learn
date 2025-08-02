@@ -40,6 +40,7 @@ function Input(props) {
           <input
             type={props.type}
             className={props.classes}
+            placeholder={props.placeholder}
             value={props.value ?? ""}
             onChange={(e) => props.onChange(e.target.value)}
           />

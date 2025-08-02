@@ -1,6 +1,6 @@
-import { memo, useState } from "react";
-import Toast from "./Toast";
-import {resgisterToastSetter , showToastHandler} from '../../utils/ToastController'
+import { lazy, memo, useState } from "react";
+const Toast = lazy(()=> import("../sections/Toast"))
+import {resgisterToastSetter} from '../../utils/ToastController'
 function AuthForm({ children }) {
   const [showToast, setShowToast] = useState({});
   resgisterToastSetter(setShowToast)

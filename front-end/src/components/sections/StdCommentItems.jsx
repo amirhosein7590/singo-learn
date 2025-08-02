@@ -20,7 +20,7 @@ function StdCommentItems({name , opinion , courses}) {
             </div>
 
             <div className="video flex z-0 relative w-full lg:w-1/2 justify-center lg:justify-start mx-4 mt-6 lg:mt-0">
-                <video className='w-full z-0 h-[300px] relative rounded-xl shadow-sm' poster='./public/images/logo.jpg' controls src="./public/videos/invideo-ai-720 Testimonial for Singo Learn Course 2025-07-01 (3).mp4"></video>
+                <video className='w-full z-0 h-[300px] relative rounded-xl shadow-[var(--cart-shadow)]' poster='./public/images/logo.jpg' controls src="./public/videos/invideo-ai-720 Testimonial for Singo Learn Course 2025-07-01 (3).mp4"></video>
             </div>
         </div>
   )

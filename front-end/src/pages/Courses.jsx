@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
-import CourseItem from "../components/sections/courseItem";
+import CourseItem from "../components/sections/CourseItem";
 import useAxiosQuery from "../hooks/useAxiosQuery";
 import { resgisterToastSetter } from "../utils/ToastController";
 import PriceToPersian from "../utils/PriceToPersian";
@@ -162,7 +162,7 @@ function Courses() {
               data.map((course) => (
                 <CourseItem
                   key={course.id}
-                  title={course.description}
+                  title={course.title}
                   courseId={course.id}
                   price={
                     course.price == 0 ? "رایگان" : PriceToPersian(course.price)
@@ -171,6 +171,8 @@ function Courses() {
                   duration={PriceToPersian(course.duration)}
                   stdCount={PriceToPersian(course.studentsCount)}
                   showToast={{ ...showToast }}
+                  optimisticData={{...course}}
+
                 />
               ))
             : data &&
@@ -180,7 +182,7 @@ function Courses() {
                   (course => (
                     <CourseItem
                       key={course.id}
-                      title={course.description}
+                      title={course.title}
                       courseId={course.id}
                       price={
                         course.price == 0
@@ -191,6 +193,7 @@ function Courses() {
                       duration={PriceToPersian(course.duration)}
                       stdCount={PriceToPersian(course.studentsCount)}
                       showToast={{ ...showToast }}
+                      optimisticData={{...course}}
                     />
                   ))
                 )}

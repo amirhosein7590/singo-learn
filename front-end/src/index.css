@@ -3,6 +3,7 @@
     --dark-purple : #7C3AED;
     --light-gray : rgb(232, 234, 246);
     --dark-gray : rgb(94, 129, 209);
+    --cart-shadow : rgba(94, 129, 209, 0.16) 0px 8px 24px
 }
 @font-face {
     font-family: Yekan Bakh;

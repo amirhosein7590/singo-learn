@@ -3,9 +3,10 @@ import Button from "../ui/Button";
 import SideMenu from "./SideMenu";
 import useAxiosQuery from "../../hooks/useAxiosQuery";
 
-function Nav({userInfos}) {
+function Nav() {
   const [isMenuShown, setIsMenuShown] = useState(false);
-  let accessToken = JSON.parse(localStorage.getItem('userInfos'))?.token;
+  let userInfos = JSON.parse(localStorage.getItem('userInfos'))
+  let accessToken = userInfos?.token
   const reqHeader = {'Authorization' : `Bearer ${accessToken}`};
 
   const {data , isPending , isError} = useAxiosQuery('cart' , null , '/cart' , reqHeader , true)
@@ -16,11 +17,11 @@ function Nav({userInfos}) {
 
   return (
     <>
-      <nav className="flex justify-between items-center p-1.5 bg-white">
+      <nav className="flex justify-between items-center w-9/12 mx-auto p-1.5 bg-white">
         <div className="nav-right">
           <Button classes='hidden lg:block' to='/'>
             <img
-              src="./public/images/logo.jpg"
+              src="../../public/images/logo.jpg"
               className="w-[100px] h-[80px]"
               alt="singo learn"
             />
