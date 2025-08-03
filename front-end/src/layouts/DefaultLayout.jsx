@@ -1,9 +1,14 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Nav from "../components/sections/Nav";
 import Footer from "../components/sections/Footer";
+import { useEffect } from "react";
 
 function DefaultLayout() {
   const userInfos = JSON.parse(localStorage.getItem("userInfos")) || {};
+  const {pathname} = useLocation();
+  useEffect(()=>{
+    window.scrollTo({top : 0 , behavior : 'smooth'})
+  },[pathname])
 
   return (
     <>

@@ -1,9 +1,11 @@
-import { lazy, memo, useState } from "react";
+import { lazy, memo, useEffect, useState } from "react";
 const Toast = lazy(()=> import("../sections/Toast"))
 import {resgisterToastSetter} from '../../utils/ToastController'
 function AuthForm({ children }) {
   const [showToast, setShowToast] = useState({});
-  resgisterToastSetter(setShowToast)
+  useEffect(()=>{
+    resgisterToastSetter(setShowToast)
+  },[])
 
   return (
     <main className="flex flex-col my-20 w-full md:w-8/12 lg:w-6/12 mx-auto">

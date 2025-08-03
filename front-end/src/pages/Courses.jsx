@@ -8,6 +8,8 @@ import PriceToPersian from "../utils/PriceToPersian";
 function Courses() {
   useEffect(() => {
     document.title = "دوره ها";
+      resgisterToastSetter(setShowToast);
+
   }, []);
 
   const [isFilter, setIsFilter] = useState(false);
@@ -26,7 +28,6 @@ function Courses() {
     false
   );
 
-  resgisterToastSetter(setShowToast);
 
   return (
     <>

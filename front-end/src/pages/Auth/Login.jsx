@@ -22,7 +22,7 @@ function Login() {
     "login",
     null,
     "/login",
-    null,
+    {'content-type' : 'application/json'},
     "post",
     false
   );
@@ -37,12 +37,13 @@ function Login() {
   }, [submitCount]);
 
   const submit = (data) => {
-    mutate({data}, {
+    mutate(data, {
       onSuccess: (userInfos) => {
-        let { purchasedCourses, role, userId, token } = userInfos;
+        let {role, userId, token , refreshToken } = userInfos;
+        console.log(userInfos);
         localStorage.setItem(
           "userInfos",
-          JSON.stringify({ purchasedCourses, role, userId, token })
+          JSON.stringify({role, userId, token , refreshToken })
         );
         showToastHandler(userInfos.message, "success")
         .then(()=> {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import useCart from "../hooks/useCart";
 import CartItem from "../components/sections/CartItem";
 import PriceToPersian from "../utils/PriceToPersian";
@@ -8,11 +8,12 @@ import {
   resgisterToastSetter,
   showToastHandler,
 } from "../utils/ToastController";
-import Toast from "../components/sections/Toast";
+const Toast = lazy(() => import("../components/sections/Toast"));
 
 function Cart() {
   useEffect(() => {
     document.title = "سبد خرید";
+      resgisterToastSetter(setShowToast);
   }, []);
 
   const {
@@ -25,11 +26,10 @@ function Cart() {
   } = useCart();
 
   const [showToast, setShowToast] = useState({});
-  resgisterToastSetter(setShowToast);
 
   const purchaseCourse = () => {
     if (allCoursesInCart?.cart) {
-      let coursesIds = allCoursesInCart?.cart.map((course) => course.id);      
+      let coursesIds = allCoursesInCart?.cart.map((course) => course.id);
       purchase(coursesIds);
     }
   };

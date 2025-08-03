@@ -8,6 +8,7 @@ import { resgisterToastSetter } from "../utils/ToastController";
 function Home() {
   useEffect(() => {
     document.title = "صفحه اصلی";
+    resgisterToastSetter(setShowToast);
   }, []);
 
   const { data, isError, isPending } = useAxiosQuery(
@@ -18,7 +19,6 @@ function Home() {
   );
 
   const [showToast, setShowToast] = useState({});
-  resgisterToastSetter(setShowToast);
 
   return (
     <>

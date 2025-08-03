@@ -8,7 +8,7 @@ export function useCart() {
   const accessToken = userInfos?.token;
   const userId = userInfos?.userId;
   const reqHeader = { Authorization: `Bearer ${accessToken}` };
-
+  
   const {
     mutate,
     data: addCartData,
@@ -121,5 +121,6 @@ export function useCart() {
     isPurchasedCourse,
     totalPrices
   };
+
 }
 export default useCart;

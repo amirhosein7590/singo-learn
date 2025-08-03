@@ -4,10 +4,14 @@ import Course from "./pages/Course";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import Dashboard from "./pages/Dashboard/Dashboard";
 import DefaultLayout from "./layouts/defaultLayout";
 import StudentsCommnets from './pages/StudentsComments'
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import Dashboard from './pages/Dashboard/Index'
+import User from './pages/Dashboard/User/Index'
+import UserCourses from './pages/Dashboard/User/UserCourses'
+import UserAccount from './pages/Dashboard/User/UserAccount'
+
 
 import Cart from './pages/Cart'
 const routes = [
@@ -19,12 +23,11 @@ const routes = [
         {path : '/courses/*' , element : <Courses />},
         {path : '/courses/:courseId' , element : <Course />},
         {path : '/about-us' , element : <AboutUs />},
-        {path : '/dashboard/*' , element : <Dashboard /> , children : [
-            // {path : 'user' , element : <></> , children : []},
-            // {path : 'teacher' , element : <></> , children : []},
-            // {path : 'admin' , element : <></> , children : []}
-
-            // these routes will completed later
+        {path : 'dashboard/*' , element : <Dashboard /> , children : [
+            {path : 'user' , element : <User /> , children : [
+                {index : true , element : <UserAccount />},
+                {path : 'courses' , element : <UserCourses />}
+            ]}
         ]},
         {path : '/cart' , element : <Cart />},
         {path : '/students-comments' , element : <StudentsCommnets />}

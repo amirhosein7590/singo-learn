@@ -17,7 +17,7 @@ function Nav() {
 
   return (
     <>
-      <nav className="flex justify-between items-center w-9/12 mx-auto p-1.5 bg-white">
+      <nav className="flex justify-around items-center w-10/12 mx-auto p-1.5 bg-white">
         <div className="nav-right">
           <Button classes='hidden lg:block' to='/'>
             <img
@@ -49,7 +49,7 @@ function Nav() {
               <Button
                 isActiveAware={true}
                 classes={(isActive) =>
-                  `hover:text-[var(--dark-purple)] ${
+                  `hover:text-[var(--dark-purple)] whitespace-nowrap ${
                     isActive && "text-[var(--dark-purple)]"
                   }`
                 }
@@ -63,7 +63,7 @@ function Nav() {
               <Button
                 isActiveAware={true}
                 classes={(isActive) =>
-                  `hover:text-[var(--dark-purple)] ${
+                  `hover:text-[var(--dark-purple)] whitespace-nowrap ${
                     isActive && "text-[var(--dark-purple)]"
                   }`
                 }
@@ -77,7 +77,7 @@ function Nav() {
               <Button
                 isActiveAware={true}
                 classes={(isActive) =>
-                  `hover:text-[var(--dark-purple)] ${
+                  `hover:text-[var(--dark-purple)] whitespace-nowrap ${
                     isActive && "text-[var(--dark-purple)]"
                   }`
                 }
@@ -91,7 +91,7 @@ function Nav() {
               <Button
                 isActiveAware={true}
                 classes={(isActive) =>
-                  `hover:text-[var(--dark-purple)] ${
+                  `hover:text-[var(--dark-purple)] whitespace-nowrap ${
                     isActive && "text-[var(--dark-purple)]"
                   }`
                 }
@@ -103,7 +103,6 @@ function Nav() {
           </ul>
         </div>
         <div className="nav-left flex items-center">
-          {/* condition for authorization and std render button */}
 
           <Button
             to="/cart"

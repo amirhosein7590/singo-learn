@@ -4,13 +4,16 @@ import useAxiosQuery from "../hooks/useAxiosQuery";
 import CourseIconInfo from "../components/sections/CourseIconInfo";
 import PriceToPersian from "../utils/PriceToPersian";
 import Button from "../components/ui/Button";
-import { memo, useEffect, useState } from "react";
+import { lazy, memo, useEffect, useState } from "react";
 import {
   resgisterToastSetter,
   showToastHandler,
 } from "../utils/ToastController";
-import Toast from "../components/sections/Toast";
-import Editor from "../components/sections/Editor";
+const Toast = lazy(() => import("../components/sections/Toast"));
+import WhatIsCard from "../components/sections/WhatIsCard";
+import Session from "../components/sections/Accordions/Session/Index";
+import Faqs from "../components/sections/Accordions/Faqs";
+import faqsData from '../data/Faqs'
 
 function Course() {
   const { courseId } = useParams();
@@ -31,7 +34,7 @@ function Course() {
   } = useAxiosQuery(
     "course",
     null,
-    `/courses/${courseId}?_embed=sessions`,
+    `/courses/${courseId}?_embed=sessions&_expand=teacher`,
     null,
     false
   );
@@ -40,32 +43,36 @@ function Course() {
     {
       id: 1,
       text: course?.isSupport ? "پشتیبانی دائمی" : "پشتیبانی ندارد",
-      icon: "../../public/images/courseSupport.svg",
+      icon: "../../public/svg/courseSupport.svg",
     },
     {
       id: 2,
       text: PriceToPersian(course?.duration),
-      icon: "../../public/images/courseDuration.svg",
+      icon: "../../public/svg/courseDuration.svg",
       title: "ساعت",
     },
     {
       id: 3,
       text: PriceToPersian(course?.sessions.length),
-      icon: "../../public/images/courseSessions.svg",
+      icon: "../../public/svg/courseSessions.svg",
       title: "جلسه",
     },
     {
       id: 4,
       text: PriceToPersian(course?.studentsCount),
-      icon: "../../public/images/studentCat.svg",
+      icon: "../../public/svg/studentCat.svg",
       title: "دانشجو",
     },
   ];
 
   const [showToast, setShowToast] = useState({});
+  const [showContinue, setShowContinue] = useState(false);
   const navigate = useNavigate();
 
-  resgisterToastSetter(setShowToast);
+  
+  useEffect(()=>{
+    resgisterToastSetter(setShowToast);
+  },[])
 
   useEffect(() => {
     if (addCartData?.message) {
@@ -84,6 +91,13 @@ function Course() {
     }
   }, [addCartData, addCartError]);
 
+  const sessionAccordionHandler = (setIsShow) => {
+    setIsShow((prev) => !prev);
+  };
+  const faqsAccordionHandler = (setIsShow)=>{
+    setIsShow(prev => !prev)
+  }
+
   return (
     <>
       <div className="course-wrapper flex flex-col shadow-[var(--cart-shadow)] py-3 px-7 rounded-xl">
@@ -94,7 +108,7 @@ function Course() {
             </div>
             <p className="course_title">{course?.title}</p>
             <p className="desc text-sm text-[#00000099] mt-5">
-              {course?.description}
+              {course?.overview}
             </p>
           </div>
 
@@ -123,9 +137,13 @@ function Course() {
             <div className="course_price flex flex-col md:flex-row md:items-center lg:pl-12 md:justify-between lg:w-1/2 mt-8 md:mt-0">
               <div className="purchase-course md:order-1">
                 <div className="prices flex flex-col">
-                  {course?.price > 0 ? <p className="text-green-600">
-                    {PriceToPersian(course?.price)} تومان
-                  </p> : <p>رایگان</p>}
+                  {course?.price > 0 ? (
+                    <p className="text-green-600">
+                      {PriceToPersian(course?.price)} تومان
+                    </p>
+                  ) : (
+                    <p>رایگان</p>
+                  )}
 
                   {/* off price will complete later */}
                 </div>
@@ -200,6 +218,273 @@ function Course() {
           )}
         </div>
         {showToast?.visible && <Toast {...showToast} />}
+      </div>
+
+      <div
+        className={`tech-overview my-4 flex flex-col relative transition-all duration-300 ${
+          showContinue ? "h-auto" : "h-80 lg:h-100 overflow-y-hidden"
+        }`}
+      >
+        {course?.description.map((course) => (
+          <WhatIsCard key={course.id} {...course} />
+        ))}
+
+        {!showContinue && (
+          <div className="pointer-events-none absolute bottom-0 left-0 w-full h-27 lg:h-36 bg-white opacity-[0.8] z-0" />
+        )}
+
+        <div
+          className={`absolute w-full flex justify-center transition-all duration-300 ${
+            showContinue ? "-bottom-10 lg:-bottom-16" : "bottom-0"
+          } z-10`}
+        >
+          <Button
+            onclick={() => setShowContinue(!showContinue)}
+            classes="bg-white rounded-lg py-2 px-5 text-center text-sm shadow-[0px_8px_24px_rgba(149,157,165,0.2)]"
+          >
+            {showContinue ? "بستن" : "ادامه مطلب"}
+          </Button>
+        </div>
+      </div>
+
+      <div className="sessions flex flex-col mt-20">
+        <div className="title flex items-center mb-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            viewBox="0 0 57 76"
+          >
+            <defs>
+              <filter
+                id="a"
+                x="20"
+                y="0"
+                width="34"
+                height="34"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="b"></feGaussianBlur>
+                <feFlood floodOpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="b"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+              <filter
+                id="c"
+                x="24"
+                y="30"
+                width="27"
+                height="27"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="d"></feGaussianBlur>
+                <feFlood floodpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="d"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+              <filter
+                id="e"
+                x="0"
+                y="48"
+                width="28"
+                height="28"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="f"></feGaussianBlur>
+                <feFlood floodOpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="f"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+              <filter
+                id="g"
+                x="33"
+                y="50"
+                width="24"
+                height="24"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="h"></feGaussianBlur>
+                <feFlood floodOpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="h"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+            </defs>
+            <g transform="translate(-1717 -1141)">
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#a)">
+                <rect
+                  width="16"
+                  height="16"
+                  rx="5"
+                  transform="translate(29 6)"
+                  fill="#343434"
+                  opacity="0.84"
+                ></rect>
+              </g>
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#c)">
+                <rect
+                  width="9"
+                  height="9"
+                  rx="3"
+                  transform="translate(33 36)"
+                  fill="#343434"
+                  opacity="0.7"
+                ></rect>
+              </g>
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#e)">
+                <rect
+                  width="10"
+                  height="10"
+                  rx="3"
+                  transform="translate(9 54)"
+                  fill="#343434"
+                  opacity="0.69"
+                ></rect>
+              </g>
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#g)">
+                <rect
+                  width="6"
+                  height="6"
+                  rx="2"
+                  transform="translate(42 56)"
+                  fill="#343434"
+                  opacity="0.39"
+                ></rect>
+              </g>
+            </g>
+          </svg>
+          <h2 className="text-lg lg:text-2xl mr-2">سرفصل ها</h2>
+        </div>
+        {course?.sessions.map((session) => (
+          <Session
+            key={session.id}
+            seasion={session.seasion}
+            title={session.title}
+            order={session.videos.order}
+            videos={session.videos}
+            onClick={sessionAccordionHandler}
+            isPurchasedCourse={isPurchasedCourse}
+            courseId={courseId}
+            isFree={session.isFree}
+          />
+        ))}
+      </div>
+
+      <div className="faqs flex flex-col mt-30">
+         <div className="title flex items-center mb-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            viewBox="0 0 57 76"
+          >
+            <defs>
+              <filter
+                id="a"
+                x="20"
+                y="0"
+                width="34"
+                height="34"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="b"></feGaussianBlur>
+                <feFlood floodOpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="b"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+              <filter
+                id="c"
+                x="24"
+                y="30"
+                width="27"
+                height="27"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="d"></feGaussianBlur>
+                <feFlood floodpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="d"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+              <filter
+                id="e"
+                x="0"
+                y="48"
+                width="28"
+                height="28"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="f"></feGaussianBlur>
+                <feFlood floodOpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="f"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+              <filter
+                id="g"
+                x="33"
+                y="50"
+                width="24"
+                height="24"
+                filterUnits="userSpaceOnUse"
+              >
+                <feOffset dy="3" input="SourceAlpha"></feOffset>
+                <feGaussianBlur stdDeviation="3" result="h"></feGaussianBlur>
+                <feFlood floodOpacity="0.161"></feFlood>
+                <feComposite operator="in" in2="h"></feComposite>
+                <feComposite in="SourceGraphic"></feComposite>
+              </filter>
+            </defs>
+            <g transform="translate(-1717 -1141)">
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#a)">
+                <rect
+                  width="16"
+                  height="16"
+                  rx="5"
+                  transform="translate(29 6)"
+                  fill="#343434"
+                  opacity="0.84"
+                ></rect>
+              </g>
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#c)">
+                <rect
+                  width="9"
+                  height="9"
+                  rx="3"
+                  transform="translate(33 36)"
+                  fill="#343434"
+                  opacity="0.7"
+                ></rect>
+              </g>
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#e)">
+                <rect
+                  width="10"
+                  height="10"
+                  rx="3"
+                  transform="translate(9 54)"
+                  fill="#343434"
+                  opacity="0.69"
+                ></rect>
+              </g>
+              <g transform="matrix(1, 0, 0, 1, 1717, 1141)" filter="url(#g)">
+                <rect
+                  width="6"
+                  height="6"
+                  rx="2"
+                  transform="translate(42 56)"
+                  fill="#343434"
+                  opacity="0.39"
+                ></rect>
+              </g>
+            </g>
+          </svg>
+          <h2 className="text-lg lg:text-2xl mr-2">سوالات متداول</h2>
+        </div>
+          {faqsData.map(faq => (
+            <Faqs key={faq.id} onClick={faqsAccordionHandler} {...faq} />
+          ))}
       </div>
     </>
   );
