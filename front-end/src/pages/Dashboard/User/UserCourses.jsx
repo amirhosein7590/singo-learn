@@ -1,4 +1,4 @@
-import { lazy, memo, useState } from "react";
+import {memo} from "react";
 import useAxiosQuery from "../../../hooks/useAxiosQuery";
 import UserCourseItem from "../../../components/sections/UserCourseItem";
 import Button from "../../../components/ui/Button";
@@ -16,7 +16,7 @@ function UserCourses() {
     },
     true
   );
-  
+
   return (
     <>
       {purchasedCourses?.courses.length > 0 ? (

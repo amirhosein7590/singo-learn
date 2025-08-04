@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 function Input(props) {
 
   const changeVisibilityPasswrod = (e) => {
@@ -22,7 +22,7 @@ function Input(props) {
           <input
             type={props.showPassword ? 'text' : 'password'}
             className={`outline-none ${props.classes}`}
-            value={props.value ?? ""}
+            defaultValue={props.defaultValue}
             onChange={(e) => props.onChange(e.target.value)}
           />
           <i
@@ -39,9 +39,9 @@ function Input(props) {
           )}
           <input
             type={props.type}
+            defaultValue={props.defaultValue}
             className={`outline-none ${props.classes}`}
             placeholder={props.placeholder}
-            value={props.value ?? ""}
             onChange={(e) => props.onChange(e.target.value)}
           />
         </>

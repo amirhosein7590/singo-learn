@@ -115,10 +115,6 @@ function Footer() {
           ساخته شده توسط{" "}
           <Button to="https://github.com/amirhosein7590" target='_blank' classes="text-[var(--dark-purple)]">
             امیرحسین
-          </Button>{" "}
-          و{" "}
-          <Button to="https://github.com/mohammadkh24" target='_blank' classes="text-[var(--dark-purple)]">
-            محمد
           </Button>
         </p>
       </div>

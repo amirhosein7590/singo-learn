@@ -11,6 +11,8 @@ import Dashboard from './pages/Dashboard/Index'
 import User from './pages/Dashboard/User/Index'
 import UserCourses from './pages/Dashboard/User/UserCourses'
 import UserAccount from './pages/Dashboard/User/UserAccount'
+import Admin from './pages/Dashboard/Admin/Index'
+import AdminAccount from "./pages/Dashboard/Admin/Account";
 
 
 import Cart from './pages/Cart'
@@ -27,6 +29,9 @@ const routes = [
             {path : 'user' , element : <User /> , children : [
                 {index : true , element : <UserAccount />},
                 {path : 'courses' , element : <UserCourses />}
+            ]},
+            {path : 'admin' , element : <Admin /> , children : [
+                {index : true , element : <AdminAccount />}
             ]}
         ]},
         {path : '/cart' , element : <Cart />},

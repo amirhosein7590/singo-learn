@@ -23,7 +23,7 @@ export function useCart() {
     "/cart",
     reqHeader,
     true
-  );
+    );
 
   const {
     mutate: purchaseCourse,
