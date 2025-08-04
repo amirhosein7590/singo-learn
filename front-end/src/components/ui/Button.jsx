@@ -23,7 +23,7 @@ function Button(props) {
       <Link
         to={props.to}
         onClick={props.onclick}
-        className={`${props.classes} md:text-[16px] text-[14px] lg:py-2.5 lg:px-5 px-2`}
+        className={`${props.classes} md:text-[16px] outline-none text-[14px] lg:py-2.5 lg:px-5 px-2`}
         target={props.target}
         disabled={props.disabled}
       >
@@ -35,7 +35,7 @@ function Button(props) {
   return (
     <button
       onClick={props.onclick}
-      className={`cursor-pointer md:text-[16px] text-[14px] lg:py-2.5 lg:px-5 px-2 ${props.classes}`}
+      className={`cursor-pointer outline-none md:text-[16px] text-[14px] lg:py-2.5 lg:px-5 px-2 ${props.classes}`}
       type={props.type}
       disabled={props.disabled}
     >

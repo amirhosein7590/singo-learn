@@ -1,10 +1,13 @@
 import Button from "../ui/Button";
-import { memo, useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, scale } from "framer-motion";
+import { memo, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router";
 
 function DashboardSideBar({ fullname, phonenumber, links }) {
+  const navigate = useNavigate();
   const logOut = () => {
     localStorage.removeItem("userInfos");
+    navigate('/login')
   };
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,6 +15,12 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
+    if (!isMobileMenuOpen){
+      document.body.style.overflow = 'hidden'
+    }
+    else {
+      document.body.style.overflow = 'auto'
+    }
   };
 
   useEffect(() => {
@@ -112,7 +121,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
           )}
         </AnimatePresence>
       ) : (
-        <div className="flex flex-col lg:w-auto w-full lg:mt-3 mt-3 py-2 px-2 shadow-[var(--cart-shadow)] lg:shadow-none">
+        <div className="flex flex-col lg:w-auto w-full lg:mt-3 mt-3 p-2 shadow-[var(--cart-shadow)] lg:shadow-none">
           {links.map((link) => (
             <Button
               classes={(isActive) =>
@@ -134,7 +143,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
           ))}
           <Button
             onclick={logOut}
-            classes="flex text-sm py-1 lg:!p-0 !px-0 items-center mt-2.5 text-red-600"
+            classes="flex text-sm py-1 lg:!p-0 !px-0 items-center my-2.5 text-red-600"
           >
             <img className="ml-2" src="../../../public/svg/logout.svg" alt="" />
             خروج

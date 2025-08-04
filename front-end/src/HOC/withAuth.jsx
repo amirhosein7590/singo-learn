@@ -14,7 +14,6 @@ function withAuth(Component) {
       }
 
       const currentRole = location.pathname.split("/")[2]
-      console.log(currentRole);
       if (userInfos.role !== currentRole) {
         return navigate("/");
       }

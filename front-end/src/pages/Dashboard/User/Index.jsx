@@ -31,7 +31,7 @@ function Index() {
   ];
 
   return (
-    <div className="wrapper flex flex-col lg:flex-row lg:justify-between lg:items-center">
+    <div className="wrapper flex flex-col lg:flex-row lg:justify-between">
       <aside className="w-full lg:w-5/24">
         <DashboardSideBar
           links={links}
@@ -40,9 +40,9 @@ function Index() {
         />
       </aside>
 
-      <div className="w-full lg:w-19/24 lg:mr-5">
-        <Outlet />
-      </div>
+      <main className="w-full lg:w-19/24 lg:mr-5">
+        <Outlet context={data && data.fullname} />
+      </main>
     </div>
   );
 }

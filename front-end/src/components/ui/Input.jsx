@@ -21,7 +21,7 @@ function Input(props) {
           )}
           <input
             type={props.showPassword ? 'text' : 'password'}
-            className={props.classes}
+            className={`outline-none ${props.classes}`}
             value={props.value ?? ""}
             onChange={(e) => props.onChange(e.target.value)}
           />
@@ -39,7 +39,7 @@ function Input(props) {
           )}
           <input
             type={props.type}
-            className={props.classes}
+            className={`outline-none ${props.classes}`}
             placeholder={props.placeholder}
             value={props.value ?? ""}
             onChange={(e) => props.onChange(e.target.value)}
