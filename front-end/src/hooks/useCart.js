@@ -1,14 +1,16 @@
 import { useQueryClient } from "@tanstack/react-query";
 import useAxiosMutate from "./useAxiosMutate";
 import useAxiosQuery from "./useAxiosQuery";
+import {resgisterToastSetter , showToastHandler} from '../utils/ToastController'
 
 export function useCart() {
   const queryClient = useQueryClient();
   const userInfos = JSON.parse(localStorage.getItem("userInfos"));
   const accessToken = userInfos?.token;
   const userId = userInfos?.userId;
+  const role = userInfos?.role;
   const reqHeader = { Authorization: `Bearer ${accessToken}` };
-  
+
   const {
     mutate,
     data: addCartData,
@@ -16,18 +18,18 @@ export function useCart() {
     isPending: addCartPending,
   } = useAxiosMutate("cart", null, "/cart/add", reqHeader, "post", true);
 
-
   const { data: allCoursesInCart } = useAxiosQuery(
     "cart",
     null,
     "/cart",
     reqHeader,
-    true
-    );
+    true,
+    role == "teacher" || !accessToken ? false : true
+  );
 
   const {
     mutate: purchaseCourse,
-    data : purchaseData,
+    data: purchaseData,
     error: purchaseError,
     isPending: purchasePending,
   } = useAxiosMutate(
@@ -40,10 +42,10 @@ export function useCart() {
   );
 
   const mutationConfig = {
-    onSuccess : ()=>{
-      queryClient.invalidateQueries({queryKey : ['cart']})
-    }
-  }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  };
 
   const { data: purchasedCourses } = useAxiosQuery(
     "purchase",
@@ -52,21 +54,24 @@ export function useCart() {
     {
       reqHeader,
     },
-    true
+    true,
+    role == "teacher" || !accessToken ? false : true
   );
 
   const {
     mutate: removeCourse,
-    data : removeFromCartData,
+    data: removeFromCartData,
     error: removeCourseError,
     isPending: removeCoursePending,
   } = useAxiosMutate("cart", null, "/cart/remove", { reqHeader }, "post", true);
 
-  const addToCart = (courseId ) => {
-    mutate(
-      {courseId},
-      {...mutationConfig}
-    );
+  const addToCart = (courseId , setShowToast = null) => {
+    if (role == 'teacher') {
+      resgisterToastSetter(setShowToast)
+      showToastHandler('این فعالیت برای شما ممکن نیست' , 'error')
+      return
+    }
+    mutate({ courseId }, { ...mutationConfig });
   };
 
   const isInCart = (courseId) => {
@@ -74,33 +79,39 @@ export function useCart() {
     return allCoursesInCart.cart.some((course) => course.id == courseId);
   };
 
-  const purchase = (courseIds) => {    
-    purchaseCourse( {courseIds}, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["purchase"] });
-        queryClient.invalidateQueries({ queryKey: ["cart"] });
-      },
-    });
+  const purchase = (courseIds) => {
+    purchaseCourse(
+      { courseIds },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["purchase"] });
+          queryClient.invalidateQueries({ queryKey: ["cart"] });
+        },
+      }
+    );
   };
 
-  const removeFormCart = (courseId ) => {
-    removeCourse({courseId} , {
-      ...mutationConfig
-    })
+  const removeFormCart = (courseId) => {
+    removeCourse(
+      { courseId },
+      {
+        ...mutationConfig,
+      }
+    );
   };
 
   const isPurchasedCourse = (courseId) => {
-    if (purchasedCourses?.courses){
-      return purchasedCourses.courses.some(course => course.id == courseId)
+    if (purchasedCourses?.courses) {
+      return purchasedCourses.courses.some((course) => course.id == courseId);
     }
   };
 
-  const totalPrices = ()=>{
-    return allCoursesInCart?.cart.reduce((acc , curr)=>{
+  const totalPrices = () => {
+    return allCoursesInCart?.cart.reduce((acc, curr) => {
       acc += curr.price;
-      return acc
-    },0)
-  }
+      return acc;
+    }, 0);
+  };
 
   return {
     addToCart,
@@ -119,8 +130,7 @@ export function useCart() {
     removeCoursePending,
     removeFromCartData,
     isPurchasedCourse,
-    totalPrices
+    totalPrices,
   };
-
 }
 export default useCart;

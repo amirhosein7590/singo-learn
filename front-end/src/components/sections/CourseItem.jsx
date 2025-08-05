@@ -13,6 +13,7 @@ function CourseItem({
   stdCount,
   courseId,
   showToast,
+  setShowToast
 }) {
   const {
     addToCart,
@@ -108,7 +109,7 @@ function CourseItem({
             </Button>
           ) : (
             <Button
-              onclick={() => addToCart(courseId)}
+              onclick={() => addToCart(courseId , setShowToast)}
               classes="bg-[var(--dark-purple)] text-white !py-2 px-5 rounded-lg"
             >
               {addCartPending ? "در حال ارسال ..." : "ثبت نام"}

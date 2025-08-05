@@ -214,6 +214,7 @@ function Home() {
                   duration={PriceToPersian(course.duration)}
                   stdCount={PriceToPersian(course.studentsCount)}
                   showToast={{ ...showToast }}
+                  setShowToast={setShowToast}
                 />
               ))}
         </div>

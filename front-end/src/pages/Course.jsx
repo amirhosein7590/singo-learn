@@ -33,7 +33,7 @@ function Course() {
     isError,
   } = useAxiosQuery(
     "course",
-    null,
+    courseId,
     `/courses/${courseId}?_embed=sessions&_expand=teacher`,
     null,
     false
@@ -206,7 +206,7 @@ function Course() {
                     </g>
                   </svg>
                   <Button
-                    onclick={() => addToCart(courseId)}
+                    onclick={() => addToCart(courseId , setShowToast)}
                     disabled={isPending}
                     classes="text-white mr-3 text-sm"
                   >

@@ -8,12 +8,20 @@ import {
   resgisterToastSetter,
   showToastHandler,
 } from "../utils/ToastController";
+import { useNavigate } from "react-router";
 const Toast = lazy(() => import("../components/sections/Toast"));
 
 function Cart() {
+
+
+  const role = JSON.parse(localStorage.getItem("userInfos"))?.role;
+  const navigate = useNavigate();
   useEffect(() => {
     document.title = "سبد خرید";
-      resgisterToastSetter(setShowToast);
+    resgisterToastSetter(setShowToast);
+    if (role == "teacher") {
+      navigate('/dashboard/teacher')
+    }
   }, []);
 
   const {

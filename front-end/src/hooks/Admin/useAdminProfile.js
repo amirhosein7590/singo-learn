@@ -1,4 +1,4 @@
-import useAxiosQuery from "../../useAxiosQuery";
+import useAxiosQuery from "../useAxiosQuery";
 
 /**
  * A custom hook for fetching admin profile data from the server

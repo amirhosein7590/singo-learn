@@ -4,10 +4,26 @@ import { memo, useEffect } from "react";
 
 const iconMap = {
   warning: (
-    <img className="w-[80px] h-[80px]" src="../../../public/svg/warning.svg" alt="" />
+    <img
+      className="w-[80px] h-[80px]"
+      src="../../../public/svg/warning.svg"
+      alt=""
+    />
   ),
-  error: <img className="w-[80px] h-[80px]" src="../../../public/svg/error.svg" alt="" />,
-  success: <img className="w-[80px] h-[80px]" src="../../../public/svg/success.svg" alt="" />,
+  error: (
+    <img
+      className="w-[80px] h-[80px]"
+      src="../../../public/svg/error.svg"
+      alt=""
+    />
+  ),
+  success: (
+    <img
+      className="w-[80px] h-[80px]"
+      src="../../../public/svg/success.svg"
+      alt=""
+    />
+  ),
 };
 
 function Alert({
@@ -20,53 +36,79 @@ function Alert({
   confirmText,
   cancelText,
 }) {
-
-  useEffect(()=>{
-    document.body.style.overflow = 'hidden'
-    return ()=> {
-      document.body.style.overflow = 'auto'
-    }
-  },[])
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
-    <AnimatePresence>
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <AnimatePresence>
+           <motion.div
+          id="popup-modal"
+          tabIndex={-1}
+          className="fixed inset-0 z-100 flex justify-center items-center bg-black/40 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="bg-white rounded-2xl shadow-2xl p-6 w-10/12 lg:w-full max-w-md text-center space-y-4"
+            className="relative p-4 w-full max-w-md"
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 20 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
           >
-            <div className="flex justify-center">{iconMap[icon]}</div>
-            <p className="lg:text-xl font-semibold text-gray-800">{title}</p>
-            {description && <p className="text-gray-500 text-sm">{description}</p>}
-            <div className="flex justify-center gap-4 mt-6 items-center">
-              {onCancel && (
-                <Button
-                  onclick={() => {
-                    onCancel();
-                    onClose();
-                  }}
-                  classes="!py-[10px] !px-[16.76px] bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+            <motion.div 
+              className="relative bg-white rounded-lg shadow-lg overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="p-4 md:p-5 text-center">
+                <motion.div
+                  className="icon-wrapper flex justify-center mb-4"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", delay: 0.2 }}
                 >
-                  {cancelText}
-                </Button>
-              )}
-              {onConfirm && (
-                <Button
-                  onclick={() => {
-                    onConfirm();
-                    onClose();
-                  }}
-                  classes="!py-[10px] !px-[16.76px] bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                  {iconMap[icon]}
+                </motion.div>
+
+                <motion.h3 
+                  className="mb-5 text-lg font-normal text-gray-500"
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
                 >
-                  {confirmText}
-                </Button>
-              )}
-            </div>
+                  {title}
+                </motion.h3>
+
+                <div className="flex justify-center gap-3">
+                  <Button
+                    type="button"
+                    onclick={onConfirm}
+                    classes="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                  >
+                    {confirmText}
+                  </Button>
+                  <Button
+                    type="button"
+                    onclick={() => {
+                      onCancel();
+                      onClose();
+                    }}
+                    classes="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                  >
+                    {cancelText}
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
-        </div>
-    </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
   );
 }
 

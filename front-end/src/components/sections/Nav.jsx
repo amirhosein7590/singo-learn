@@ -1,15 +1,22 @@
-import { useState , memo, useEffect } from "react";
+import { useState, memo, useEffect } from "react";
 import Button from "../ui/Button";
 import SideMenu from "./SideMenu";
 import useAxiosQuery from "../../hooks/useAxiosQuery";
 
 function Nav() {
   const [isMenuShown, setIsMenuShown] = useState(false);
-  let userInfos = JSON.parse(localStorage.getItem('userInfos'))
-  let accessToken = userInfos?.token
-  const reqHeader = {'Authorization' : `Bearer ${accessToken}`};
+  let userInfos = JSON.parse(localStorage.getItem("userInfos"));
+  const accessToken = userInfos?.token
+  const reqHeader = { Authorization: `Bearer ${accessToken}` };
 
-  const {data , isPending , isError} = useAxiosQuery('cart' , null , '/cart' , reqHeader , true)
+  const { data, isPending, isError } = useAxiosQuery(
+    "cart",
+    null,
+    "/cart",
+    reqHeader,
+    true,
+    userInfos?.role == "teacher" || !userInfos?.token ? false : true
+  );
 
   const showMenuHandler = () => {
     setIsMenuShown((prev) => !prev);
@@ -19,7 +26,7 @@ function Nav() {
     <>
       <nav className="flex justify-around items-center w-10/12 mx-auto p-1.5 bg-white">
         <div className="nav-right">
-          <Button classes='hidden lg:block' to='/'>
+          <Button classes="hidden lg:block" to="/">
             <img
               src="../../public/images/logo.jpg"
               className="w-[100px] h-[80px]"
@@ -103,12 +110,15 @@ function Nav() {
           </ul>
         </div>
         <div className="nav-left flex items-center">
-
           <Button
             to="/cart"
             classes="cart-btn relative bg-[var(--light-purple)] p-2 rounded-xl"
           >
-            {data?.cart.length > 0 && <span className="coursesCount absolute rounded-full w-4 h-4 text-center bg-red-600 text-white bottom-2/3 left-2/3">{data.cart.length}</span>}
+            {data?.cart.length > 0 && (
+              <span className="coursesCount absolute rounded-full w-4 h-4 text-center bg-red-600 text-white bottom-2/3 left-2/3">
+                {data.cart.length}
+              </span>
+            )}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22px"
@@ -145,49 +155,63 @@ function Nav() {
             </svg>
           </Button>
 
-          {userInfos?.role ? <Button
-            to={`/dashboard/${userInfos.role}`}
-            classes="login-btn bg-[var(--light-purple)] text-[var(--dark-purple)] py-2 px-4 rounded-xl flex py-0.5 px-1 mr-5"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"><path fill="#7C3AED" fillRule="evenodd" d="M134 2009c-2.217 0-4.019-1.794-4.019-4s1.802-4 4.019-4 4.019 1.794 4.019 4-1.802 4-4.019 4m3.776.673a5.978 5.978 0 0 0 2.182-5.603c-.397-2.623-2.589-4.722-5.236-5.028-3.652-.423-6.75 2.407-6.75 5.958 0 1.89.88 3.574 2.252 4.673-3.372 1.261-5.834 4.222-6.22 8.218a1.012 1.012 0 0 0 1.004 1.109.99.99 0 0 0 .993-.891c.403-4.463 3.836-7.109 7.999-7.109s7.596 2.646 7.999 7.109a.99.99 0 0 0 .993.891c.596 0 1.06-.518 1.003-1.109-.385-3.996-2.847-6.957-6.22-8.218" transform="translate(-124 -1999)"></path></svg>
-          </Button> : <Button
-            to="/login"
-            classes="login-btn bg-[var(--light-purple)] text-[var(--dark-purple)] py-2 px-4 rounded-xl flex py-0.5 px-1 mr-5"
-          >
-            <svg
-              className="ml-1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16px"
-              fill="#7C3AED"
-              viewBox="0 0 17.14 21.425"
+          {userInfos?.role ? (
+            <Button
+              to={`/dashboard/${userInfos.role}`}
+              classes="login-btn bg-[var(--light-purple)] text-[var(--dark-purple)] py-2 px-4 rounded-xl flex py-0.5 px-1 mr-5"
             >
-              <g
-                id="_000000ff"
-                data-name="#000000ff"
-                transform="translate(-85.345 -42.66)"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20px"
+                height="20px"
               >
                 <path
-                  id="Path_170"
-                  data-name="Path 170"
-                  d="M130.627,42.712a3.487,3.487,0,0,1,.626-.052h8.489a3.209,3.209,0,0,1,3.214,2.778,5.762,5.762,0,0,1,.031.806V60.2a5.76,5.76,0,0,1-.1,1.443,3.231,3.231,0,0,1-2.3,2.332,5.637,5.637,0,0,1-1.5.106H131.2a3.22,3.22,0,0,1-3.212-3.179c0-1.071,0-2.142,0-3.213a1.071,1.071,0,1,1,2.141-.053c0,1.089,0,2.177,0,3.266a1.075,1.075,0,0,0,1.067,1.036q4.3,0,8.59,0a1.076,1.076,0,0,0,1.053-1.085q0-7.332,0-14.665a1.873,1.873,0,0,0-.07-.7,1.073,1.073,0,0,0-.984-.69q-4.294,0-8.588,0a1.074,1.074,0,0,0-1.068,1.04c0,.986,0,1.972,0,2.958a1.516,1.516,0,0,1-.118.773,1.07,1.07,0,0,1-2.023-.472q0-1.631,0-3.264a3.221,3.221,0,0,1,2.636-3.127Z"
-                  transform="translate(-40.503 0)"
                   fill="#7C3AED"
+                  fillRule="evenodd"
+                  d="M134 2009c-2.217 0-4.019-1.794-4.019-4s1.802-4 4.019-4 4.019 1.794 4.019 4-1.802 4-4.019 4m3.776.673a5.978 5.978 0 0 0 2.182-5.603c-.397-2.623-2.589-4.722-5.236-5.028-3.652-.423-6.75 2.407-6.75 5.958 0 1.89.88 3.574 2.252 4.673-3.372 1.261-5.834 4.222-6.22 8.218a1.012 1.012 0 0 0 1.004 1.109.99.99 0 0 0 .993-.891c.403-4.463 3.836-7.109 7.999-7.109s7.596 2.646 7.999 7.109a.99.99 0 0 0 .993.891c.596 0 1.06-.518 1.003-1.109-.385-3.996-2.847-6.957-6.22-8.218"
+                  transform="translate(-124 -1999)"
                 ></path>
-                <path
-                  id="Path_171"
-                  data-name="Path 171"
-                  d="M93.612,170.98a1.072,1.072,0,0,1,1.057.253c1.042,1.033,2.071,2.08,3.118,3.108a1.107,1.107,0,0,1,.4,1.068,1.254,1.254,0,0,1-.475.731c-1.025,1.017-2.041,2.044-3.066,3.06a1.07,1.07,0,0,1-1.708-1.214,1.6,1.6,0,0,1,.4-.5c.407-.4.807-.814,1.218-1.213q-4.06.006-8.119,0a1.071,1.071,0,0,1-.362-2.085,1.634,1.634,0,0,1,.563-.058c2.639,0,5.279,0,7.918,0-.461-.448-.91-.908-1.367-1.361a1.071,1.071,0,0,1,.429-1.794Z"
-                  transform="translate(0 -121.831)"
-                  fill="#7C3AED"
-                ></path>
-              </g>
-            </svg>
-            ورود
-          </Button> }
-          
+              </svg>
+            </Button>
+          ) : (
+            <Button
+              to="/login"
+              classes="login-btn bg-[var(--light-purple)] text-[var(--dark-purple)] py-2 px-4 rounded-xl flex py-0.5 px-1 mr-5"
+            >
+              <svg
+                className="ml-1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16px"
+                fill="#7C3AED"
+                viewBox="0 0 17.14 21.425"
+              >
+                <g
+                  id="_000000ff"
+                  data-name="#000000ff"
+                  transform="translate(-85.345 -42.66)"
+                >
+                  <path
+                    id="Path_170"
+                    data-name="Path 170"
+                    d="M130.627,42.712a3.487,3.487,0,0,1,.626-.052h8.489a3.209,3.209,0,0,1,3.214,2.778,5.762,5.762,0,0,1,.031.806V60.2a5.76,5.76,0,0,1-.1,1.443,3.231,3.231,0,0,1-2.3,2.332,5.637,5.637,0,0,1-1.5.106H131.2a3.22,3.22,0,0,1-3.212-3.179c0-1.071,0-2.142,0-3.213a1.071,1.071,0,1,1,2.141-.053c0,1.089,0,2.177,0,3.266a1.075,1.075,0,0,0,1.067,1.036q4.3,0,8.59,0a1.076,1.076,0,0,0,1.053-1.085q0-7.332,0-14.665a1.873,1.873,0,0,0-.07-.7,1.073,1.073,0,0,0-.984-.69q-4.294,0-8.588,0a1.074,1.074,0,0,0-1.068,1.04c0,.986,0,1.972,0,2.958a1.516,1.516,0,0,1-.118.773,1.07,1.07,0,0,1-2.023-.472q0-1.631,0-3.264a3.221,3.221,0,0,1,2.636-3.127Z"
+                    transform="translate(-40.503 0)"
+                    fill="#7C3AED"
+                  ></path>
+                  <path
+                    id="Path_171"
+                    data-name="Path 171"
+                    d="M93.612,170.98a1.072,1.072,0,0,1,1.057.253c1.042,1.033,2.071,2.08,3.118,3.108a1.107,1.107,0,0,1,.4,1.068,1.254,1.254,0,0,1-.475.731c-1.025,1.017-2.041,2.044-3.066,3.06a1.07,1.07,0,0,1-1.708-1.214,1.6,1.6,0,0,1,.4-.5c.407-.4.807-.814,1.218-1.213q-4.06.006-8.119,0a1.071,1.071,0,0,1-.362-2.085,1.634,1.634,0,0,1,.563-.058c2.639,0,5.279,0,7.918,0-.461-.448-.91-.908-1.367-1.361a1.071,1.071,0,0,1,.429-1.794Z"
+                    transform="translate(0 -121.831)"
+                    fill="#7C3AED"
+                  ></path>
+                </g>
+              </svg>
+              ورود
+            </Button>
+          )}
         </div>
       </nav>
-       <SideMenu menuShowHandler={setIsMenuShown} isMenuShown={isMenuShown} />
+      <SideMenu menuShowHandler={setIsMenuShown} isMenuShown={isMenuShown} />
     </>
   );
 }

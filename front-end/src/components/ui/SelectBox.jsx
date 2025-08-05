@@ -1,0 +1,81 @@
+import { useState , memo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+function SelectBox({
+  name,
+  label,
+  options = [],
+  multiple = false,
+  value,
+  onChange,
+  placeholder = "یک گزینه انتخاب کنید",
+}) {
+  const [open, setOpen] = useState(false);
+
+  const isSelected = (val) => (multiple ? value?.includes(val) : value === val);
+
+  const handleSelect = (val) => {
+    if (multiple) {
+      const exists = value?.includes(val);
+      const newValue = exists
+        ? value.filter((v) => v !== val)
+        : [...(value || []), val];
+      onChange(newValue);
+    } else {
+      onChange(val);
+      setOpen(false);
+    }
+  };
+
+  return (
+    <div className="relative w-full">
+      {label && <label className={label.classes}>{label.message}</label>}
+
+      <div
+        className="rounded-sm bg-white cursor-pointer flex justify-between items-center"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span className="text-sm text-gray-700 truncate">
+          {multiple ? (
+            value?.length ? (
+              value
+                .map((v) => options.find((o) => o.value === v)?.label || v)
+                .join("، ")
+            ) : (
+              <span className="text-gray-400">{placeholder}</span>
+            )
+          ) : value ? (
+            options.find((o) => o.value === value)?.label || value
+          ) : (
+            <span className="text-gray-400">{placeholder}</span>
+          )}
+        </span>
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            className="absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded shadow-md max-h-60 overflow-y-auto text-sm"
+          >
+            {options.map((opt) => (
+              <li
+                key={opt.value}
+                className={`px-4 py-2 cursor-pointer hover:bg-blue-100 transition-colors ${
+                  isSelected(opt.value) ? "bg-blue-50 font-semibold" : ""
+                }`}
+                onClick={() => handleSelect(opt.value)}
+              >
+                {opt.label}
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+export default memo(SelectBox)

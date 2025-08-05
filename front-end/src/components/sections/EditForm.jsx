@@ -7,13 +7,13 @@ import {
 import Toast from "./Toast";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import SelectBox from "../ui/SelectBox";
 
 function EditForm({ title, inputPatterns, onAction, isPending }) {
   const {
     control,
     handleSubmit,
     formState: { errors, submitCount },
-    reset,
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
@@ -24,6 +24,7 @@ function EditForm({ title, inputPatterns, onAction, isPending }) {
   });
 
   const [showToast, setShowToast] = useState({});
+  const [showPassword , setShowPassword] = useState(false);
 
   useEffect(() => {
     let error = Object.values(errors)[0]?.message;
@@ -39,17 +40,9 @@ function EditForm({ title, inputPatterns, onAction, isPending }) {
   useEffect(() => {
     resgisterToastSetter(setShowToast);
   }, []);
-
-  useEffect(() => {
-    const defaultValues = inputPatterns.reduce((acc, input) => {
-      acc[input.name] = input.defaultValue || "";
-      return acc;
-    }, {});
-    reset(defaultValues);
-  }, [inputPatterns, reset]);
   return (
     <>
-      <div className="edit-form shadow-[var(--cart-shadow)] bg-white py-3 px-5 rounded-lg">
+      <div className="edit-form shadow-[var(--cart-shadow)] bg-white py-3 px-3 lg:px-5 rounded-lg">
         <div className="edit-title flex">
           <p className="text-sm lg:text-lg">{title}</p>
         </div>
@@ -67,14 +60,35 @@ function EditForm({ title, inputPatterns, onAction, isPending }) {
                 rules={input.rules}
                 render={({ field }) => (
                   <div className="flex flex-col w-full lg:w-[48%] my-2 relative border border-[#aaaa] rounded-sm py-2 px-4 ">
-                    <Input
-                      label={input.label}
-                      name={input.name}
-                      type={input.type}
-                      classes={input.classes}
-                      defaultValue={input.defaultValue}
-                      {...field}
-                    />
+                    {input.type == "select" ? (
+                      <SelectBox
+                        name={input.name}
+                        label={input.label}
+                        value={field.value}
+                        onChange={field.onChange}
+                        options={input.options}
+                        multiple={input.multiple}
+                        placeholder={input.placeholder}
+                      />
+                    ) : (
+                      <Input
+                        label={input.label}
+                        name={input.name}
+                        type={input.type}
+                        classes={input.classes}
+                        defaultValue={input.defaultValue}
+                        toggleVisibleButton={
+                          input.type == "password" && input.toggleVisibleButton
+                        }
+                        showPassword={
+                          input.type == "password" && showPassword
+                        }
+                        setShowPassword={
+                          input.type == "password" && setShowPassword
+                        }
+                        {...field}
+                      />
+                    )}
                   </div>
                 )}
               />
@@ -93,7 +107,6 @@ function EditForm({ title, inputPatterns, onAction, isPending }) {
       </div>
 
       {showToast?.visible && <Toast {...showToast} />}
-
     </>
   );
 }

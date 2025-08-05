@@ -172,8 +172,7 @@ function Courses() {
                   duration={PriceToPersian(course.duration)}
                   stdCount={PriceToPersian(course.studentsCount)}
                   showToast={{ ...showToast }}
-                  optimisticData={{...course}}
-
+                  setShowToast={setShowToast}
                 />
               ))
             : data &&
@@ -194,7 +193,7 @@ function Courses() {
                       duration={PriceToPersian(course.duration)}
                       stdCount={PriceToPersian(course.studentsCount)}
                       showToast={{ ...showToast }}
-                      optimisticData={{...course}}
+                      setShowToast={setShowToast}
                     />
                   ))
                 )}
