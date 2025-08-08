@@ -3,33 +3,26 @@ import { memo, useEffect, useState, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router";
 const Alert = lazy(() => import("./Alert"));
+import { alertSetter, showAlertHandler } from "../../utils/AlertController";
+import { useQueryClient } from "@tanstack/react-query";
 
 function DashboardSideBar({ fullname, phonenumber, links }) {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const logOut = () => {
     localStorage.removeItem("userInfos");
+    queryClient.invalidateQueries({queryKey : ['purchase']})
     navigate("/login");
   };
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
 
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-
-  const onAlertClose = () => {
-    setIsAlertOpen(false);
-  };
+  const [showAlert, setShowAlert] = useState(false);
 
   const onAlertConfirm = () => {
     logOut();
-  };
-
-  const onAlertCancel = () => {
-    setIsAlertOpen(false);
-  };
-
-  const onAlertShow = () => {
-    setIsAlertOpen(true);
   };
 
   const toggleMobileMenu = () => {
@@ -42,6 +35,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
   };
 
   useEffect(() => {
+    alertSetter(setShowAlert);
     const checkScreenSize = () => {
       const mobileScreen = 820;
       setIsMobileView(window.innerWidth <= mobileScreen);
@@ -130,7 +124,15 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
                   </Button>
                 ))}
                 <Button
-                  onclick={onAlertShow}
+                  onclick={() =>
+                    showAlertHandler({
+                      title: "آیا میخواهید خارج شوید",
+                      icon: "warning",
+                      onConfirm: onAlertConfirm,
+                      cancelText: "انصراف",
+                      confirmText: "خروج",
+                    })
+                  }
                   classes="flex text-sm py-1 lg:!p-0 !px-0 items-center mt-2.5 text-red-600"
                 >
                   <img
@@ -165,7 +167,15 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
               </Button>
             ))}
             <Button
-              onclick={onAlertShow}
+              onclick={() =>
+                showAlertHandler({
+                  title: "آیا میخواهید خارج شوید",
+                  icon: "warning",
+                  onConfirm: onAlertConfirm,
+                  cancelText: "انصراف",
+                  confirmText: "خروج",
+                })
+              }
               classes="flex text-sm py-1 lg:!p-0 !px-0 items-center my-2.5 text-red-600"
             >
               <img
@@ -179,17 +189,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
         )}
       </div>
 
-      {isAlertOpen && (
-        <Alert
-          onCancel={onAlertCancel}
-          onConfirm={onAlertConfirm}
-          onClose={onAlertClose}
-          icon="warning"
-          title="آیا میخواهید از حساب کاربری خارج شوید ؟"
-          cancelText="انصراف"
-          confirmText="خروج"
-        />
-      )}
+      {showAlert?.visible && <Alert {...showAlert} />}
     </>
   );
 }

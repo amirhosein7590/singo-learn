@@ -1,7 +1,8 @@
-const BASE_CREATE_TEACHER_INPUT_PATTERNS = [
+const BASE_EDIT_TEACHER_INPUT_PATTERN = [
   {
     name: "username",
     type: "text",
+    defaultValue : '',
     classes: "mt-1 text-sm",
     label: {
       message: "نام کاربری را وارد کنید",
@@ -16,29 +17,10 @@ const BASE_CREATE_TEACHER_INPUT_PATTERNS = [
     },
   },
   {
-    name: "password",
-    type: "password",
-    classes: "mt-1 text-sm",
-    label: {
-      message: "رمز عبور را وارد کنید",
-      classes: "text-xs absolute -top-4 bg-white pt-2 px-2",
-    },
-    toggleVisibleButton: {
-      classes: "top-[33%]",
-    },
-    rules: {
-      required: "رمز عبور نمی تواند خالی باشد",
-      pattern: {
-        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-        message:
-          "رمز عبور باید حداقل یک حرف بزرگ و کوچک ، یک سمبل و عدد داشته باشد",
-      },
-    },
-  },
-  {
     name: "fullname",
     type: "text",
     classes: "mt-1 text-sm",
+    defaultValue : '',
     label: {
       message: "نام و نام خانوادگی را وارد کنید",
       classes: "text-xs absolute -top-4 bg-white pt-2 px-2",
@@ -54,6 +36,7 @@ const BASE_CREATE_TEACHER_INPUT_PATTERNS = [
   },
   {
     name: "email",
+    defaultValue:'',
     type: "email",
     classes: "mt-1 text-sm",
     label: {
@@ -71,6 +54,7 @@ const BASE_CREATE_TEACHER_INPUT_PATTERNS = [
   {
     name: "phonenumber",
     type: "text",
+    defaultValue:'',
     classes: "mt-1 text-sm",
     label: {
       message: "شماره موبایل را وارد کنید",
@@ -85,23 +69,6 @@ const BASE_CREATE_TEACHER_INPUT_PATTERNS = [
     },
   },
   {
-    name: "stack",
-    type: "text",
-    classes: "mt-1 text-sm",
-    label: {
-      message: "تخصص مدرس را وارد کنید",
-      classes: "text-xs absolute -top-4 bg-white pt-2 px-2",
-    },
-    rules: {
-      required: "عنوان تخصص خالی است",
-      pattern: {
-        value: /^.{5,}$/,
-        message: "تخصص وارد شده کوتاه است",
-      },
-    },
-  },
-
-  {
     name: "courseIds",
     type: "select",
     rules: {
@@ -111,6 +78,23 @@ const BASE_CREATE_TEACHER_INPUT_PATTERNS = [
     multiple: true,
     placeholder: "انتخاب دوره",
   },
-];
+  {
+    name: "stack",
+    type: "select",
+    rules: {
+      required: "عنوان تخصص خالی است",
+    },
+    options: [
+      { label: "فرانت اند", value: "فرانت اند" },
+      { label: "بک اند", value: "بک اند" },
+      { label: "دیتا ساینس", value: "دیتا ساینس" },
+      { label: "دواپس", value: "دواپس" },
+      { label: "موبایل دولوپر", value: "موبایل دولوپر" },
+    ],
+    multiple: false,
+    placeholder: "عنوان تخصص",
+  },
 
-export default BASE_CREATE_TEACHER_INPUT_PATTERNS;
+]
+
+export default BASE_EDIT_TEACHER_INPUT_PATTERN

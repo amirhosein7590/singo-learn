@@ -6,7 +6,8 @@ function TableCell({type , classes , onClick , text}) {
     <td className="px-3 py-2">
       {type === "button" ? (
         <Button classes={classes} onclick={onClick}>
-          {text}
+          {text.includes('.svg') ? <img className="w-[24px] h-[24px]" src={text} /> : text}
+          {/* check for svg icon or regular text */}
         </Button>
       ) : (
         <p className="text-xs lg:text-sm">{text}</p>

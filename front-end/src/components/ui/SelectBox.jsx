@@ -1,4 +1,4 @@
-import { useState , memo } from "react";
+import { useState, memo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function SelectBox({
@@ -26,6 +26,22 @@ function SelectBox({
       setOpen(false);
     }
   };
+
+  useEffect(() => {
+    if (multiple) {
+      let initialValues = options
+        .filter((opt) => opt.initialSelect)
+        .map((opt) => opt.value);
+
+      if (initialValues.length && (!value || !value.length)) {
+        onChange(initialValues);
+      }
+    }
+    else {
+      let initialValue = options.find(opt => opt.initialSelect)?.value;
+      onChange(initialValue)
+    }
+  }, [options]);
 
   return (
     <div className="relative w-full">
@@ -78,4 +94,4 @@ function SelectBox({
   );
 }
 
-export default memo(SelectBox)
+export default memo(SelectBox);

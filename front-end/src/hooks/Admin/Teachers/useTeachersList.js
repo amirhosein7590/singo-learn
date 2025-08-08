@@ -7,7 +7,7 @@ function useTeachersList() {
     data: allTeachersData,
     error: allTeachersError,
     isPending: allTeachersLoading,
-  } = useAxiosQuery("teachers", null, "/teachers", { headers }, true);
+  } = useAxiosQuery("teachers", null, "/teachers?_embed=courses", { headers }, true);
 
   return {
     allTeachersData,

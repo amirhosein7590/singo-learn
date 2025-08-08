@@ -101,7 +101,7 @@ export function useCart() {
   };
 
   const isPurchasedCourse = (courseId) => {
-    if (purchasedCourses?.courses) {
+    if (purchasedCourses?.courses && accessToken) {
       return purchasedCourses.courses.some((course) => course.id == courseId);
     }
   };

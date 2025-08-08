@@ -39,9 +39,7 @@ function Login() {
   const submit = (data) => {
     mutate(data, {
       onSuccess: (userInfos) => {
-        console.log(userInfos);
         let {role, userId, token , refreshToken } = userInfos;
-        console.log(userInfos);
         localStorage.setItem(
           "userInfos",
           JSON.stringify({role, userId, token , refreshToken })

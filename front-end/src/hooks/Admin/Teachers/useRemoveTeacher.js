@@ -1,8 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
 import useAxiosMutate from "../../useAxiosMutate";
-import { resgisterToastSetter , showToastHandler } from "../../../utils/ToastController";
+import {showToastHandler } from "../../../utils/ToastController";
 
-function useRemoveTeacher(setShowToast) {
+function useRemoveTeacher() {
   const queryClient = useQueryClient();
   const { token } = JSON.parse(localStorage.getItem("userInfos"));
   const headers = { Authorization: `Bearer ${token}` };

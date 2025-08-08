@@ -38,7 +38,6 @@ function CourseItem({
         });
       } else {
         showToastHandler(addCartError.response, "error");
-        console.log(addCartError);
       }
     }
   }, [addCartData, addCartError]);

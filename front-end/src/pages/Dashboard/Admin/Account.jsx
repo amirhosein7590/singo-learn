@@ -35,7 +35,6 @@ function AdminAccount() {
       updateUser(bodyRequest, {
         onSuccess: (res) => {
           showToastHandler("تغییرات با موفقیت انجام شد", "success");
-          console.log(res);
         },
         onError: (err) => {
           showToastHandler(err, "error");

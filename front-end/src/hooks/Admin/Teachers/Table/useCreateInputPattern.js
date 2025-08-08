@@ -1,0 +1,21 @@
+import BASE_CREATE_TEACHER_INPUT_PATTERNS from "../../../../constants/InputPatterns/Admin/Teachers/CreateTeacher";
+import { useMemo } from "react";
+
+function useCreateInputPattern(coursesLoading, courses) {
+  let createTeacherInputPattern = useMemo(() => {
+    if (courses) {
+      let courseInfos = courses.map((course) => ({
+        label: course.title,
+        value: course.id,
+      }));
+      return BASE_CREATE_TEACHER_INPUT_PATTERNS.map((input) =>
+        input.type == "select" && input.multiple
+          ? { ...input, options: courseInfos }
+          : input
+      );
+    }
+  }, [coursesLoading, courses]);
+
+  return { createTeacherInputPattern };
+}
+export default useCreateInputPattern;
