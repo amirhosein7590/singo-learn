@@ -11,7 +11,17 @@ function showModalHandler({
   onAction,
   title,
   tableData,
+  onClose,
 }) {
+  const onCloseHandler = onClose
+    ? () => {
+        onClose();
+        setShowModal((prev) => ({ ...prev, visible: false }));
+      }
+    : () => {
+        setShowModal((prev) => ({ ...prev, visible: false }));
+      };
+      
   setShowModal({
     visible: true,
     inputPatterns,
@@ -20,10 +30,8 @@ function showModalHandler({
     onAction,
     title,
     tableData,
-    onClose: () => {
-      setShowModal((prev) => ({ ...prev, visible: false }));
-    },
+    onClose : onCloseHandler
   });
 }
 
-export {modalSetter , showModalHandler}
+export { modalSetter, showModalHandler };

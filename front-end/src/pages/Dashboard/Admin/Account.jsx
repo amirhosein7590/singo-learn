@@ -6,7 +6,7 @@ import {
   resgisterToastSetter,
   showToastHandler,
 } from "../../../utils/ToastController";
-import useEditUser from "../../../hooks/Admin/Users/useEditUser";
+import useEditAdmin from "../../../hooks/Admin/useEditAdmin";
 import { useLocation } from "react-router";
 import BASE_ADMIN_PROFILE_INPUT_PATTERNS from "../../../constants/InputPatterns/Admin/AdminProfile";
 
@@ -15,7 +15,7 @@ function AdminAccount() {
 
   const { profileData, profileError, isProfileLoading } =
     useAdminProfle(location);
-  const { updateUser, isUpdating } = useEditUser();
+  const { updateUser, isUpdating } = useEditAdmin();
 
   const inputPatterns = useMemo(() => {
     if (!profileData) return BASE_ADMIN_PROFILE_INPUT_PATTERNS;

@@ -71,13 +71,10 @@ function Modal({
             />
           ) : (
             <>
-              {tableData?.length > 0 ? (
+              {Object.keys(tableData).length > 0 ? (
                 <Table
-                  thead={[{ id: "title", title: "عنوان دوره" }]}
-                  tbody={tableData.map((item) => ({
-                    id: item.id,
-                    text: item.title,
-                  }))}
+                  thead={tableData.thead}
+                  tbody={tableData.tbody}
                   scroll={false}
                 />
               ) : (

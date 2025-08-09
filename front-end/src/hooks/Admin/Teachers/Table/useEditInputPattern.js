@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import BASE_EDIT_TEACHER_INPUT_PATTERN from "../../../../constants/InputPatterns/Admin/Teachers/EditTeacher";
 
 function useEditInputPattern() {

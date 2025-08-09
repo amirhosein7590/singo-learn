@@ -1,40 +1,39 @@
 import { showToastHandler } from "../../../utils/ToastController";
 import useAxiosMutate from "../../useAxiosMutate";
 import { useQueryClient } from "@tanstack/react-query";
-
-function useEditUser() {
+function useRemoveUser() {
   const { token } = JSON.parse(localStorage.getItem("userInfos"));
   const headers = { Authorization: `Bearer ${token}` };
   const queryClient = useQueryClient();
 
-  const {mutate , isPending : editUserLoading} = useAxiosMutate(
+  const { mutate, isPending: removeUserLoading } = useAxiosMutate(
     "users",
     null,
     `/users/:id`,
     { headers },
-    "put",
+    "delete",
     true
   );
 
-  const editUser = (userId , data)=>{
-    mutate(data , {
-      urlParams : {id : userId},
-      onSuccess : data =>{
+  const removeUser = (userId) => {
+    mutate(null, {
+      urlParams: { id: userId },
+      onSuccess: (data) => {
         let successMessage = data.message;
-        showToastHandler(successMessage , 'success');
-        queryClient.invalidateQueries({queryKey : ['users']})
+        showToastHandler(successMessage, "success");
+        queryClient.invalidateQueries({ queryKey: ["users"] });
       },
-      onError : err => {
+      onError: (err) => {
         let errorMessage = err.response.data.error;
-        showToastHandler(errorMessage , 'error')
-      }
-    })
-  }
+        showToastHandler(errorMessage, "error");
+      },
+    });
+  };
 
   return {
-    editUser,
-    editUserLoading
+    removeUser,
+    removeUserLoading
   }
 }
 
-export default useEditUser;
+export default useRemoveUser;

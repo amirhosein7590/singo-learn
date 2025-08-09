@@ -1,14 +1,12 @@
 import { useMemo } from "react";
-import BASE_TABLE_DATAS from "../../../../constants/Table/Admin/Teachers";
+import BASE_TABLE_DATAS from "../../../../constants/Table/Admin/Users";
 
-function useTableDatas(allTeachersData) {
-
-
+function useTableDatas(allUsers) {
   const tableDatas = useMemo(() => {
-    if (!allTeachersData) return BASE_TABLE_DATAS;
+    if (!allUsers) return BASE_TABLE_DATAS;
 
     const actionTexts = {
-      remove: 'حذف',
+      remove: "حذف",
       ban: "بن",
       edit: "ویرایش",
       viewCourses: "مشاهده دوره ها",
@@ -24,24 +22,24 @@ function useTableDatas(allTeachersData) {
 
     return {
       thead: BASE_TABLE_DATAS.thead,
-      tbody: allTeachersData.flatMap((teacher) => [
-        ...["username", "fullname", "phonenumber", "email", "stack"].map(
-          (field) => ({
-            id: teacher.id,
-            type: "text",
-            text: teacher[field],
-          })
-        ),
+
+      tbody: allUsers.flatMap((user) => [
+        ...["username", "fullname", "phonenumber", "email"].map((field) => ({
+          id: field,
+          type: "text",
+          text: user[field],
+        })),
         ...["viewCourses", "edit", "ban", "remove"].map((action) => ({
-          entityData : teacher,
-          type: "button",
+          id: user.id,
+          entityData : user,
           action,
+          type: "button",
           text: actionTexts[action],
-          classes: `${btnClasses[action]} ${btnClasses.baseClasses}`,
+          classes: `${btnClasses.baseClasses} ${btnClasses[action]}`,
         })),
       ]),
     };
-  }, [allTeachersData]);
+  }, [allUsers]);
 
   return { tableDatas };
 }

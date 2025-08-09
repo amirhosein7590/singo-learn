@@ -10,7 +10,7 @@ function Toast({ message, icon, onClose }) {
     return () => {
       clearTimeout(timeId);
     };
-  }, [icon]);
+  }, [message]);
 
   return (
     <motion.div

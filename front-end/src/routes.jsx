@@ -14,6 +14,7 @@ import UserAccount from './pages/Dashboard/User/UserAccount'
 import Admin from './pages/Dashboard/Admin/Index'
 import AdminAccount from "./pages/Dashboard/Admin/Account";
 import ManageTeachers from "./pages/Dashboard/Admin/ManageTeachers";
+import ManageUsers from "./pages/Dashboard/Admin/ManageUsers";
 
 
 import Cart from './pages/Cart'
@@ -33,7 +34,8 @@ const routes = [
             ]},
             {path : 'admin' , element : <Admin /> , children : [
                 {index : true , element : <AdminAccount />},
-                {path : 'teachers' , element : <ManageTeachers />}
+                {path : 'teachers' , element : <ManageTeachers />},
+                {path : 'users' , element : <ManageUsers /> }
             ]}
         ]},
         {path : '/cart' , element : <Cart />},
