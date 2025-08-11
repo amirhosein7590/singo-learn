@@ -9,11 +9,19 @@ import Input from "../ui/Input";
 import Button from "../ui/Button";
 import SelectBox from "../ui/SelectBox";
 
-function EditForm({ title, inputPatterns, onAction, isPending }) {
+function EditForm({
+  title,
+  inputPatterns,
+  onAction,
+  isPending,
+  buttons,
+  btnText,
+}) {
   const {
     control,
     handleSubmit,
     formState: { errors, submitCount },
+    getValues,
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
@@ -24,7 +32,7 @@ function EditForm({ title, inputPatterns, onAction, isPending }) {
   });
 
   const [showToast, setShowToast] = useState({});
-  const [showPassword , setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     let error = Object.values(errors)[0]?.message;
@@ -80,9 +88,7 @@ function EditForm({ title, inputPatterns, onAction, isPending }) {
                         toggleVisibleButton={
                           input.type == "password" && input.toggleVisibleButton
                         }
-                        showPassword={
-                          input.type == "password" && showPassword
-                        }
+                        showPassword={input.type == "password" && showPassword}
                         setShowPassword={
                           input.type == "password" && setShowPassword
                         }
@@ -95,13 +101,28 @@ function EditForm({ title, inputPatterns, onAction, isPending }) {
             ))}
           </div>
 
-          <div className="button-wrapper flex mt-4">
+          <div className="button-wrapper flex mt-4 justify-between items-center lg:justify-start">
             <Button
-              classes="text-white bg-[var(--dark-purple)] rounded-md !py-2 !px-4 "
+              classes="text-white bg-[var(--dark-purple)] rounded-md !py-2 !px-4 !text-xs lg:!text-sm "
               type="submit"
             >
-              {isPending ? "در حال ارسال ..." : "ثبت تغییرات"}
+              {isPending ? "در حال ارسال ..." : btnText || "ذخیره تغییرات"}
             </Button>
+
+            {buttons &&
+              buttons.map((button) => (
+                <Button
+                key={button.id}
+                  classes={button.classes}
+                  type={button.type}
+                  onclick={() => {
+                    let value = getValues();
+                    button.onClick(value[button.targetValue]);
+                  }}
+                >
+                  {button.isPending ? "در حال ارسال" : button.text}
+                </Button>
+              ))}
           </div>
         </form>
       </div>

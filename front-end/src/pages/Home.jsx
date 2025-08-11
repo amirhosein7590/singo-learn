@@ -4,6 +4,7 @@ import useAxiosQuery from "../hooks/useAxiosQuery";
 import CourseItem from "../components/sections/CourseItem";
 import PriceToPersian from "../utils/PriceToPersian";
 import { resgisterToastSetter } from "../utils/ToastController";
+import ToPersianDigit from '../utils/ToPersianDigit'
 
 function Home() {
   useEffect(() => {
@@ -198,7 +199,7 @@ function Home() {
           </Button>
         </div>
 
-        <div className="courses mt-10 grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-6 p-4">
+        <div className="courses mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
           {data &&
             data
               .slice(0, 14)
@@ -214,6 +215,10 @@ function Home() {
                   duration={PriceToPersian(course.duration)}
                   stdCount={PriceToPersian(course.studentsCount)}
                   showToast={{ ...showToast }}
+                  originalPrice={
+                    course?.originalPrice && PriceToPersian(course.originalPrice)
+                  }
+                  discount={course?.discount && ToPersianDigit(course.discount)}
                   setShowToast={setShowToast}
                 />
               ))}

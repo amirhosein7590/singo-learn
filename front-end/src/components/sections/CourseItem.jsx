@@ -13,7 +13,9 @@ function CourseItem({
   stdCount,
   courseId,
   showToast,
-  setShowToast
+  setShowToast,
+  originalPrice,
+  discount,
 }) {
   const {
     addToCart,
@@ -24,7 +26,7 @@ function CourseItem({
     isPurchasedCourse,
   } = useCart();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (addCartData?.message) {
       showToastHandler(addCartData.message, "success");
@@ -42,10 +44,19 @@ function CourseItem({
     }
   }, [addCartData, addCartError]);
 
+  const iconLoadingError = (event) => {
+    event.target.src = "../../../public/svg/course-icon-fallback.svg";
+  };
+
   return (
-    <div className="card flex flex-col p-4 shadow-[var(--cart-shadow)] rounded-xl">
+    <div className="card relative flex flex-col group transition-transform duration-300 h-full p-4 shadow-[var(--cart-shadow)] rounded-xl">
       <div className="card__icon mb-7">
-        <img className="w-[80px] h-[80px]" src={icon} alt="" />
+        <img
+          className="w-[80px] h-[80px]"
+          src={icon}
+          onError={(event) => iconLoadingError(event)}
+          alt={title}
+        />
       </div>
       <div className="card__course-title mb-7">
         <h4>{title}</h4>
@@ -85,31 +96,41 @@ function CourseItem({
               ></path>
             </g>
           </svg>
-          <p className="mr-2 text-sm text-[var(--dark-gray)]">{stdCount} نفر</p>
+          <p className="mr-2 text-xs text-[var(--dark-gray)]">{stdCount} نفر</p>
         </div>
-        <p className="price text-[#00000099] text-sm md:text-[16px]">
-          {price == "رایگان" ? price : `${price} تومان`}
-        </p>
+        <div className="price flex flex-col">
+          {originalPrice && (
+            <p className="originalPrice relative mb-2 before:content-[''] before:w-full before:absolute before:h-[3px] before:rounded-md before:top-0 before:left-0 before:rotate-10 before:origin-left before:bg-red-500 text-sm text-gray-400">
+              {originalPrice} تومان
+            </p>
+          )}
+          <p className="price text-[#00000099] text-sm">
+            {price == "رایگان" ? price : `${price} تومان`}
+          </p>
+        </div>
       </div>
       {isPurchasedCourse(courseId) ? (
         <div className="border-t pt-5 flex justify-center border-t-[#0000001f]">
-          <Button to={`/courses/${courseId}`} classes='border !text-sm rounded-lg py-2 border-[var(--dark-purple)] text-[var(--dark-purple)]'>
-          دانشجوی دوره هستید . مشاهده دوره ؟
+          <Button
+            to={`/courses/${courseId}`}
+            classes="border !text-sm rounded-lg py-2 border-[var(--dark-purple)] text-[var(--dark-purple)]"
+          >
+            دانشجوی دوره هستید . مشاهده دوره ؟
           </Button>
         </div>
       ) : (
-        <div className="card__button-wrapper border-t flex justify-between items-center border-t-[#0000001f] pt-4">
+        <div className="card__button-wrapper border-t flex justify-between items-center border-t-[#0000001f] pt-4 mt-auto">
           {isInCart(courseId) ? (
             <Button
               to="/cart"
-              classes="bg-white text-black border-1 border-[var(--dark-purple) rounded-lg !py-2 !px-4"
+              classes="bg-white text-black !text-sm border-1 border-[var(--dark-purple) rounded-lg !py-2 !px-4"
             >
               ادامه سفارش
             </Button>
           ) : (
             <Button
-              onclick={() => addToCart(courseId , setShowToast)}
-              classes="bg-[var(--dark-purple)] text-white !py-2 px-5 rounded-lg"
+              onclick={() => addToCart(courseId, setShowToast)}
+              classes="bg-[var(--dark-purple)] text-white !text-sm !py-2 px-5 rounded-lg"
             >
               {addCartPending ? "در حال ارسال ..." : "ثبت نام"}
             </Button>
@@ -117,7 +138,7 @@ function CourseItem({
 
           <Button
             to={`/courses/${courseId}`}
-            classes="flex items-center !px-2 text-[var(--dark-purple)]"
+            classes="flex items-center !text-sm !px-2 text-[var(--dark-purple)]"
           >
             مشاهده دوره
             <svg
@@ -134,6 +155,12 @@ function CourseItem({
             </svg>
           </Button>
           {showToast?.visible && <Toast {...showToast} />}
+        </div>
+      )}
+
+      {discount && (
+        <div className="absolute top-2 -left-2 bg-red-600 text-white rotate-[-45deg] px-6 py-1 text-sm font-bold shadow-md">
+          {discount}%
         </div>
       )}
     </div>

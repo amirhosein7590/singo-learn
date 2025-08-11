@@ -12,15 +12,13 @@ import { useNavigate } from "react-router";
 const Toast = lazy(() => import("../components/sections/Toast"));
 
 function Cart() {
-
-
   const role = JSON.parse(localStorage.getItem("userInfos"))?.role;
   const navigate = useNavigate();
   useEffect(() => {
     document.title = "سبد خرید";
     resgisterToastSetter(setShowToast);
     if (role == "teacher") {
-      navigate('/dashboard/teacher')
+      navigate("/dashboard/teacher");
     }
   }, []);
 
@@ -198,6 +196,7 @@ function Cart() {
                     {...course}
                     courseIcon={course.icon}
                     price={PriceToPersian(course.price)}
+                    originalPrice={course?.originalPrice && PriceToPersian(course.originalPrice)}
                     {...showToast}
                   />
                 ))}
@@ -346,21 +345,8 @@ function Cart() {
                     {PriceToPersian(totalPrices())} تومان
                   </p>
                 </div>
-                <div className="apply-off flex justify-between items-center mb-7">
-                  <Input
-                    type="text"
-                    placeholder="تخفیف"
-                    classes="py-1 px-3 border border-gray-300 rounded-md"
-                  />
-                  <Button classes="border border-[var(--light-purple)] rounded-lg !py-1 !px-3 mr-2 text-[var(--dark-purple)]">
-                    اعمال
-                  </Button>
-                </div>
-                {/* <div className="off-count flex justify-between items-center">
-                <p>تخفیف:</p>
-                <p className="text-red-600"></p>
-              </div> */}{" "}
-                {/*this section will be completed later*/}
+                
+
                 <div className="price-for-pay flex justify-between items-center">
                   <p>قابل پرداخت:</p>
                   <p className="text-green-600">

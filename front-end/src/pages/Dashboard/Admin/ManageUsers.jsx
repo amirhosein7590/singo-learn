@@ -76,12 +76,12 @@ function ManageUsers() {
 
       case "remove": {
         showAlertHandler({
-          cancelText : 'انصراف',
-          confirmText : 'حذف',
-          icon : 'warning',
-          onConfirm : ()=> removeUser(user.id),
-          title : 'آیا از حذف اطمینان دارید ؟'
-        })
+          cancelText: "انصراف",
+          confirmText: "حذف",
+          icon: "warning",
+          onConfirm: () => removeUser(user.id),
+          title: "آیا از حذف اطمینان دارید ؟",
+        });
         break;
       }
     }

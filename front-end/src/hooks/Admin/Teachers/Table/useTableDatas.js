@@ -1,14 +1,13 @@
 import { useMemo } from "react";
 import BASE_TABLE_DATAS from "../../../../constants/Table/Admin/Teachers";
+import ToPersianDigit from '../../../../utils/ToPersianDigit'
 
 function useTableDatas(allTeachersData) {
-
-
   const tableDatas = useMemo(() => {
     if (!allTeachersData) return BASE_TABLE_DATAS;
 
     const actionTexts = {
-      remove: 'حذف',
+      remove: "حذف",
       ban: "بن",
       edit: "ویرایش",
       viewCourses: "مشاهده دوره ها",
@@ -29,11 +28,14 @@ function useTableDatas(allTeachersData) {
           (field) => ({
             id: teacher.id,
             type: "text",
-            text: teacher[field],
+            text:
+              field == "phonenumber"
+                ? ToPersianDigit(teacher[field])
+                : teacher[field],
           })
         ),
         ...["viewCourses", "edit", "ban", "remove"].map((action) => ({
-          entityData : teacher,
+          entityData: teacher,
           type: "button",
           action,
           text: actionTexts[action],

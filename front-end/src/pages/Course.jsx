@@ -13,7 +13,7 @@ const Toast = lazy(() => import("../components/sections/Toast"));
 import WhatIsCard from "../components/sections/WhatIsCard";
 import Session from "../components/sections/Accordions/Session/Index";
 import Faqs from "../components/sections/Accordions/Faqs";
-import faqsData from '../data/Faqs'
+import faqsData from "../data/Faqs";
 
 function Course() {
   const { courseId } = useParams();
@@ -34,7 +34,7 @@ function Course() {
   } = useAxiosQuery(
     "course",
     courseId,
-    `/courses/${courseId}?_embed=sessions&_expand=teacher`,
+    `/courses/${courseId}?_embed=sessions`,
     null,
     false
   );
@@ -69,10 +69,9 @@ function Course() {
   const [showContinue, setShowContinue] = useState(false);
   const navigate = useNavigate();
 
-  
-  useEffect(()=>{
+  useEffect(() => {
     resgisterToastSetter(setShowToast);
-  },[])
+  }, []);
 
   useEffect(() => {
     if (addCartData?.message) {
@@ -94,9 +93,9 @@ function Course() {
   const sessionAccordionHandler = (setIsShow) => {
     setIsShow((prev) => !prev);
   };
-  const faqsAccordionHandler = (setIsShow)=>{
-    setIsShow(prev => !prev)
-  }
+  const faqsAccordionHandler = (setIsShow) => {
+    setIsShow((prev) => !prev);
+  };
 
   return (
     <>
@@ -137,6 +136,11 @@ function Course() {
             <div className="course_price flex flex-col md:flex-row md:items-center lg:pl-12 md:justify-between lg:w-1/2 mt-8 md:mt-0">
               <div className="purchase-course md:order-1">
                 <div className="prices flex flex-col">
+                  {course?.originalPrice && (
+                    <p className="originalPrice relative mb-2 before:content-[''] before:w-full before:absolute before:h-[3px] before:rounded-md before:top-0 before:left-0 before:rotate-10 before:origin-left before:bg-red-500 text-sm text-gray-400">
+                      {PriceToPersian(course.originalPrice)} تومان
+                    </p>
+                  )}
                   {course?.price > 0 ? (
                     <p className="text-green-600">
                       {PriceToPersian(course?.price)} تومان
@@ -144,8 +148,6 @@ function Course() {
                   ) : (
                     <p>رایگان</p>
                   )}
-
-                  {/* off price will complete later */}
                 </div>
               </div>
 
@@ -206,7 +208,7 @@ function Course() {
                     </g>
                   </svg>
                   <Button
-                    onclick={() => addToCart(courseId , setShowToast)}
+                    onclick={() => addToCart(courseId, setShowToast)}
                     disabled={isPending}
                     classes="text-white mr-3 text-sm"
                   >
@@ -373,7 +375,7 @@ function Course() {
       </div>
 
       <div className="faqs flex flex-col mt-30">
-         <div className="title flex items-center mb-4">
+        <div className="title flex items-center mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -482,9 +484,9 @@ function Course() {
           </svg>
           <h2 className="text-lg lg:text-2xl mr-2">سوالات متداول</h2>
         </div>
-          {faqsData.map(faq => (
-            <Faqs key={faq.id} onClick={faqsAccordionHandler} {...faq} />
-          ))}
+        {faqsData.map((faq) => (
+          <Faqs key={faq.id} onClick={faqsAccordionHandler} {...faq} />
+        ))}
       </div>
     </>
   );

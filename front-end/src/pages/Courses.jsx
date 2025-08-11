@@ -4,12 +4,12 @@ import CourseItem from "../components/sections/CourseItem";
 import useAxiosQuery from "../hooks/useAxiosQuery";
 import { resgisterToastSetter } from "../utils/ToastController";
 import PriceToPersian from "../utils/PriceToPersian";
+import ToPersianDigit from '../utils/ToPersianDigit'
 
 function Courses() {
   useEffect(() => {
     document.title = "دوره ها";
-      resgisterToastSetter(setShowToast);
-
+    resgisterToastSetter(setShowToast);
   }, []);
 
   const [isFilter, setIsFilter] = useState(false);
@@ -27,7 +27,6 @@ function Courses() {
     null,
     false
   );
-
 
   return (
     <>
@@ -157,7 +156,7 @@ function Courses() {
           </div>
         </div>
 
-        <div className="courses mt-10 grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-6 p-4 w-full">
+        <div className="courses mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 w-full">
           {!isFilter
             ? data &&
               data.map((course) => (
@@ -171,6 +170,10 @@ function Courses() {
                   icon={course.icon}
                   duration={PriceToPersian(course.duration)}
                   stdCount={PriceToPersian(course.studentsCount)}
+                  originalPrice={
+                    course?.originalPrice && PriceToPersian(course.originalPrice)
+                  }
+                  discount={course?.discount && ToPersianDigit(course.discount)}
                   showToast={{ ...showToast }}
                   setShowToast={setShowToast}
                 />
@@ -178,25 +181,23 @@ function Courses() {
             : data &&
               data
                 .filter((course) => course.price == 0)
-                .map(
-                  (course => (
-                    <CourseItem
-                      key={course.id}
-                      title={course.title}
-                      courseId={course.id}
-                      price={
-                        course.price == 0
-                          ? "رایگان"
-                          : PriceToPersian(course.price)
-                      }
-                      icon={course.icon}
-                      duration={PriceToPersian(course.duration)}
-                      stdCount={PriceToPersian(course.studentsCount)}
-                      showToast={{ ...showToast }}
-                      setShowToast={setShowToast}
-                    />
-                  ))
-                )}
+                .map((course) => (
+                  <CourseItem
+                    key={course.id}
+                    title={course.title}
+                    courseId={course.id}
+                    price={
+                      course.price == 0
+                        ? "رایگان"
+                        : PriceToPersian(course.price)
+                    }
+                    icon={course.icon}
+                    duration={PriceToPersian(course.duration)}
+                    stdCount={PriceToPersian(course.studentsCount)}
+                    showToast={{ ...showToast }}
+                    setShowToast={setShowToast}
+                  />
+                ))}
         </div>
       </div>
     </>

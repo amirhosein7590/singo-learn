@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import BASE_TABLE_DATAS from "../../../../constants/Table/Admin/Users";
+import ToPersianDigit from "../../../../utils/ToPersianDigit";
 
 function useTableDatas(allUsers) {
   const tableDatas = useMemo(() => {
@@ -27,11 +28,12 @@ function useTableDatas(allUsers) {
         ...["username", "fullname", "phonenumber", "email"].map((field) => ({
           id: field,
           type: "text",
-          text: user[field],
+          text:
+            field == "phonenumber" ? ToPersianDigit(user[field]) : user[field],
         })),
         ...["viewCourses", "edit", "ban", "remove"].map((action) => ({
           id: user.id,
-          entityData : user,
+          entityData: user,
           action,
           type: "button",
           text: actionTexts[action],

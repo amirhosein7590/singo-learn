@@ -14,7 +14,7 @@ function Table({ thead, tbody , scroll , onAction , actionPending }) {
     onAction(id , action)
   }
   return (
-    <div className={`relative flex flex-col w-full ${scroll ? "lg:h-[330px] h-[230px] overflow-auto" : "overflow-hidden h-auto"} text-gray-700 bg-white shadow-md rounded-lg bg-clip-border`}>
+    <div className={`relative flex flex-col w-full ${scroll ? "lg:h-[330px] h-[230px] overflow-y-auto" : "overflow-y-hidden h-auto"} text-gray-700 bg-white shadow-md rounded-lg bg-clip-border`}>
       <table className="w-full min-w-max text-center table-auto text-slate-800">
         <thead>
           <tr className="text-slate-500 border-b border-slate-300 bg-slate-50">

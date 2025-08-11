@@ -3,14 +3,14 @@ import { lazy, memo, useEffect } from "react";
 import useCart from "../../hooks/useCart";
 import { showToastHandler } from "../../utils/ToastController";
 import { useNavigate } from "react-router";
-const Toast = lazy(()=> import('../sections/Toast'))
+const Toast = lazy(() => import("../sections/Toast"));
 
-function CartItem({ courseIcon, title, price, id , showToast }) {
+function CartItem({ courseIcon, title, price, id, showToast, originalPrice }) {
   const {
     removeFormCart,
     removeCoursePending,
     removeCourseError,
-    removeFromCartData
+    removeFromCartData,
   } = useCart();
   const navigate = useNavigate();
 
@@ -19,10 +19,9 @@ function CartItem({ courseIcon, title, price, id , showToast }) {
       showToastHandler(removeFromCartData.message, "success");
     }
     if (removeCourseError) {
-        let error = removeCourseError.response.data.error;
-        showToastHandler(error, "error");
+      let error = removeCourseError.response.data.error;
+      showToastHandler(error, "error");
     }
-
   }, [removeFromCartData, removeCourseError]);
 
   return (
@@ -37,7 +36,14 @@ function CartItem({ courseIcon, title, price, id , showToast }) {
         </div>
 
         <div className="cart_price flex justify-between mt-5 lg:mt-1 items-center">
-          <p className="text-[#00000099] text-sm">{price} تومان</p>
+          <div className="price flex flex-col">
+            {originalPrice && (
+              <p className="originalPrice relative my-2 before:content-[''] before:w-full before:absolute before:h-[3px] before:rounded-md before:top-0 before:left-0 before:rotate-10 before:origin-left before:bg-red-500 text-sm text-gray-400">
+                {originalPrice} تومان
+              </p>
+            )}
+            <p className="text-[#00000099] text-sm">{price} تومان</p>
+          </div>
           <Button
             disabled={removeCoursePending}
             onclick={() => removeFormCart(id)}
