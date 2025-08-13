@@ -16,6 +16,9 @@ function EditForm({
   isPending,
   buttons,
   btnText,
+  isFetchingNextPage,
+  fetchNextPage,
+  hasNextPage,
 }) {
   const {
     control,
@@ -67,7 +70,13 @@ function EditForm({
                 control={control}
                 rules={input.rules}
                 render={({ field }) => (
-                  <div className="flex flex-col w-full lg:w-[48%] my-2 relative border border-[#aaaa] rounded-sm py-2 px-4 ">
+                  <div
+                    className={`flex flex-col w-full lg:w-[48%] my-2 relative ${
+                      input.border == "hidden"
+                        ? "border-0"
+                        : "border border-[#aaaa]"
+                    } rounded-sm py-2 px-4 `}
+                  >
                     {input.type == "select" ? (
                       <SelectBox
                         name={input.name}
@@ -77,14 +86,34 @@ function EditForm({
                         options={input.options}
                         multiple={input.multiple}
                         placeholder={input.placeholder}
+                        isFetchingNextPage={isFetchingNextPage}
+                        hasNextPage={hasNextPage}
+                        fetchNextPage={fetchNextPage}
                       />
-                    ) : (
+                    ) : input.type == "file" ? (
                       <Input
                         label={input.label}
+                        id={input.id}
                         name={input.name}
                         type={input.type}
                         classes={input.classes}
                         defaultValue={input.defaultValue}
+                        placeholder={input.placeholder}
+                        onChange={(e) => {
+                          field.onChange(e.target.files);
+                        }}
+                        value={undefined}
+                        {...field}
+                      />
+                    ) : (
+                      <Input
+                        label={input.label}
+                        id={input.id}
+                        name={input.name}
+                        type={input.type}
+                        classes={input.classes}
+                        defaultValue={input.defaultValue}
+                        placeholder={input.placeholder}
                         toggleVisibleButton={
                           input.type == "password" && input.toggleVisibleButton
                         }
@@ -112,7 +141,7 @@ function EditForm({
             {buttons &&
               buttons.map((button) => (
                 <Button
-                key={button.id}
+                  key={button.id}
                   classes={button.classes}
                   type={button.type}
                   onclick={() => {

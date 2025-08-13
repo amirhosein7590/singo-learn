@@ -1,5 +1,6 @@
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
+import { useQueryClient } from "@tanstack/react-query";
 
 function useCreateUser() {
   const { token } = JSON.parse(localStorage.getItem("userInfos"));
@@ -14,6 +15,8 @@ function useCreateUser() {
     false
   );
 
+  const queryClient = useQueryClient()
+
   const addUser = (data) => {
     mutate(
       { ...data, role: "user" },
@@ -21,6 +24,7 @@ function useCreateUser() {
         onSuccess: (data) => {
           let successMessage = data?.message;
           showToastHandler(successMessage, "success");
+          queryClient.invalidateQueries({queryKey : ['users']})
         },
         onError: (err) => {
           let errorMessage = err.response.data.error;

@@ -1,19 +1,33 @@
-import useAxiosQuery from "../../useAxiosQuery";
+import useInfiniteQuery from "../../useInfiniteQuery";
 
 function useTeachersList() {
-  const {token } = JSON.parse(localStorage.getItem("userInfos"));
+  const { token } = JSON.parse(localStorage.getItem("userInfos"));
   const headers = { Authorization: `Bearer ${token}` };
   const {
-    data: allTeachersData,
+    allData: allTeachersData,
     error: allTeachersError,
     isPending: allTeachersLoading,
-  } = useAxiosQuery("teachers", null, "/teachers?_embed=courses", { headers }, true);
+    isFetchingNextPage: isFetchingNextTeacher,
+    loadMoreRef,
+  } = useInfiniteQuery(
+    "teachers",
+    null,
+    "/teachers-with-courses",
+    { headers },
+    true,
+    true,
+    false,
+    7,
+    false
+  );
 
   return {
     allTeachersData,
     allTeachersError,
-    allTeachersLoading
-  }
+    allTeachersLoading,
+    isFetchingNextTeacher,
+    loadMoreRef,
+  };
 }
 
 export default useTeachersList;

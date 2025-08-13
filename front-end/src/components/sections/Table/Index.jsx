@@ -1,7 +1,15 @@
 import { memo } from "react";
 import TableRow from "./TableRow";
 
-function Table({ thead, tbody , scroll , onAction , actionPending }) {
+function Table({
+  thead,
+  tbody,
+  scroll,
+  onAction,
+  actionPending,
+  isFetchingNextPage,
+  loadMoreRef,
+}) {
   const chunkArray = (array, size) => {
     const result = [];
     for (let i = 0; i < array.length; i += size) {
@@ -10,11 +18,17 @@ function Table({ thead, tbody , scroll , onAction , actionPending }) {
     return result;
   };
 
-  const onActionHandler = (id , action)=>{
-    onAction(id , action)
-  }
+  const onActionHandler = (id, action) => {
+    onAction(id, action);
+  };
   return (
-    <div className={`relative flex flex-col w-full ${scroll ? "lg:h-[330px] h-[230px] overflow-y-auto" : "overflow-y-hidden h-auto"} text-gray-700 bg-white shadow-md rounded-lg bg-clip-border`}>
+    <div
+      className={`relative flex flex-col w-full ${
+        scroll
+          ? "lg:h-[330px] h-[230px] overflow-y-auto"
+          : "overflow-y-hidden h-auto"
+      } text-gray-700 bg-white shadow-md rounded-lg bg-clip-border`}
+    >
       <table className="w-full min-w-max text-center table-auto text-slate-800">
         <thead>
           <tr className="text-slate-500 border-b border-slate-300 bg-slate-50">
@@ -29,8 +43,15 @@ function Table({ thead, tbody , scroll , onAction , actionPending }) {
         </thead>
         <tbody>
           {chunkArray(tbody, thead.length).map((row, rowIndex) => (
-            <TableRow key={rowIndex} row={row} actionPending={actionPending} onAction={onActionHandler} />
+            <TableRow
+              key={rowIndex}
+              row={row}
+              actionPending={actionPending}
+              onAction={onActionHandler}
+            />
           ))}
+          <tr className="observer w-1 h-2 opacity-0" ref={loadMoreRef}></tr>
+          {isFetchingNextPage && <tr><td>loading ...</td></tr>}
         </tbody>
       </table>
     </div>

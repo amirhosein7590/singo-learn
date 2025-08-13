@@ -1,5 +1,6 @@
 import { useState, memo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
 
 function SelectBox({
   name,
@@ -9,6 +10,9 @@ function SelectBox({
   value,
   onChange,
   placeholder = "یک گزینه انتخاب کنید",
+  isFetchingNextPage,
+  fetchNextPage,
+  hasNextPage,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -26,6 +30,7 @@ function SelectBox({
       setOpen(false);
     }
   };
+  const observerRef = useRef(null);
 
   useEffect(() => {
     if (multiple) {
@@ -36,12 +41,28 @@ function SelectBox({
       if (initialValues.length && (!value || !value.length)) {
         onChange(initialValues);
       }
-    }
-    else {
-      let initialValue = options.find(opt => opt.initialSelect)?.value;
-      onChange(initialValue)
+    } else {
+      let initialValue = options.find((opt) => opt.initialSelect)?.value;
+      onChange(initialValue);
     }
   }, [options]);
+
+  useEffect(() => {
+    if (!open || !observerRef.current || !hasNextPage) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          fetchNextPage();
+        }
+      },
+      { root: null, threshold: 0.5 }
+    );
+
+    observer.observe(observerRef.current);
+
+    return () => observer.disconnect();
+  }, [open, hasNextPage]);
 
   return (
     <div className="relative w-full">
@@ -87,6 +108,11 @@ function SelectBox({
                 {opt.label}
               </li>
             ))}
+            <div
+              ref={observerRef}
+              className="observer w-[1px] h-[1px] opacity-0"
+            ></div>
+            {isFetchingNextPage && <div>loading ...</div>}
           </motion.ul>
         )}
       </AnimatePresence>

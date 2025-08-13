@@ -1,18 +1,22 @@
-import useAxiosQuery from "../../useAxiosQuery";
+import useInfiniteQuery from "../../useInfiniteQuery";
 
 function useUsersList() {
   const { token } = JSON.parse(localStorage.getItem("userInfos"));
   const headers = { Authorization: `Bearer ${token}` };
   const {
-    data: allUsers,
+    allData: allUsers,
     isPending: allUsersLoading,
     error: allUsersError,
-  } = useAxiosQuery("users", null, "/users", { headers }, true, true);
+    loadMoreRef,
+    isFetchingNextPage: isFetchingNextUser,
+  } = useInfiniteQuery("users", null, "/users", headers, true);
 
   return {
-    allUsers: allUsers && allUsers.slice(1, allUsers.length), // To prevent admin deletion
+    allUsers: allUsers && allUsers.filter((user) => user.role != "admin"), // To prevent admin deletion
     allUsersLoading,
     allUsersError,
+    loadMoreRef,
+    isFetchingNextUser,
   };
 }
 

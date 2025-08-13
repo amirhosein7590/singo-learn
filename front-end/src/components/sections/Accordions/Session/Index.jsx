@@ -56,7 +56,7 @@ function Session({
               initial={{ paddingBlock: "0", maxHeight: "0" }}
               animate={{
                 paddingBlock: "1.5rem",
-                maxHeight : `${videos.length * 114.8}px`,
+                maxHeight : `${videos.length * 130.8}px`,
               }}
                 exit={{ paddingBlock: "0", maxHeight: "0" }}
             >

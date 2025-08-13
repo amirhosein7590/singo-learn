@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
-import useAxiosQuery from "../hooks/useAxiosQuery";
+import useInfiniteQuery from "../hooks/useInfiniteQuery";
 import CourseItem from "../components/sections/CourseItem";
 import PriceToPersian from "../utils/PriceToPersian";
 import { resgisterToastSetter } from "../utils/ToastController";
-import ToPersianDigit from '../utils/ToPersianDigit'
+import ToPersianDigit from "../utils/ToPersianDigit";
 
 function Home() {
   useEffect(() => {
@@ -12,12 +12,8 @@ function Home() {
     resgisterToastSetter(setShowToast);
   }, []);
 
-  const { data, isError, isPending } = useAxiosQuery(
-    "courses",
-    null,
-    "/courses",
-    false
-  );
+  const { allData, isLoading, loadMoreRef, isFetchingNextPage } =
+    useInfiniteQuery("courses", null, "/courses", null, false);
 
   const [showToast, setShowToast] = useState({});
 
@@ -200,28 +196,30 @@ function Home() {
         </div>
 
         <div className="courses mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {data &&
-            data
-              .slice(0, 14)
-              .map((course) => (
-                <CourseItem
-                  key={course.id}
-                  title={course.title}
-                  courseId={course.id}
-                  price={
-                    course.price == 0 ? "رایگان" : PriceToPersian(course.price)
-                  }
-                  icon={course.icon}
-                  duration={PriceToPersian(course.duration)}
-                  stdCount={PriceToPersian(course.studentsCount)}
-                  showToast={{ ...showToast }}
-                  originalPrice={
-                    course?.originalPrice && PriceToPersian(course.originalPrice)
-                  }
-                  discount={course?.discount && ToPersianDigit(course.discount)}
-                  setShowToast={setShowToast}
-                />
-              ))}
+          {allData &&
+            allData.slice(0 , 10).map((course) => (
+              <CourseItem
+                key={course.id}
+                title={course.title}
+                courseId={course.id}
+                price={
+                  course.price == 0 ? "رایگان" : PriceToPersian(course.price)
+                }
+                icon={course.icon}
+                duration={PriceToPersian(course.duration)}
+                stdCount={PriceToPersian(course.studentsCount)}
+                showToast={{ ...showToast }}
+                originalPrice={
+                  course?.originalPrice && PriceToPersian(course.originalPrice)
+                }
+                discount={course?.discount && ToPersianDigit(course.discount)}
+                setShowToast={setShowToast}
+              />
+            ))}
+
+          <div ref={loadMoreRef} className="observer opacity-0 w-1 h-2"></div>
+          {isFetchingNextPage && <p>Loading more...</p>}
+          {isLoading && <p>Loading...</p>}
         </div>
       </main>
     </>

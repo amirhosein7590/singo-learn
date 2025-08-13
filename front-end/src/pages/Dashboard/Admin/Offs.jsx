@@ -20,11 +20,16 @@ function Offs() {
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const { createInputPattern } = useCreateInputPattern();
+  const {
+    createInputPattern,
+    fetchNextCourse,
+    hasNextCourse,
+    isFetchingNextCourse,
+  } = useCreateInputPattern();
   const { addSingleOff, addSingleOffLoading } = useAddSingleOff();
   const { addMultipleOff, addMultipleOffLoading } = useAddMultipleOff();
   const { editOff, editOffLoading } = useEditOff();
-  const { tableDatas } = useTableDatas();
+  const { tableDatas, loadMoreOff, isFetchingNextOff } = useTableDatas();
   const { editInputPatterns } = useEditInputPatterns();
   const { removeOff, removeOffLoading } = useRemoveOff();
 
@@ -76,7 +81,7 @@ function Offs() {
   return (
     <>
       <div className="wrapper flex flex-col">
-        <div className="add-teacher py-3 px-6 flex flex-col">
+        <div className="add-off py-3 px-6 flex flex-col">
           <EditForm
             title="اعمال تخفیف"
             inputPatterns={createInputPattern}
@@ -86,15 +91,20 @@ function Offs() {
               addSingleOff(data.courseId, { percentage: data.percentage })
             }
             buttons={buttons}
+            fetchNextPage={fetchNextCourse}
+            hasNextPage={hasNextCourse}
+            isFetchingNextPage={isFetchingNextCourse}
           />
         </div>
         <div className="py-3 px-6">
           <Table
             thead={tableDatas.thead}
             tbody={tableDatas.tbody}
-            scroll={false}
+            scroll={true}
             actionPending={false}
             onAction={actionHandler}
+            isFetchingNextPage={isFetchingNextOff}
+            loadMoreRef={loadMoreOff}
           />
         </div>
       </div>

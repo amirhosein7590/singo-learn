@@ -22,7 +22,14 @@ import uesEditTeacher from "../../../hooks/Admin/Teachers/useEditTeacher";
 import useBanTeacher from "../../../hooks/Admin/Teachers/useBanTeacher";
 
 function ManageTeachers() {
-  const { courses, coursesError, coursesLoading } = useListCourses();
+  const {
+    courses,
+    coursesError,
+    coursesLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useListCourses(true);
   const queryClient = useQueryClient();
   const [showToast, setShowToast] = useState({});
   const [showAlert, setShowAlert] = useState(false);
@@ -31,8 +38,13 @@ function ManageTeachers() {
   const { registerTeacher, registerTeacherLoading } =
     useRegisterTeacher(queryClient);
 
-  const { allTeachersData, allTeachersError, allTeachersLoading } =
-    useTeachersList();
+  const {
+    allTeachersData,
+    allTeachersError,
+    allTeachersLoading,
+    isFetchingNextTeacher,
+    loadMoreRef,
+  } = useTeachersList();
 
   const { removeTeacher, removeTeacherLoading } = useRemoveTeacher();
   const { editTeacherInputHandler } = useEditInputPattern();
@@ -88,15 +100,17 @@ function ManageTeachers() {
       }
       case "ban": {
         banTeacher(teacher.id, !teacher.isBanned);
+        break;
       }
-      case 'remove' : {
+      case "remove": {
         showAlertHandler({
-          cancelText : 'انصراف',
-          confirmText : 'حذف',
-          icon : 'warning',
-          onConfirm : ()=> removeTeacher(teacher.id),
-          title : 'آیا از حذف اطمینان دارید'
-        })
+          cancelText: "انصراف",
+          confirmText: "حذف",
+          icon: "warning",
+          onConfirm: () => removeTeacher(teacher.id),
+          title: "آیا از حذف اطمینان دارید",
+        });
+        break;
       }
     }
   };
@@ -116,6 +130,9 @@ function ManageTeachers() {
               inputPatterns={createTeacherInputPattern}
               isPending={registerTeacherLoading}
               onAction={registerTeacher}
+              isFetchingNextPage={isFetchingNextPage}
+              hasNextPage={hasNextPage}
+              fetchNextPage={fetchNextPage}
             />
           )}
         </div>
@@ -126,6 +143,8 @@ function ManageTeachers() {
             scroll={true}
             onAction={handleAction}
             actionPending={actionPending}
+            isFetchingNextPage={isFetchingNextTeacher}
+            loadMoreRef={loadMoreRef}
           />
         </div>
       </div>

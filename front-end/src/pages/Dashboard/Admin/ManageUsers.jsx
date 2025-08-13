@@ -23,7 +23,13 @@ function ManageUsers() {
   const [showAlert, setShowAlert] = useState(false);
   const [userId, setUserId] = useState(null);
 
-  const { allUsers, allUsersError, allUsersLoading } = useUsersList();
+  const {
+    allUsers,
+    allUsersError,
+    allUsersLoading,
+    isFetchingNextUser,
+    loadMoreRef,
+  } = useUsersList();
   const { editUserInputPattern } = useEditInputPattern();
   const { userCoursesData, userCoursesError, userCoursesLoading } =
     useUserCourses(userId);
@@ -131,6 +137,8 @@ function ManageUsers() {
             scroll={true}
             actionPending={actionPending}
             onAction={handleAction}
+            isFetchingNextPage={isFetchingNextUser}
+            loadMoreRef={loadMoreRef}
           />
         </div>
       </div>

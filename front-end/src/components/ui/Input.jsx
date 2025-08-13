@@ -11,6 +11,15 @@ function Input(props) {
     }
   };
 
+  const handleChange = (event)=>{
+    if (props.type == 'file'){
+      props.onChange(event.target.files)
+    }
+    else {
+      props.onChange(event.target.value)
+    }
+  }
+
   return (
     <>
       {props.type == "password" ? (
@@ -38,14 +47,16 @@ function Input(props) {
       ) : (
         <>
           {props.label && (
-            <label className={props.label.classes}>{props.label.message}</label>
+            <label htmlFor={props.label.for} className={props.label.classes}>{props.label.message}</label>
           )}
           <input
+            id={props.id}
             type={props.type}
             defaultValue={props.defaultValue}
             className={`outline-none ${props.classes}`}
             placeholder={props.placeholder}
-            onChange={(e) => props.onChange(e.target.value)}
+            onChange={(event) => handleChange(event)}
+            value={props.type == 'file' ? undefined : props.value}
           />
         </>
       )}

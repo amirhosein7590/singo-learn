@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
 import CourseItem from "../components/sections/CourseItem";
-import useAxiosQuery from "../hooks/useAxiosQuery";
+import useInfiniteQuery from "../hooks/useInfiniteQuery";
 import { resgisterToastSetter } from "../utils/ToastController";
 import PriceToPersian from "../utils/PriceToPersian";
-import ToPersianDigit from '../utils/ToPersianDigit'
+import ToPersianDigit from "../utils/ToPersianDigit";
 
 function Courses() {
   useEffect(() => {
@@ -20,13 +20,8 @@ function Courses() {
 
   const [showToast, setShowToast] = useState({});
 
-  const { data, isError, isPending } = useAxiosQuery(
-    "courses",
-    null,
-    "/courses",
-    null,
-    false
-  );
+  const { allData, isLoading, loadMoreRef, isFetchingNextPage } =
+    useInfiniteQuery("courses", null, "/courses", null, false);
 
   return (
     <>
@@ -158,8 +153,8 @@ function Courses() {
 
         <div className="courses mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 w-full">
           {!isFilter
-            ? data &&
-              data.map((course) => (
+            ? allData &&
+              allData.map((course) => (
                 <CourseItem
                   key={course.id}
                   title={course.title}
@@ -171,15 +166,16 @@ function Courses() {
                   duration={PriceToPersian(course.duration)}
                   stdCount={PriceToPersian(course.studentsCount)}
                   originalPrice={
-                    course?.originalPrice && PriceToPersian(course.originalPrice)
+                    course?.originalPrice &&
+                    PriceToPersian(course.originalPrice)
                   }
                   discount={course?.discount && ToPersianDigit(course.discount)}
                   showToast={{ ...showToast }}
                   setShowToast={setShowToast}
                 />
               ))
-            : data &&
-              data
+            : allData &&
+              allData
                 .filter((course) => course.price == 0)
                 .map((course) => (
                   <CourseItem
@@ -198,6 +194,10 @@ function Courses() {
                     setShowToast={setShowToast}
                   />
                 ))}
+
+          <div ref={loadMoreRef} className="observer opacity-0 w-1 h-2"></div>
+          {isFetchingNextPage && <p>Loading more...</p>}
+          {isLoading && <p>Loading...</p>}
         </div>
       </div>
     </>

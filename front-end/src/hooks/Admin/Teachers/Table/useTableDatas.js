@@ -5,7 +5,6 @@ import ToPersianDigit from '../../../../utils/ToPersianDigit'
 function useTableDatas(allTeachersData) {
   const tableDatas = useMemo(() => {
     if (!allTeachersData) return BASE_TABLE_DATAS;
-
     const actionTexts = {
       remove: "حذف",
       ban: "بن",

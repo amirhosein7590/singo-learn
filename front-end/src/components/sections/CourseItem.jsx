@@ -110,7 +110,7 @@ function CourseItem({
         </div>
       </div>
       {isPurchasedCourse(courseId) ? (
-        <div className="border-t pt-5 flex justify-center border-t-[#0000001f]">
+        <div className="border-t pt-5 mt-auto flex justify-center border-t-[#0000001f]">
           <Button
             to={`/courses/${courseId}`}
             classes="border !text-sm rounded-lg py-2 border-[var(--dark-purple)] text-[var(--dark-purple)]"

@@ -16,6 +16,7 @@ import AdminAccount from "./pages/Dashboard/Admin/Account";
 import ManageTeachers from "./pages/Dashboard/Admin/ManageTeachers";
 import ManageUsers from "./pages/Dashboard/Admin/ManageUsers";
 import Offs from "./pages/Dashboard/Admin/Offs";
+import Sessions from "./pages/Dashboard/Admin/Sessions";
 
 
 import Cart from './pages/Cart'
@@ -37,7 +38,8 @@ const routes = [
                 {index : true , element : <AdminAccount />},
                 {path : 'teachers' , element : <ManageTeachers />},
                 {path : 'users' , element : <ManageUsers /> },
-                {path : 'offs' , element : <Offs />}
+                {path : 'offs' , element : <Offs />},
+                {path : 'sessions' , element : <Sessions />}
             ]}
         ]},
         {path : '/cart' , element : <Cart />},

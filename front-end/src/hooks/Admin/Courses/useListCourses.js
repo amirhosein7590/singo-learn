@@ -1,15 +1,33 @@
-import useAxiosQuery from "../../useAxiosQuery";
-function useListCourses() {
+import useInfiniteQuery from "../../useInfiniteQuery";
+function useListCourses(customeObserver) {
   const {
-    data: courses,
+    allData: courses,
+    loadMoreRef,
+    isFetchingNextPage,
     error: coursesError,
     isPending: coursesLoading,
-  } = useAxiosQuery("courses", null, "/courses", null, false);
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(
+    "courses",
+    "null",
+    "/courses",
+    false,
+    false,
+    true,
+    false,
+    null,
+    customeObserver
+  );
 
   return {
     courses,
     coursesError,
     coursesLoading,
+    loadMoreRef,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
   };
 }
 

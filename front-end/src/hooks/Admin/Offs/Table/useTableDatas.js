@@ -4,10 +4,16 @@ import PriceToPersian from "../../../../utils/PriceToPersian";
 import { useMemo } from "react";
 
 function useTableDatas() {
-  const { discountCoursesData, discountCoursesLoading } = useDiscountCourses();
+  const {
+    discountCoursesData,
+    discountCoursesLoading,
+    loadMoreOff,
+    isFetchingNextOff,
+  } = useDiscountCourses();
 
   const tableDatas = useMemo(() => {
     if (!discountCoursesData) return BASE_TABLE_DATAS;
+    console.log(discountCoursesData);
 
     const actionText = {
       remove: "حذف",
@@ -22,11 +28,11 @@ function useTableDatas() {
 
     return {
       thead: BASE_TABLE_DATAS.thead,
-      tbody: discountCoursesData.courses.flatMap((off) => [
+      tbody: discountCoursesData.flatMap((off) => [
         ...["title", "discount", "originalPrice", "price"].map((field) => ({
           id: field,
           type: "text",
-          text: field == 'title' ? off[field] : PriceToPersian(off[field]),
+          text: field == "title" ? off[field] : PriceToPersian(off[field]),
         })),
 
         ...["edit", "remove"].map((action) => ({
@@ -42,6 +48,8 @@ function useTableDatas() {
 
   return {
     tableDatas,
+    loadMoreOff,
+    isFetchingNextOff
   };
 }
 

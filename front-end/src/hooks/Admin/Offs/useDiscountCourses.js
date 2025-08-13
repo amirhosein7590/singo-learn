@@ -1,17 +1,31 @@
-import useAxiosQuery from "../../useAxiosQuery";
+import useInfiniteQuery from "../../useInfiniteQuery";
 
 function useDiscountCourses() {
   const {
-    data: discountCoursesData,
+    allData: discountCoursesData,
     error: discountCoursesError,
     isPending: discountCoursesLoading,
-  } = useAxiosQuery("offs", null, "/courses/discounted", null, false);
+    isFetchingNextPage : isFetchingNextOff,
+    loadMoreRef : loadMoreOff
+  } = useInfiniteQuery(
+    "offs",
+    null,
+    "/courses/discounted",
+    null,
+    false,
+    true,
+    false,
+    5,
+    false
+  );
 
   return {
     discountCoursesData,
     discountCoursesError,
-    discountCoursesLoading
-  }
+    discountCoursesLoading,
+    loadMoreOff,
+    isFetchingNextOff
+  };
 }
 
 export default useDiscountCourses;
