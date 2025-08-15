@@ -82,7 +82,7 @@ function SelectBox({
               <span className="text-gray-400">{placeholder}</span>
             )
           ) : value ? (
-            options.find((o) => o.value === value)?.label || value
+            options.find((o) => o.value === value)?.label || placeholder
           ) : (
             <span className="text-gray-400">{placeholder}</span>
           )}

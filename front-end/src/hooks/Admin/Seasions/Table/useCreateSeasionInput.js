@@ -12,6 +12,9 @@ function useCreateSeasionInputs() {
   } = useListCourses(true);
 
   const createSeasionInputs = useMemo(() => {
+    if (!courses || coursesLoading || isFetchingNextCourse) return CreateSeasion.map(input => (
+      input.type == 'select' ? {...input , placeholder : 'در حال بارگذاری ...'} : input
+    ))
     return CreateSeasion.map((input) =>
       input.type == "select" && input.name == "courseId"
         ? {
@@ -32,7 +35,9 @@ function useCreateSeasionInputs() {
     createSeasionInputs,
     fetchNextCourse,
     hasNextCourse,
-    isFetchingNextCourse
+    isFetchingNextCourse,
+    courses,
+    coursesLoading
   };
 }
 

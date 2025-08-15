@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 let setShowModal = null;
 
 function modalSetter(setter) {
@@ -21,7 +23,7 @@ function showModalHandler({
     : () => {
         setShowModal((prev) => ({ ...prev, visible: false }));
       };
-      
+
   setShowModal({
     visible: true,
     inputPatterns,
@@ -30,7 +32,7 @@ function showModalHandler({
     onAction,
     title,
     tableData,
-    onClose : onCloseHandler
+    onClose: onCloseHandler,
   });
 }
 

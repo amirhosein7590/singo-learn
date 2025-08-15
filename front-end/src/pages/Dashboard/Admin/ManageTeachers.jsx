@@ -87,7 +87,7 @@ function ManageTeachers() {
         break;
       }
       case "edit": {
-        let inputPatterns = editTeacherInputHandler(teacher, courses);
+        let inputPatterns = editTeacherInputHandler(teacher);
         showModalHandler({
           inputPatterns,
           isEdit: true,

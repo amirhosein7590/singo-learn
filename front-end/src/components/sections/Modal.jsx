@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import EditForm from "../sections/EditForm";
 import Table from "../sections/Table/Index";
 import Button from "../ui/Button";
@@ -22,13 +22,16 @@ function Modal({
   onAction,
   title = "",
   tableData = [],
+  isFetchingNextPage,
+  hasNextPage,
+  fetchNextPage,
 }) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     
-    return ()=>{
+    return () => {
       document.body.style.overflow = "auto";
-    }
+    };
   }, []);
 
   return (
@@ -68,6 +71,9 @@ function Modal({
               inputPatterns={inputPatterns}
               isPending={isPending}
               onAction={onAction}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+              fetchNextPage={fetchNextPage}
             />
           ) : (
             <>

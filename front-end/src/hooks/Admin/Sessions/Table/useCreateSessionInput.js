@@ -11,6 +11,10 @@ function useCreateSessionInput() {
     isFetchingNextSession,
   } = useListSessions();
   const createSessionInputs = useMemo(() => {
+    if (!sessions || isFetchingNextSession || sessionsLoading) return CreateSession.map(input => (
+      input.type == 'select' ? {...input , placeholder : 'درحال بارگذاری ...'} : input
+    ))
+
     return CreateSession.map((input) =>
       input.type == "select"
         ? {

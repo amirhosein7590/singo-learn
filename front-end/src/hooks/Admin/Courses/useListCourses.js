@@ -28,7 +28,7 @@ function useListCourses(customeObserver) {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  };
+ };
 }
 
 export default useListCourses;

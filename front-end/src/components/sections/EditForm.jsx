@@ -29,7 +29,9 @@ function EditForm({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     defaultValues: inputPatterns.reduce((acc, input) => {
-      acc[input.name] = input.defaultValue || "";
+      if (input.type != 'select'){
+        acc[input.name] = input.defaultValue || "";
+      }
       return acc;
     }, {}),
   });
@@ -86,9 +88,17 @@ function EditForm({
                         options={input.options}
                         multiple={input.multiple}
                         placeholder={input.placeholder}
-                        isFetchingNextPage={isFetchingNextPage}
-                        hasNextPage={hasNextPage}
-                        fetchNextPage={fetchNextPage}
+                        isFetchingNextPage={
+                          input.infiniteScrollProps?.isFetchingNextPage ??
+                          isFetchingNextPage
+                        }
+                        hasNextPage={
+                          input.infiniteScrollProps?.hasNextPage ?? hasNextPage
+                        }
+                        fetchNextPage={
+                          input.infiniteScrollProps?.fetchNextPage ??
+                          fetchNextPage
+                        }
                       />
                     ) : input.type == "file" ? (
                       <Input

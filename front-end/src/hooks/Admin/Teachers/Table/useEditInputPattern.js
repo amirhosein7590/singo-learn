@@ -1,7 +1,17 @@
 import BASE_EDIT_TEACHER_INPUT_PATTERN from "../../../../constants/InputPatterns/Admin/Teachers/EditTeacher";
+import useAxiosQuery from "../../../useAxiosQuery";
 
 function useEditInputPattern() {
-  const editTeacherInputHandler = (teacher, courses) => {
+  const { token } = JSON.parse(localStorage.getItem("userInfos"));
+  const headers = { Authorization: `Bearer ${token}` };
+  const {data : courses} = useAxiosQuery(
+    "all-courses",
+    null,
+    "/all-courses",
+    { headers },
+    true
+  );
+  const editTeacherInputHandler = (teacher) => {
     return BASE_EDIT_TEACHER_INPUT_PATTERN.map((input) => {
       if (input.type == "select" && input.multiple) {
         return {
