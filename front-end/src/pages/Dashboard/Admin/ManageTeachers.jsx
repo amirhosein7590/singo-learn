@@ -64,7 +64,8 @@ function ManageTeachers() {
     modalSetter(setShowModal);
   }, []);
 
-  const handleAction = (teacher, actionType) => {
+  const handleAction = (infos) => {
+    let { entityData: teacher, action: actionType } = infos;
     switch (actionType) {
       case "viewCourses": {
         let tableData = {

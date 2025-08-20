@@ -57,7 +57,7 @@ const BASE_CREATE_SESSION_INPUT_PATTERN = [
     rules: {
       required: "ویدئو انتخاب نشده است",
       validate: {
-        lessThan10Meg: (files) => {
+        lessThan20Meg: (files) => {
           return (
             files?.[0]?.size < 20 * 1024 * 1024 ||
             "حجم فایل باید کمتر از 20 مگابایت باشد"

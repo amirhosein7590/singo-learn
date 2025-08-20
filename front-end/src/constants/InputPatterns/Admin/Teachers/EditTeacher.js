@@ -12,7 +12,7 @@ const BASE_EDIT_TEACHER_INPUT_PATTERN = [
       required: "نام کاربری نمیتواند خالی باشد",
       pattern: {
         value: /^.{5,}$/,
-        message: "نام کاربری نمیتواند کمتر از 5 کاراکتر باشد",
+        message: "نام کاربری کوتاه است",
       },
     },
   },

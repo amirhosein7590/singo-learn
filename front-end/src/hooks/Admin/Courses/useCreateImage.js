@@ -1,0 +1,41 @@
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { showToastHandler } from "../../../utils/ToastController";
+
+function useCreateImage() {
+  const headers = {
+    Authorization: `Bearer public_G22nht29PccNxn4bRcskXEovAAjf`,
+  };
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationKey: ["Image"],
+    mutationFn: async (data) => {
+      try {
+        let res = await axios.post(
+          "https://api.bytescale.com/v2/accounts/G22nht2/uploads/form_data",
+          data,
+          {
+            headers,
+          }
+        );
+        let image = await res.data;
+        return image;
+      } catch (error) {
+        showToastHandler("خطا در آپلود عکس", "error");
+      }
+    },
+  });
+
+  const addImage = async (file) => {
+    let formData = new FormData();
+    formData.append("files", file);
+    return await mutateAsync(formData);
+  };
+
+  return {
+    isPending,
+    addImage,
+  };
+}
+
+export default useCreateImage;

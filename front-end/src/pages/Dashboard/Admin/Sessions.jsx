@@ -33,8 +33,7 @@ function Sessions() {
     hasNextSession,
     isFetchingNextSession,
   } = useCreateSessionInput();
-  const { editSeasionInputHandler } =
-  useEditSeasionInput();
+  const { editSeasionInputHandler } = useEditSeasionInput();
   const { seasionTableDatas, loadMoreSeasion, isFetchingNextSeasion } =
     useSeasionTableDatas();
   const { createSeasion, createSeasionLoading } = useCreateSeasion();
@@ -42,7 +41,9 @@ function Sessions() {
   const { removeSeasion, removeSeasionLoading } = useRemoveSeasion();
   const { editSeasion, editSeasionLoading } = useEditSeasion();
 
-  const actionHandler = (seasion, actionType) => {
+  const actionHandler = (infos) => {
+    let { entityData: seasion, action: actionType } = infos;
+
     switch (actionType) {
       case "remove": {
         showAlertHandler({
@@ -55,7 +56,7 @@ function Sessions() {
         break;
       }
       case "edit": {
-        const inputPatterns = editSeasionInputHandler(seasion)
+        const inputPatterns = editSeasionInputHandler(seasion);
         showModalHandler({
           isEdit: true,
           isPending: editSeasionLoading,
@@ -66,7 +67,7 @@ function Sessions() {
             const isFreeBoolean = isFree == "false" ? false : true;
             editSeasion({ isFree: isFreeBoolean, ...others }, seasion.id);
           },
-          inputPatterns
+          inputPatterns,
         });
         break;
       }
@@ -137,7 +138,7 @@ function Sessions() {
 
       {showToast?.visible && <Toast {...showToast} />}
       {showAlert?.visible && <Alert {...showAlert} />}
-      {showModal?.visible &&<Modal {...showModal} />}
+      {showModal?.visible && <Modal {...showModal} />}
     </>
   );
 }

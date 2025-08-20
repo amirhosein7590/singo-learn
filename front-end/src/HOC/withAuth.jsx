@@ -1,23 +1,19 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, Navigate } from "react-router";
 
 function withAuth(Component) {
   return function AuthWrapper(props) {
-    const navigate = useNavigate();
     const location = useLocation();
+    const userInfos = JSON.parse(localStorage.getItem("userInfos"));
 
-    useEffect(() => {
-      const userInfos = JSON.parse(localStorage.getItem("userInfos"));
+    if (!userInfos?.role) {
+      return <Navigate to={"/login"} replace={true} />;
+    }
 
-      if (!userInfos?.role) {
-        return navigate("/login");
-      }
-
-      const currentRole = location.pathname.split("/")[2]
-      if (userInfos.role !== currentRole) {
-        return navigate("/");
-      }
-    }, [location]);
+    const currentRole = location.pathname.split("/")[2];
+    if (userInfos.role !== currentRole) {
+      return <Navigate to={"/"} replace={true} />;
+    }
 
     return <Component {...props} />;
   };

@@ -50,7 +50,9 @@ function ManageUsers() {
     modalSetter(setShowModal);
   }, []);
 
-  const handleAction = (user, actionType) => {
+  const handleAction = (infos) => {
+        let {entityData : user , action : actionType} = infos;
+
     switch (actionType) {
       case "viewCourses": {
         setUserId(user.id);

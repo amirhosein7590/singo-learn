@@ -13,7 +13,7 @@ const BASE_EDIT_SEASION_INPUT_PATTERN = [
       required: "شماره فصل نمیتواند خالی باشد",
       pattern: {
         value: /^.{5,}$/,
-        message: "شماره فصل نمیتواند کمتر از 5 کاراکتر باشد",
+        message: "شماره فصل کوتاه است",
       },
     },
   },
@@ -40,7 +40,7 @@ const BASE_EDIT_SEASION_INPUT_PATTERN = [
       required: "عنوان فصل نمیتواند خالی باشد",
       pattern: {
         value: /^.{5,}$/,
-        message: "عنوان فصل نمیتواند کمتر از 5 کاراکتر باشد",
+        message: "عنوان فصل کوتاه است",
       },
     },
   },

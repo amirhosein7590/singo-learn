@@ -8,6 +8,7 @@ import Toast from "./Toast";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import SelectBox from "../ui/SelectBox";
+import Editor from "../sections/Editor";
 
 function EditForm({
   title,
@@ -25,11 +26,12 @@ function EditForm({
     handleSubmit,
     formState: { errors, submitCount },
     getValues,
+    reset
   } = useForm({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     defaultValues: inputPatterns.reduce((acc, input) => {
-      if (input.type != 'select'){
+      if (["number", "text", "email"].includes(input.type)) {
         acc[input.name] = input.defaultValue || "";
       }
       return acc;
@@ -72,69 +74,76 @@ function EditForm({
                 control={control}
                 rules={input.rules}
                 render={({ field }) => (
-                  <div
-                    className={`flex flex-col w-full lg:w-[48%] my-2 relative ${
-                      input.border == "hidden"
-                        ? "border-0"
-                        : "border border-[#aaaa]"
-                    } rounded-sm py-2 px-4 `}
-                  >
-                    {input.type == "select" ? (
-                      <SelectBox
-                        name={input.name}
-                        label={input.label}
-                        value={field.value}
-                        onChange={field.onChange}
-                        options={input.options}
-                        multiple={input.multiple}
-                        placeholder={input.placeholder}
-                        isFetchingNextPage={
-                          input.infiniteScrollProps?.isFetchingNextPage ??
-                          isFetchingNextPage
-                        }
-                        hasNextPage={
-                          input.infiniteScrollProps?.hasNextPage ?? hasNextPage
-                        }
-                        fetchNextPage={
-                          input.infiniteScrollProps?.fetchNextPage ??
-                          fetchNextPage
-                        }
-                      />
-                    ) : input.type == "file" ? (
-                      <Input
-                        label={input.label}
-                        id={input.id}
-                        name={input.name}
-                        type={input.type}
-                        classes={input.classes}
-                        defaultValue={input.defaultValue}
-                        placeholder={input.placeholder}
-                        onChange={(e) => {
-                          field.onChange(e.target.files);
-                        }}
-                        value={undefined}
-                        {...field}
-                      />
-                    ) : (
-                      <Input
-                        label={input.label}
-                        id={input.id}
-                        name={input.name}
-                        type={input.type}
-                        classes={input.classes}
-                        defaultValue={input.defaultValue}
-                        placeholder={input.placeholder}
-                        toggleVisibleButton={
-                          input.type == "password" && input.toggleVisibleButton
-                        }
-                        showPassword={input.type == "password" && showPassword}
-                        setShowPassword={
-                          input.type == "password" && setShowPassword
-                        }
-                        {...field}
-                      />
+                  <>
+                    {input.type != "editor" && (
+                      <div
+                        className={`flex flex-col w-full lg:w-[48%] my-2 relative ${
+                          input.border == "hidden"
+                            ? "border-0"
+                            : "border border-[#aaaa]"
+                        } rounded-sm py-2 px-4 `}
+                      >
+                        {input.type == "select" ? (
+                          <SelectBox
+                            name={input.name}
+                            label={input.label}
+                            value={field.value}
+                            onChange={field.onChange}
+                            options={input.options}
+                            multiple={input.multiple}
+                            placeholder={input.placeholder}
+                            isFetchingNextPage={
+                              input.infiniteScrollProps?.isFetchingNextPage ??
+                              isFetchingNextPage
+                            }
+                            hasNextPage={
+                              input.infiniteScrollProps?.hasNextPage ??
+                              hasNextPage
+                            }
+                            fetchNextPage={
+                              input.infiniteScrollProps?.fetchNextPage ??
+                              fetchNextPage
+                            }
+                          />
+                        ) : input.type == "file" ? (
+                          <Input
+                            label={input.label}
+                            id={input.id}
+                            name={input.name}
+                            type={input.type}
+                            classes={input.classes}
+                            placeholder={input.placeholder}
+                            onChange={(files)=> field.onChange(files)}
+                          />
+                        ) : (
+                          <Input
+                            label={input.label}
+                            id={input.id}
+                            name={input.name}
+                            type={input.type}
+                            classes={input.classes}
+                            placeholder={input.placeholder}
+                            toggleVisibleButton={
+                              input.type == "password" &&
+                              input.toggleVisibleButton
+                            }
+                            showPassword={
+                              input.type == "password" && showPassword
+                            }
+                            setShowPassword={
+                              input.type == "password" && setShowPassword
+                            }
+                            {...field}
+                          />
+                        )}
+                      </div>
                     )}
-                  </div>
+                    {input.type == "editor" && (
+                      <div className="w-full">
+                        <Editor {...input} {...field} />
+                      </div>
+                    )}
+                  </>
                 )}
               />
             ))}

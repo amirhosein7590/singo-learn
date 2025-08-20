@@ -26,7 +26,7 @@ function CartItem({ courseIcon, title, price, id, showToast, originalPrice }) {
 
   return (
     <div className="cart flex flex-col lg:flex-row p-4 shadow-[var(--cart-shadow)] my-4 rounded-xl w-full">
-      <div className="cart__icon w-full lg:w-2/12">
+      <div className="cart__icon w-full lg:w-2/12 flex items-center">
         <img className="w-[80px] h-[80px]" src={courseIcon} alt="" />
       </div>
 

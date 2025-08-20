@@ -2,13 +2,18 @@ import { useState, memo, useEffect } from "react";
 import Button from "../ui/Button";
 import SideMenu from "./SideMenu";
 import useAxiosQuery from "../../hooks/useAxiosQuery";
+import { useLocation } from "react-router";
 
 function Nav() {
   const [isMenuShown, setIsMenuShown] = useState(false);
-  let userInfos = JSON.parse(localStorage.getItem("userInfos"));
-  const accessToken = userInfos?.token
-  const reqHeader = { Authorization: `Bearer ${accessToken}` };
+  const [userInfos, setUserInfos] = useState(() =>
+    JSON.parse(localStorage.getItem("userInfos"))
+  );
+  const location = useLocation()
 
+  const accessToken = userInfos?.token;
+  const reqHeader = { Authorization: `Bearer ${accessToken}` };
+  
   const { data, isPending, isError } = useAxiosQuery(
     "cart",
     null,
@@ -17,11 +22,16 @@ function Nav() {
     true,
     userInfos?.role == "teacher" || !userInfos?.token ? false : true
   );
-
+  
   const showMenuHandler = () => {
     setIsMenuShown((prev) => !prev);
   };
+  
+  useEffect(() => {
+      setUserInfos(JSON.parse(localStorage.getItem('userInfos')))
+  }, [location]);
 
+  
   return (
     <>
       <nav className="flex justify-around items-center w-10/12 mx-auto p-1.5 bg-white">

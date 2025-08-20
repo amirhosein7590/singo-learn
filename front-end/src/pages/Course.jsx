@@ -113,7 +113,7 @@ function Course() {
 
           <div className="video py-1 lg:w-1/2 mt-10 ">
             <video
-              className="rounded-lg"
+              className="rounded-lg object-fill"
               controls
               src="https://example.com/example-video.mp4"
               poster={course?.image}

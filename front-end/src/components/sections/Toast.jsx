@@ -20,7 +20,7 @@ function Toast({ message, icon, onClose }) {
       transition={{ type: "spring", stiffness: 500, damping: 30 }}
       className="toast flex z-100 items-center fixed bg-white py-2 px-3 text-sm lg:text-[16px] lg:py-2 lg:px-6 rounded-lg shadow-xs left-1/2 -translate-x-1/2 top-2/12"
     >
-      <img src={`../../public/svg/${icon}.svg`} alt="" />
+      <img src={`/svg/${icon}.svg`} alt="" />
       <p className="toast-title mr-1 text-[#363636]">{message}</p>
     </motion.div>
   );

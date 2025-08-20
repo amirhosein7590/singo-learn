@@ -12,7 +12,6 @@ function useEditSeasionInput() {
     true
   );
 
-  console.log(courses);
   const editSeasionInputHandler = useCallback(
     (seasion) => {
       if (!courses || courses.length < 1 || coursesLoading)

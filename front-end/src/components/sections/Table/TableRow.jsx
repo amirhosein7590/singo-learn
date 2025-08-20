@@ -15,6 +15,9 @@ function TableRow({ row , onAction , actionPending }) {
           type={td.type}
           entityData={td.entityData}
           actionPending={actionPending}
+          validationPattern={td.validationPattern}
+          border={td.border}
+          label={td.label}
         />
       ))}
     </tr>

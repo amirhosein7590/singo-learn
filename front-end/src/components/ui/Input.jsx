@@ -4,21 +4,20 @@ function Input(props) {
     let { setShowPassword, showPassword } = props;
     setShowPassword((prev) => !prev);
     let visibleIcon = e.currentTarget.children[0];
-    if (showPassword) {      
+    if (showPassword) {
       visibleIcon.src = "../../public/svg/inVisible.svg";
     } else {
       visibleIcon.src = "../../public/svg/visible.svg";
     }
   };
 
-  const handleChange = (event)=>{
-    if (props.type == 'file'){
-      props.onChange(event.target.files)
+  const handleChange = (event) => {
+    if (props.type == "file") {
+      props.onChange(event.target.files);
+    } else {
+      props.onChange(event.target.value);
     }
-    else {
-      props.onChange(event.target.value)
-    }
-  }
+  };
 
   return (
     <>
@@ -44,10 +43,29 @@ function Input(props) {
             <img src="../../public/svg/inVisible.svg" alt="" />
           </i>
         </>
+      ) : props.type == "file" ? (
+        <>
+          {props.label && (
+            <label htmlFor={props.label.for} className={props.label.classes}>
+              {props.label.message}
+            </label>
+          )}
+          <input
+            id={props.id}
+            type={props.type}
+            className={`outline-none ${props.classes}`}
+            placeholder={props.placeholder}
+            onChange={(event)=> handleChange(event)}
+            disabled={props.disabled}
+            onBlur={props.onBlur}
+          />
+        </>
       ) : (
         <>
           {props.label && (
-            <label htmlFor={props.label.for} className={props.label.classes}>{props.label.message}</label>
+            <label htmlFor={props.label.for} className={props.label.classes}>
+              {props.label.message}
+            </label>
           )}
           <input
             id={props.id}
@@ -55,8 +73,11 @@ function Input(props) {
             defaultValue={props.defaultValue}
             className={`outline-none ${props.classes}`}
             placeholder={props.placeholder}
+            disabled={props.disabled}
             onChange={(event) => handleChange(event)}
-            value={props.type == 'file' ? undefined : props.value}
+            {...(props.type !== "file" && {
+              value: props.value ?? "",
+            })}
           />
         </>
       )}

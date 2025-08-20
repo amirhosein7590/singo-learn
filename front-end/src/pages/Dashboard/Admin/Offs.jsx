@@ -52,7 +52,9 @@ function Offs() {
     },
   ];
 
-  const actionHandler = (off, actionType) => {
+  const actionHandler = (infos) => {
+        let {entityData : off , action : actionType} = infos;
+
     switch (actionType) {
       case "edit": {
         let inputPatterns = editInputPatterns(off);

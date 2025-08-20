@@ -44,6 +44,10 @@ function CourseItem({
     }
   }, [addCartData, addCartError]);
 
+  useEffect(()=>{
+
+  },[])
+
   const iconLoadingError = (event) => {
     event.target.src = "../../../public/svg/course-icon-fallback.svg";
   };

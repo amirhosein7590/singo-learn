@@ -17,6 +17,7 @@ import ManageTeachers from "./pages/Dashboard/Admin/ManageTeachers";
 import ManageUsers from "./pages/Dashboard/Admin/ManageUsers";
 import Offs from "./pages/Dashboard/Admin/Offs";
 import Sessions from "./pages/Dashboard/Admin/Sessions";
+import ManageCourses from "./pages/Dashboard/Admin/ManageCourses";
 
 
 import Cart from './pages/Cart'
@@ -39,7 +40,8 @@ const routes = [
                 {path : 'teachers' , element : <ManageTeachers />},
                 {path : 'users' , element : <ManageUsers /> },
                 {path : 'offs' , element : <Offs />},
-                {path : 'sessions' , element : <Sessions />}
+                {path : 'sessions' , element : <Sessions />},
+                {path : 'courses' , element : <ManageCourses />}
             ]}
         ]},
         {path : '/cart' , element : <Cart />},
