@@ -5,6 +5,7 @@ import useInfiniteQuery from "../hooks/useInfiniteQuery";
 import { resgisterToastSetter } from "../utils/ToastController";
 import PriceToPersian from "../utils/PriceToPersian";
 import ToPersianDigit from "../utils/ToPersianDigit";
+import { useLocation } from "react-router";
 
 function Courses() {
   useEffect(() => {
@@ -21,7 +22,7 @@ function Courses() {
   const [showToast, setShowToast] = useState({});
 
   const { allData, isLoading, loadMoreRef, isFetchingNextPage } =
-    useInfiniteQuery("courses", null, "/courses", null, false);
+    useInfiniteQuery("courses",null, "/courses", null, false);
 
   return (
     <>

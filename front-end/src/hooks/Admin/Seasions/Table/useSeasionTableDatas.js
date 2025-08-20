@@ -27,7 +27,7 @@ function useSeasionTableDatas() {
             type: "text",
             text:
               field == "course"
-                ? seasion.course.title
+                ? seasion.course?.title || seasion?.title
                 : field == "isFree"
                 ? seasion.isFree
                   ? "رایگان"

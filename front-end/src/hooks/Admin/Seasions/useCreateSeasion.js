@@ -7,9 +7,9 @@ function useCreateSeasion() {
   const queryClient = useQueryClient();
 
   const { mutate, createSeasionLoading } = useAxiosMutate(
-    "seasion", // may be later change to seasions
+    "seasion", 
     null,
-    "/sessions", // may be later change to seasions
+    "/sessions", 
     { headers },
     "post",
     true
@@ -19,7 +19,7 @@ function useCreateSeasion() {
     mutate(data, {
       onSuccess: (data) => {
         showToastHandler(data?.message, "success");
-        queryClient.invalidateQueries({ queryKey: ["seasion"] }); // may be later change to seasions
+        queryClient.invalidateQueries({ queryKey: ["seasion"] }); 
       },
       onError: (err) => {
         let errorMessage = err.response.data.error;

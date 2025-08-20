@@ -83,7 +83,7 @@ function TableCell({
                     ...label,
                     for: id,
                     message: actionPending[action]
-                      ? "در حال ارسال ..."
+                      ? "در حال ارسال .."
                       : label.message,
                   }}
                   classes={classes}

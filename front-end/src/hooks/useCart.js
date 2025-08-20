@@ -49,7 +49,7 @@ export function useCart() {
 
   const { data: purchasedCourses } = useAxiosQuery(
     "purchase",
-    null,
+    role,
     `/user-courses/${userId}`,
     {
       reqHeader,

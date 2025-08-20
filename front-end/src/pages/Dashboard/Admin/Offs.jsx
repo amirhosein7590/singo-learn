@@ -80,6 +80,10 @@ function Offs() {
       }
     }
   };
+
+  const actionPending = {
+    remove : removeOffLoading
+  }
   return (
     <>
       <div className="wrapper flex flex-col">
@@ -103,7 +107,7 @@ function Offs() {
             thead={tableDatas.thead}
             tbody={tableDatas.tbody}
             scroll={true}
-            actionPending={false}
+            actionPending={actionPending}
             onAction={actionHandler}
             isFetchingNextPage={isFetchingNextOff}
             loadMoreRef={loadMoreOff}

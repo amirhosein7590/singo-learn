@@ -124,16 +124,6 @@ function Sessions() {
             loadMoreRef={loadMoreSeasion}
           />
         </div>
-
-        <div className="sessions-table py-3 px-6 mb-5">
-          {/* <Table
-                thead={tableDatas.thead}
-                tbody={tableDatas.tbody}
-                scroll={false}
-                actionPending={false}
-                onAction={actionHandler}
-              /> */}
-        </div>
       </div>
 
       {showToast?.visible && <Toast {...showToast} />}

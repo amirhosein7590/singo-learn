@@ -50,7 +50,7 @@ function CartItem({ courseIcon, title, price, id, showToast, originalPrice }) {
             classes="border border-[#dc2626] py-1 px-4 rounded-lg"
           >
             {removeCoursePending ? (
-              "در حال ارسال"
+              "در حال ارسال ..."
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

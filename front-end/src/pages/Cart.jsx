@@ -358,7 +358,7 @@ function Cart() {
                   disabled={purchasePending}
                   classes="text-white py-2 px-4 bg-[var(--dark-purple)] mt-8 rounded-lg"
                 >
-                  {purchasePending ? "در حال ارسال ..." : "تکمیل سفارش"}
+                  {purchasePending ? "در حال ارسال .." : "تکمیل سفارش"}
                 </Button>
               </div>
             </div>

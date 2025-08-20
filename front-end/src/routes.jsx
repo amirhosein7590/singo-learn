@@ -18,7 +18,9 @@ import ManageUsers from "./pages/Dashboard/Admin/ManageUsers";
 import Offs from "./pages/Dashboard/Admin/Offs";
 import Sessions from "./pages/Dashboard/Admin/Sessions";
 import ManageCourses from "./pages/Dashboard/Admin/ManageCourses";
-
+import Teacher from './pages/Dashboard/Teacher/Index'
+import TeacherAccount from './pages/Dashboard/Teacher/Account'
+import TeacherSessions from './pages/Dashboard/Teacher/Sessions'
 
 import Cart from './pages/Cart'
 const routes = [
@@ -42,6 +44,10 @@ const routes = [
                 {path : 'offs' , element : <Offs />},
                 {path : 'sessions' , element : <Sessions />},
                 {path : 'courses' , element : <ManageCourses />}
+            ]},
+            {path : 'teacher' , element : <Teacher /> , children : [
+                {index : true, element : <TeacherAccount />},
+                {path : 'sessions' , element : <TeacherSessions />}
             ]}
         ]},
         {path : '/cart' , element : <Cart />},

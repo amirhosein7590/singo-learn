@@ -168,7 +168,7 @@ function EditForm({
                     button.onClick(value[button.targetValue]);
                   }}
                 >
-                  {button.isPending ? "در حال ارسال" : button.text}
+                  {button.isPending ? "در حال ارسال ..." : button.text}
                 </Button>
               ))}
           </div>

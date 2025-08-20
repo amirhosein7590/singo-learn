@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router";
+import { Outlet } from "react-router";
 import DashboardSideBar from "../../../components/sections/DashboardSideBar";
 import useAxiosQuery from "../../../hooks/useAxiosQuery";
 import ToPersianDigit from "../../../utils/ToPersianDigit";

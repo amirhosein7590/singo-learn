@@ -226,7 +226,7 @@ function Register() {
           classes="text-white bg-[var(--dark-purple)] py-1.5 text-[16px] rounded-sm shadow-[var(--cart-shadow)] mt-3"
           disabled={isPending}
         >
-          {isPending ? "در حال ارسال" : "ثبت نام"}
+          {isPending ? "در حال ارسال ..." : "ثبت نام"}
         </Button>
       </form>
     </AuthForm>
