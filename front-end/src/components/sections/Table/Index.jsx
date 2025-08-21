@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import TableRow from "./TableRow";
 
 function Table({
@@ -42,16 +42,24 @@ function Table({
           </tr>
         </thead>
         <tbody>
-          {chunkArray(tbody, thead.length).map((row, rowIndex) => (
-            <TableRow
-              key={rowIndex}
-              row={row}
-              actionPending={actionPending}
-              onAction={onActionHandler}
-            />
-          ))}
+          {tbody.length > 0 ? (
+            chunkArray(tbody, thead.length).map((row, rowIndex) => (
+              <TableRow
+                key={rowIndex}
+                row={row}
+                actionPending={actionPending}
+                onAction={onActionHandler}
+              />
+            ))
+          ) : (
+            <tr className="mt-2 text-center"><td>اطلاعاتی جهت نمایش وجود ندارد</td></tr>
+          )}
           <tr className="observer w-1 h-2 opacity-0" ref={loadMoreRef}></tr>
-          {isFetchingNextPage && <tr><td>loading ...</td></tr>}
+          {isFetchingNextPage && (
+            <tr>
+              <td>loading ...</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

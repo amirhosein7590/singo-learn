@@ -5,7 +5,6 @@ import CourseItem from "../components/sections/CourseItem";
 import PriceToPersian from "../utils/PriceToPersian";
 import { resgisterToastSetter } from "../utils/ToastController";
 import ToPersianDigit from "../utils/ToPersianDigit";
-import { useLocation } from "react-router";
 
 function Home() {
   useEffect(() => {
@@ -13,7 +12,7 @@ function Home() {
     resgisterToastSetter(setShowToast);
   }, []);
 
-  const { allData, isLoading, loadMoreRef, isFetchingNextPage } =
+  const { allData,} =
     useInfiniteQuery("courses", null, "/courses", null, false);
 
   const [showToast, setShowToast] = useState({});
@@ -199,7 +198,6 @@ function Home() {
         <div className="courses mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
           {allData &&
             allData
-              .slice(0, 10)
               .map((course) => (
                 <CourseItem
                   key={course.id}
@@ -220,10 +218,6 @@ function Home() {
                   setShowToast={setShowToast}
                 />
               ))}
-
-          <div ref={loadMoreRef} className="observer opacity-0 w-1 h-2"></div>
-          {isFetchingNextPage && <p>Loading more...</p>}
-          {isLoading && <p>Loading...</p>}
         </div>
       </main>
     </>
