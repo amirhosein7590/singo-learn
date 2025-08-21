@@ -14,7 +14,16 @@
     src: url(../public/fonts/YekanBakh-Fat.e508fcc6.woff);
 }
 
-h1,h2,h3,h4,h5{
-    font-family: Yekan Bakh Fat
+@font-face {
+    font-family: Yekan Bakh Heavy;
+    src: url(../public/fonts/YekanBakh-Heavy.630c4fa4.woff) , format(woof);
+}
+
+h1{
+    font-family: Yekan Bakh Fat;
+}
+
+h2,h3,h4,h5{
+    font-family: Yekan Bakh Heavy
 }
 @import "tailwindcss";
