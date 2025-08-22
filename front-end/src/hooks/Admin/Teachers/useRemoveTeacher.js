@@ -8,7 +8,7 @@ function useRemoveTeacher() {
   const headers = { Authorization: `Bearer ${token}` };
 
   const {
-    mutate,
+    mutateAsync,
     isPending: removeTeacherLoading,
   } = useAxiosMutate(
     "teachers",
@@ -20,7 +20,7 @@ function useRemoveTeacher() {
   );
 
   const removeTeacher = (teacherId) => {
-    mutate(null, {
+    mutateAsync(null, {
       urlParams: { id: teacherId },
       onSuccess: () => {
         showToastHandler('حذف موفق'  , 'success')

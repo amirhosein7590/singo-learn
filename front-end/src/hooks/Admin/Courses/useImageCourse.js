@@ -9,7 +9,7 @@ function useImageCourse() {
   const headers = { Authorization: `Bearer ${token}` };
   const { addImage, isPending } = useCreateImage();
 
-  const { mutate, editImageLoading } = useAxiosMutate(
+  const { mutateAsync, editImageLoading } = useAxiosMutate(
     "courses",
     null,
     "/courses/:id/image",
@@ -22,7 +22,7 @@ function useImageCourse() {
     const file = files?.[0];
     let res = await addImage(file);
     let fileUrl = await res.files[0].fileUrl;
-    mutate({image : fileUrl}, {
+    mutateAsync({image : fileUrl}, {
       urlParams: { id: courseId },
       onSuccess: (data) => {
         let successMessage = data.message;

@@ -27,10 +27,16 @@ function useMutate(key, deps, url, headers = null, reqType, isPrivate = false) {
     const finalUrl = injectParamsIntoUrl(url, options.urlParams);
     baseMutation.mutate({ data, finalUrl }, options);
   };
+  
+  const mutateAsync = (data = null , options = {})=>{
+    const finalUrl = injectParamsIntoUrl(url, options.urlParams);
+    return baseMutation.mutateAsync({data , finalUrl} , options)
+  }
 
   return {
     ...baseMutation,
     mutate,
+    mutateAsync
   };
 }
 

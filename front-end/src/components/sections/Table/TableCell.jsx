@@ -23,6 +23,7 @@ function TableCell({
   border,
   label,
   id,
+  pendingKeysRef,
 }) {
   const {
     control,
@@ -45,14 +46,21 @@ function TableCell({
   useEffect(() => {
     resgisterToastSetter(setShowToast);
   }, []);
+
+  const localyPending = (courseId, action) => {
+    return pendingKeysRef.current.has(`${courseId}:${action}`);
+  };
+
   return (
     <>
       <td className="px-3 py-2">
         {type === "button" ? (
           <Button
             classes={classes}
-            onclick={() => onAction({entityData, action})}
-            disabled={actionPending[action]}
+            onclick={() => onAction({ entityData, action })}
+            disabled={
+              actionPending[action] && localyPending(entityData.id, action)
+            }
           >
             {action == "ban" && entityData?.isBanned
               ? "رفع بن"
@@ -70,21 +78,26 @@ function TableCell({
               render={({ field }) => (
                 <Input
                   id={id}
-                  disabled={actionPending[action]}
+                  disabled={
+                    actionPending[action] &&
+                    localyPending(entityData.id, action)
+                  }
                   type={type}
                   onChange={async (files) => {
                     field.onChange(files);
                     let isValid = await trigger(action);
                     if (isValid) {
-                      onAction({entityData , action , files})
+                      onAction({ entityData, action, files });
                     }
                   }}
                   label={{
                     ...label,
                     for: id,
-                    message: actionPending[action]
-                      ? "در حال ارسال .."
-                      : label.message,
+                    message:
+                      actionPending[action] &&
+                      localyPending(entityData.id, action)
+                        ? "در حال ارسال .."
+                        : label.message,
                   }}
                   classes={classes}
                   onBlur={() => trigger(action)}

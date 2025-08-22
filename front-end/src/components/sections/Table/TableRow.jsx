@@ -1,7 +1,7 @@
 import { memo } from "react";
 import TableCell from "./TableCell";
 
-function TableRow({ row , onAction , actionPending }) {
+function TableRow({ row, onAction, actionPending, pendingKeysRef }) {
   return (
     <tr className="hover:bg-slate-50">
       {row.map((td, tdIndex) => (
@@ -18,6 +18,7 @@ function TableRow({ row , onAction , actionPending }) {
           validationPattern={td.validationPattern}
           border={td.border}
           label={td.label}
+          pendingKeysRef={pendingKeysRef}
         />
       ))}
     </tr>

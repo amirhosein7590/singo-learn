@@ -9,7 +9,7 @@ function useCreateSeasionInput() {
     isFetchingNextPage,
     teacherCoursesLoading,
     teacherCourses,
-  } = useTeacherCourses(true);
+  } = useTeacherCourses();
 
   const createSeasionInputs = useMemo(() => {
     if (!teacherCourses || teacherCoursesLoading || isFetchingNextPage)

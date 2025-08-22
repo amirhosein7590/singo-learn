@@ -7,7 +7,7 @@ function useBanTeacher() {
   const headers = { Authorization: `Bearer ${token}` };
   const queryClient = useQueryClient();
 
-  const { mutate, isPending: banTeacherLoading } = useAxiosMutate(
+  const { mutateAsync, isPending: banTeacherLoading } = useAxiosMutate(
     "teachers",
     null,
     "/ban",
@@ -17,7 +17,7 @@ function useBanTeacher() {
   );
 
   const banTeacher = (teacherId, isBanned) => {
-    mutate(
+    mutateAsync(
       { targetType: "teacher", targetId: teacherId, isBanned },
       {
         onSuccess: (data) => {

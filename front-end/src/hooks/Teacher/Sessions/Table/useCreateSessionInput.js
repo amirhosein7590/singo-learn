@@ -4,24 +4,25 @@ import useListSeasion from "../../Seasion/useListSeasion";
 
 function useCreateSessionInput() {
   const {
-    sessions,
-    sessionsLoading,
-    fetchNextSession,
-    hasNextSession,
-    isFetchingNextSession,
-  } = useListSeasion(true);
+    fetchNextSeasion,
+    isFetchingNextSeasion,
+    seasions,
+    seasionsLoading,
+    hasNextSeasion
+  } = useListSeasion();
   const createSessionInputs = useMemo(() => {
-    if (!sessions || isFetchingNextSession || sessionsLoading) return CreateSession.map(input => (
+    if (!seasions || isFetchingNextSeasion || seasionsLoading) return CreateSession.map(input => (
       input.type == 'select' ? {...input , placeholder : 'درحال بارگذاری ...'} : input
     ))
+
 
     return CreateSession.map((input) =>
       input.type == "select"
         ? {
             ...input,
             options:
-              sessions &&
-              sessions.flatMap((session) => ({
+              seasions &&
+              seasions.flatMap((session) => ({
                 id: session.id,
                 label: session.title,
                 value: session.id,
@@ -29,13 +30,13 @@ function useCreateSessionInput() {
           }
         : input
     );
-  }, [sessions, sessionsLoading]);
+  }, [seasions, seasionsLoading]);
 
   return {
     createSessionInputs,
-    hasNextSession,
-    fetchNextSession,
-    isFetchingNextSession,
+    hasNextSeasion,
+    fetchNextSeasion,
+    isFetchingNextSeasion,
   };
 }
 

@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 function useBanUser() {
   const { token } = JSON.parse(localStorage.getItem("userInfos"));
   const headers = { Authorization: `Bearer ${token}` };
-  const { mutate, isPending: banUserLoading } = useAxiosMutate(
+  const { mutateAsync, isPending: banUserLoading } = useAxiosMutate(
     "users",
     null,
     "/ban",
@@ -17,7 +17,7 @@ function useBanUser() {
   const queryClient = useQueryClient();
 
   const banUser = (data)=>{
-    mutate(data , {
+    mutateAsync(data , {
         onSuccess : data => {
             let successMessage = data.message;
             showToastHandler(successMessage , 'success');

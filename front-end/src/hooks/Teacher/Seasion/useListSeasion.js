@@ -8,11 +8,17 @@ function useListSeasions() {
     isPending: seasionsLoading,
     loadMoreRef: loadMoreSeasion,
     isFetchingNextPage: isFetchingNextSeasion,
+    fetchNextPage : fetchNextSeasion,
+    hasNextPage : hasNextSeasion
   } = useInfiniteQuery(
     "seasions",
     null,
     "/seasions-with-course",
     { headers },
+    true,
+    true,
+    false,
+    10,
     true
   );
 
@@ -21,6 +27,8 @@ function useListSeasions() {
     seasionsLoading,
     loadMoreSeasion,
     isFetchingNextSeasion,
+    fetchNextSeasion,
+    hasNextSeasion
   };
 }
 

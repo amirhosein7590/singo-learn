@@ -6,7 +6,7 @@ function useRemoveCourse() {
   const queryClient = useQueryClient();
   const { token } = JSON.parse(localStorage.getItem("userInfos"));
   const headers = { Authorization: `Bearer ${token}` };
-  const {mutate , isPending : removeCourseLoading} = useAxiosMutate(
+  const {mutateAsync , isPending : removeCourseLoading} = useAxiosMutate(
     "courses",
     null,
     "/courses/:id",
@@ -17,7 +17,7 @@ function useRemoveCourse() {
 
 
   const removeCourse = (courseId)=>{
-    mutate(null , {
+    mutateAsync(null , {
         urlParams : {id : courseId},
          onSuccess: () => {
         showToastHandler('حذف موفق'  , 'success')

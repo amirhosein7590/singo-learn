@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 import SectionTitle from "../components/sections/About_Us/SeactionTitle";
 import FeatureItem from "../components/sections/About_Us/FeatureItem";
-import pattern from '../constants/pages/AboutUs'
+import pattern from '../data/AboutUs'
 
 function AboutUs() {
   useEffect(() => {

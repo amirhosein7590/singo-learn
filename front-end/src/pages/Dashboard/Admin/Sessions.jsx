@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, useMemo } from "react";
+import { useEffect, useState, lazy, useRef } from "react";
 import EditForm from "../../../components/sections/EditForm";
 import Table from "../../../components/sections/Table/Index";
 const Modal = lazy(() => import("../../../components/sections/Modal"));
@@ -21,6 +21,8 @@ function Sessions() {
   const [showToast, setShowToast] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const pendingKeysRef = useRef(new Set());
+
   const {
     createSeasionInputs,
     fetchNextCourse,
@@ -41,8 +43,16 @@ function Sessions() {
   const { removeSeasion, removeSeasionLoading } = useRemoveSeasion();
   const { editSeasion, editSeasionLoading } = useEditSeasion();
 
+  const addPending = (seasionId, action) => {
+    pendingKeysRef.current.add(`${seasionId}:${action}`);
+  };
+  const removePending = (seasionId, action) => {
+    pendingKeysRef.current.delete(`${seasionId}:${action}`);
+  };
+
   const actionHandler = (infos) => {
     let { entityData: seasion, action: actionType } = infos;
+    addPending(seasion.id , actionType)
 
     switch (actionType) {
       case "remove": {
@@ -50,7 +60,10 @@ function Sessions() {
           cancelText: "انصراف",
           confirmText: "حذف",
           icon: "warning",
-          onConfirm: () => removeSeasion(seasion.id),
+          onConfirm: async() => {
+            await removeSeasion(seasion.id)
+            removePending(seasion.id , actionType)
+          },
           title: "آیا از حذف اطمینان دارید ؟",
         });
         break;
@@ -122,6 +135,7 @@ function Sessions() {
             onAction={actionHandler}
             isFetchingNextPage={isFetchingNextSeasion}
             loadMoreRef={loadMoreSeasion}
+            pendingKeysRef={pendingKeysRef}
           />
         </div>
       </div>

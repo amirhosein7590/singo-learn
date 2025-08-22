@@ -7,7 +7,7 @@ function useRemoveOff() {
   const headers = { Authorization: `Bearer ${token}` };
   const queryClient = useQueryClient();
 
-  const { mutate, removeOffLoading } = useAxiosMutate(
+  const { mutateAsync, removeOffLoading } = useAxiosMutate(
     "offs",
     null,
     "/offs/:id",
@@ -17,7 +17,7 @@ function useRemoveOff() {
   );
 
   const removeOff = (courseId) => {
-    mutate(null, {
+    mutateAsync(null, {
       urlParams: { id: courseId },
       onSuccess: (data) => {
         let successMessage = data.message;

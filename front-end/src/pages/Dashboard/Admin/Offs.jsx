@@ -1,4 +1,4 @@
-import { lazy, useState, useEffect } from "react";
+import { lazy, useState, useEffect , useRef } from "react";
 const Modal = lazy(() => import("../../../components/sections/Modal"));
 import { modalSetter, showModalHandler } from "../../../utils/ModalController";
 const Toast = lazy(() => import("../../../components/sections/Toast"));
@@ -19,6 +19,7 @@ function Offs() {
   const [showToast, setShowToast] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const pendingKeysRef = useRef(new Set());
 
   const {
     createInputPattern,
@@ -52,8 +53,16 @@ function Offs() {
     },
   ];
 
+  const addPending = (offId, action) => {
+    pendingKeysRef.current.add(`${offId}:${action}`);
+  };
+  const removePending = (offId, action) => {
+    pendingKeysRef.current.delete(`${offId}:${action}`);
+  };
+
   const actionHandler = (infos) => {
-        let {entityData : off , action : actionType} = infos;
+    let { entityData: off, action: actionType } = infos;
+    addPending(off.id , actionType)
 
     switch (actionType) {
       case "edit": {
@@ -73,7 +82,10 @@ function Offs() {
           cancelText: "انصراف",
           confirmText: "حذف",
           icon: "warning",
-          onConfirm: () => removeOff(off.id),
+          onConfirm: async () => {
+            await removeOff(off.id)
+            removePending(off.id , actionType)
+          },
           title: "آیا از حذف اطمینان دارید ؟",
         });
         break;
@@ -82,8 +94,8 @@ function Offs() {
   };
 
   const actionPending = {
-    remove : removeOffLoading
-  }
+    remove: removeOffLoading,
+  };
   return (
     <>
       <div className="wrapper flex flex-col">
@@ -111,6 +123,7 @@ function Offs() {
             onAction={actionHandler}
             isFetchingNextPage={isFetchingNextOff}
             loadMoreRef={loadMoreOff}
+            pendingKeysRef={pendingKeysRef}
           />
         </div>
       </div>

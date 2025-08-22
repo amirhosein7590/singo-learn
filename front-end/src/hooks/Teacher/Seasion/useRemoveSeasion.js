@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 function useRemoveSeasion() {
   const { token } = JSON.parse(localStorage.getItem("userInfos"));
   const headers = { Authorization: `Bearer ${token}` };
-  const { mutate, isPending: removeSeasionLoading } = useAxiosMutate(
+  const { mutateAsync, isPending: removeSeasionLoading } = useAxiosMutate(
     "seasions",
     null,
     "/sessions/:id",
@@ -14,7 +14,7 @@ function useRemoveSeasion() {
   );
   const queryClient = useQueryClient();
   const removeSeasion = (seasionId) => {
-    mutate(null, {
+    mutateAsync(null, {
       urlParams: { id: seasionId },
       onSuccess: (data) => {
         showToastHandler(data?.message, "success");

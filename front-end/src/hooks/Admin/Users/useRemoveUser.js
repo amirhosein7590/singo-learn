@@ -6,7 +6,7 @@ function useRemoveUser() {
   const headers = { Authorization: `Bearer ${token}` };
   const queryClient = useQueryClient();
 
-  const { mutate, isPending: removeUserLoading } = useAxiosMutate(
+  const { mutateAsync, isPending: removeUserLoading } = useAxiosMutate(
     "users",
     null,
     `/users/:id`,
@@ -16,7 +16,7 @@ function useRemoveUser() {
   );
 
   const removeUser = (userId) => {
-    mutate(null, {
+    mutateAsync(null, {
       urlParams: { id: userId },
       onSuccess: (data) => {
         let successMessage = data.message;

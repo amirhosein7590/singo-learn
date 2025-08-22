@@ -9,6 +9,7 @@ function Table({
   actionPending,
   isFetchingNextPage,
   loadMoreRef,
+  pendingKeysRef
 }) {
   const chunkArray = (array, size) => {
     const result = [];
@@ -49,10 +50,11 @@ function Table({
                 row={row}
                 actionPending={actionPending}
                 onAction={onActionHandler}
+                pendingKeysRef={pendingKeysRef}
               />
             ))
           ) : (
-            <tr className="mt-2 text-center"><td>اطلاعاتی جهت نمایش وجود ندارد</td></tr>
+            <tr className="text-center"><td className="text-sm lg:text-[16px]">اطلاعاتی جهت نمایش وجود ندارد</td></tr>
           )}
           <tr className="observer w-1 h-2 opacity-0" ref={loadMoreRef}></tr>
           {isFetchingNextPage && (

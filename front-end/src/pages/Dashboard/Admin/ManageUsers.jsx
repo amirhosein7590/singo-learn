@@ -1,4 +1,4 @@
-import { lazy, useEffect, useState } from "react";
+import { lazy, useEffect, useState, useRef } from "react";
 const Modal = lazy(() => import("../../../components/sections/Modal"));
 import { modalSetter, showModalHandler } from "../../../utils/ModalController";
 const Toast = lazy(() => import("../../../components/sections/Toast"));
@@ -22,6 +22,7 @@ function ManageUsers() {
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [userId, setUserId] = useState(null);
+  const pendingKeysRef = useRef(new Set());
 
   const {
     allUsers,
@@ -50,8 +51,16 @@ function ManageUsers() {
     modalSetter(setShowModal);
   }, []);
 
-  const handleAction = (infos) => {
-        let {entityData : user , action : actionType} = infos;
+  const addPending = (userId, action) => {
+    pendingKeysRef.current.add(`${userId}:${action}`);
+  };
+  const removePending = (userId, action) => {
+    pendingKeysRef.current.delete(`${userId}:${action}`);
+  };
+
+  const actionHandler = async (infos) => {
+    let { entityData: user, action: actionType } = infos;
+    addPending(user.id, actionType);
 
     switch (actionType) {
       case "viewCourses": {
@@ -78,7 +87,8 @@ function ManageUsers() {
           targetType: "user",
         };
 
-        banUser(reqBody);
+        await banUser(reqBody);
+        removePending(user.id, actionType);
         break;
       }
 
@@ -87,7 +97,10 @@ function ManageUsers() {
           cancelText: "انصراف",
           confirmText: "حذف",
           icon: "warning",
-          onConfirm: () => removeUser(user.id),
+          onConfirm: async () => {
+            await removeUser(user.id);
+            removePending(user.id, actionType);
+          },
           title: "آیا از حذف اطمینان دارید ؟",
         });
         break;
@@ -138,9 +151,10 @@ function ManageUsers() {
             tbody={tableDatas.tbody}
             scroll={true}
             actionPending={actionPending}
-            onAction={handleAction}
+            onAction={actionHandler}
             isFetchingNextPage={isFetchingNextUser}
             loadMoreRef={loadMoreRef}
+            pendingKeysRef={pendingKeysRef}
           />
         </div>
       </div>

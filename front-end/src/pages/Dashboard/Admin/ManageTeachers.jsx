@@ -1,12 +1,9 @@
-import { lazy, memo, useEffect, useState } from "react";
+import { lazy, memo, useEffect, useState, useRef } from "react";
 import EditForm from "../../../components/sections/EditForm";
 import useListCourses from "../../../hooks/Admin/Courses/useListCourses";
 import useRegisterTeacher from "../../../hooks/Admin/Teachers/useRegisterTeacher";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  resgisterToastSetter,
-  showToastHandler,
-} from "../../../utils/ToastController";
+import { resgisterToastSetter } from "../../../utils/ToastController";
 import { alertSetter, showAlertHandler } from "../../../utils/AlertController";
 import { modalSetter, showModalHandler } from "../../../utils/ModalController";
 import Table from "../../../components/sections/Table/Index";
@@ -34,6 +31,7 @@ function ManageTeachers() {
   const [showToast, setShowToast] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const pendingKeysRef = useRef(new Set());
 
   const { registerTeacher, registerTeacherLoading } =
     useRegisterTeacher(queryClient);
@@ -64,8 +62,17 @@ function ManageTeachers() {
     modalSetter(setShowModal);
   }, []);
 
-  const handleAction = (infos) => {
+  const addPending = (teacherId, action) => {
+    pendingKeysRef.current.add(`${teacherId}:${action}`);
+  };
+  const removePending = (teacherId, action) => {
+    pendingKeysRef.current.delete(`${teacherId}:${action}`);
+  };
+
+  const actionHandler = async (infos) => {
     let { entityData: teacher, action: actionType } = infos;
+    addPending(teacher.id, actionType);
+
     switch (actionType) {
       case "viewCourses": {
         let tableData = {
@@ -100,7 +107,8 @@ function ManageTeachers() {
         break;
       }
       case "ban": {
-        banTeacher(teacher.id, !teacher.isBanned);
+        await banTeacher(teacher.id, !teacher.isBanned);
+        removePending(teacher.id, actionType);
         break;
       }
       case "remove": {
@@ -108,7 +116,10 @@ function ManageTeachers() {
           cancelText: "انصراف",
           confirmText: "حذف",
           icon: "warning",
-          onConfirm: () => removeTeacher(teacher.id),
+          onConfirm: async () => {
+            await removeTeacher(teacher.id);
+            removePending(teacher.id, actionType);
+          },
           title: "آیا از حذف اطمینان دارید",
         });
         break;
@@ -142,10 +153,11 @@ function ManageTeachers() {
             thead={tableDatas.thead}
             tbody={tableDatas.tbody}
             scroll={true}
-            onAction={handleAction}
+            onAction={actionHandler}
             actionPending={actionPending}
             isFetchingNextPage={isFetchingNextTeacher}
             loadMoreRef={loadMoreRef}
+            pendingKeysRef={pendingKeysRef}
           />
         </div>
       </div>

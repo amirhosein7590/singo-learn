@@ -1,4 +1,4 @@
-import { act, lazy, useEffect, useState } from "react";
+import { act, lazy, useEffect, useRef, useState } from "react";
 const Modal = lazy(() => import("../../../components/sections/Modal"));
 import { modalSetter, showModalHandler } from "../../../utils/ModalController";
 const Toast = lazy(() => import("../../../components/sections/Toast"));
@@ -13,7 +13,7 @@ import Table from "../../../components/sections/Table/Index";
 import useTableDatas from "../../../hooks/Admin/Courses/Table/useTableDatas";
 import useRemoveCourse from "../../../hooks/Admin/Courses/useRemoveCourse";
 import useEditInputPattern from "../../../hooks/Admin/Courses/Table/useEditInputPattern";
-import useEditCourse from '../../../hooks/Admin/Courses/useEditCourse'
+import useEditCourse from "../../../hooks/Admin/Courses/useEditCourse";
 import useImageCourse from "../../../hooks/Admin/Courses/useImageCourse";
 import useIconCourse from "../../../hooks/Admin/Courses/useIconCourse";
 
@@ -21,6 +21,7 @@ function ManageCourses() {
   const [showToast, setShowToast] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const pendingKeysRef = useRef(new Set());
 
   const {
     courses,
@@ -35,19 +36,31 @@ function ManageCourses() {
   const { tableDatas } = useTableDatas(courses);
   const { editInputPatterns } = useEditInputPattern();
   const { removeCourse, removeCourseLoading } = useRemoveCourse();
-  const {editCourse,editCourseLoading} = useEditCourse();
-  const {editImage , editImageLoading} = useImageCourse()
-  const {editIcon , editIconLoading} = useIconCourse()
+  const { editCourse, editCourseLoading } = useEditCourse();
+  const { editImage, editImageLoading } = useImageCourse();
+  const { editIcon, editIconLoading } = useIconCourse();
 
-  const actionHandler = (infos) => {
-    let {entityData : course , action : actionType , files} = infos;
+  const addPending = (courseId, action) => {
+    pendingKeysRef.current.add(`${courseId}:${action}`);
+  };
+  const removePending = (courseId, action) => {
+    pendingKeysRef.current.delete(`${courseId}:${action}`);
+  };
+
+  const actionHandler = async (infos) => {
+    let { entityData: course, action: actionType, files } = infos;
+    addPending(course.id, actionType);
+
     switch (actionType) {
       case "remove": {
         showAlertHandler({
           cancelText: "انصراف",
           confirmText: "حذف",
           icon: "warning",
-          onConfirm: () => removeCourse(course.id),
+          onConfirm: async () => {
+            await removeCourse(course.id);
+            removePending(course.id, action);
+          },
           title: "آیا از حذف اطمینان دارید ؟",
         });
         break;
@@ -58,18 +71,20 @@ function ManageCourses() {
           inputPatterns,
           isEdit: true,
           isPending: editCourseLoading,
-          onAction: (data) => editCourse(course.id , data),
+          onAction: (data) => editCourse(course.id, data),
           tableData: [],
           title: "ویرایش دوره",
         });
         break;
       }
-      case 'editIcon' : {
-        editIcon(course.id , files)
+      case "editIcon": {
+        await editIcon(course.id, files);
+        removePending(course.id, action);
         break;
       }
-      case 'editImage' : {
-        editImage(course.id , files)
+      case "editImage": {
+        await editImage(course.id, files);
+        removePending(course.id, action);
         break;
       }
     }
@@ -77,9 +92,9 @@ function ManageCourses() {
 
   const actionPending = {
     remove: removeCourseLoading,
-    edit : editCourseLoading,
-    editImage : editImageLoading,
-    editIcon : editIconLoading
+    edit: editCourseLoading,
+    editImage: editImageLoading,
+    editIcon: editIconLoading,
   };
 
   useEffect(() => {
@@ -107,6 +122,7 @@ function ManageCourses() {
             loadMoreRef={loadMoreRef}
             scroll={true}
             actionPending={actionPending}
+            pendingKeysRef={pendingKeysRef}
             onAction={actionHandler}
             tbody={tableDatas.tbody}
             thead={tableDatas.thead}

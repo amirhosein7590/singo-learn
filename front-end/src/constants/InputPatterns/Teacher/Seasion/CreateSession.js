@@ -52,7 +52,7 @@ const BASE_CREATE_SESSION_INPUT_PATTERN = [
       for: "videoUrl",
       message: "انتخاب ویدئو",
       classes:
-        "text-sm bg-blue-600 text-white w-30 rounded-md cursor-pointer text-center py-2 px-4",
+        "cursor-pointer outline-none md:text-[16px] text-[14px] lg:py-2.5 px-2 text-white bg-blue-600 w-full md:w-30 rounded-md !py-2 text-center !text-xs lg:!text-sm ",
     },
     rules: {
       required: "ویدئو انتخاب نشده است",
@@ -74,9 +74,11 @@ const BASE_CREATE_SESSION_INPUT_PATTERN = [
             "video/flv",
             "video/mts",
             "video/m2ts",
-            "video/flv"
+            "video/flv",
           ];
-          return allowedFormats.includes(files?.[0]?.type) || "فرمت فایل مجاز نیست";
+          return (
+            allowedFormats.includes(files?.[0]?.type) || "فرمت فایل مجاز نیست"
+          );
         },
       },
     },
