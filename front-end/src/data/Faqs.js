@@ -1,3 +1,15 @@
+/**
+ * FAQ (Frequently Asked Questions) data structure
+ * 
+ * Contains common questions and answers for FAQ sections
+ * Used across various components for consistent user information
+ * 
+ * @constant {Array<Object>} faqData - Collection of FAQ items
+ * @property {number} id - Unique identifier for each FAQ item
+ * @property {string} question - Frequently asked question in Persian
+ * @property {string} answer - Detailed answer to the question in Persian
+ */
+
 const faqData = [
   {
     id : 1,

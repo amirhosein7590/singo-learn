@@ -1,3 +1,18 @@
+/**
+ * About Us page static data structure
+ * 
+ * Provides structured content for reusable components (FeatureItem.jsx and SectionItem.jsx)
+ * Centralizes content management for easy updates and maintenance
+ * 
+ * @constant {Array<Object>} pattern - Structured content configuration
+ * @property {number} id - Unique identifier for each section
+ * @property {string} title - Section header title
+ * @property {Array<Object>} children - Nested content items within section
+ * @property {number} children.id - Unique identifier for child item
+ * @property {string} [children.title] - Optional title for child item
+ * @property {string} children.description - Detailed content description
+ */
+
 const pattern = [
   {
     id: 1,
