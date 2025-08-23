@@ -49,7 +49,7 @@ function CourseItem({
   },[])
 
   const iconLoadingError = (event) => {
-    event.target.src = "../../../public/svg/course-icon-fallback.svg";
+    event.target.src = "/svg/course-icon-fallback.svg";
   };
 
   return (

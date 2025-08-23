@@ -1,3 +1,21 @@
+/**
+ * Custom hook to remove a course
+ * 
+ * Uses `useAxiosMutate` for DELETE request to backend
+ * Invalidates react-query cache for courses on success
+ * Shows toast messages for success/error
+ * 
+ * @function useRemoveCourse
+ * @returns {Object}
+ *  - removeCourse: Function to delete a course by ID
+ *  - removeCourseLoading: Boolean loading state
+ * 
+ * @example
+ * const { removeCourse, removeCourseLoading } = useRemoveCourse();
+ * removeCourse(courseId);
+ */
+
+
 import { useQueryClient } from "@tanstack/react-query";
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";

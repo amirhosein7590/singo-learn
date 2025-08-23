@@ -1,3 +1,28 @@
+/**
+
+useUsersList - Fetches paginated list of users with infinite scroll.
+
+@description
+
+Uses useInfiniteQuery to fetch users.
+
+Filters out admin users to prevent deletion.
+
+Supports loading more users on scroll.
+
+@returns {Object}
+
+allUsers: Array of users excluding admins.
+
+allUsersLoading: Boolean indicating initial fetch status.
+
+allUsersError: Error object if query fails.
+
+loadMoreRef: Ref to attach to observer for infinite scroll.
+
+isFetchingNextUser: Boolean indicating if next page is being fetched.
+*/
+
 import useInfiniteQuery from "../../useInfiniteQuery";
 
 function useUsersList() {

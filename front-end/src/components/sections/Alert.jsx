@@ -6,21 +6,21 @@ const iconMap = {
   warning: (
     <img
       className="w-[80px] h-[80px]"
-      src="../../../public/svg/warning.svg"
+      src="/svg/warning.svg"
       alt=""
     />
   ),
   error: (
     <img
       className="w-[80px] h-[80px]"
-      src="../../../public/svg/error.svg"
+      src="/svg/error.svg"
       alt=""
     />
   ),
   success: (
     <img
       className="w-[80px] h-[80px]"
-      src="../../../public/svg/success.svg"
+      src="/svg/success.svg"
       alt=""
     />
   ),

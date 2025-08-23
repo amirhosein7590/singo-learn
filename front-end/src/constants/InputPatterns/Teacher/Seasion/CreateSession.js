@@ -1,3 +1,34 @@
+/**
+ * Input configuration patterns for creating course sessions by teacher
+ * 
+ * Defines the structure and validation rules for creating new course sessions
+ * Used by EditForm component to dynamically generate session creation form fields
+ * 
+ * @constant {Array<Object>} BASE_CREATE_SESSION_INPUT_PATTERN
+ * @property {string} name - Unique identifier matching backend field names
+ * @property {string} type - Input type ('text', 'number', 'file', 'select')
+ * @property {string} classes - CSS classes for styling the input element
+ * @property {string} placeholder - Example placeholder text for guidance
+ * @property {Object} label - Label configuration object
+ * @property {string} label.message - Label text displayed to the user
+ * @property {string} label.classes - CSS classes for styling the label
+ * @property {Object} rules - Validation rules using react-hook-form
+ * @property {string} rules.required - Required field validation message
+ * @property {Object} rules.pattern - Regex pattern validation for numeric/text fields
+ * @property {RegExp} rules.pattern.value - Regex pattern for validation
+ * @property {string} rules.pattern.message - Error message for invalid input
+ * @property {Object} rules.validate - Custom validation functions for files
+ * @property {Array} options - Options for select fields (populated from API)
+ * @property {boolean} multiple - Multiple selection flag (false for single selection)
+ * 
+ * @note
+ * - "session" refers to a single class/session within a course season
+ * - "seasionId" must be selected from existing seasons
+ * - File input is required for session video with max size 20MB
+ * - Accepted video formats: mp4, mkv, webm, mov, avi, wmv, flv, mts, m2ts
+ */
+
+
 const BASE_CREATE_SESSION_INPUT_PATTERN = [
   {
     name: "duration",

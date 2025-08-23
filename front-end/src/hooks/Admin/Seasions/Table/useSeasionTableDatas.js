@@ -1,3 +1,27 @@
+/**
+
+useSeasionTableDatas - Custom hook to generate table data for displaying seasions.
+
+@description
+
+Fetches seasions using useListSeasions.
+
+Maps session fields (seasion, title, course, isFree) to table rows.
+
+Adds action buttons for editing and removing seasions with proper classes and labels.
+
+Uses BASE_SEASION_TABLE_DATAS for table headers.
+
+@returns {Object}
+
+seasionTableDatas: Object containing thead and tbody for table rendering.
+
+loadMoreSeasion: Ref for infinite scroll observer to load more seasions.
+
+isFetchingNextSeasion: Boolean indicating if next page of seasions is being fetched.
+*/
+
+
 import { useMemo } from "react";
 import BASE_SEASION_TABLE_DATAS from "../../../../constants/Table/Admin/Seasions";
 import useListSeasions from "../useListSeasions";

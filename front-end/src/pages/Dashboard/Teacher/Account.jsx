@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import useGetProfile from "../../../hooks/Teacher/useGetProfile";
 import EditForm from "../../../components/sections/EditForm";
 import useEditProfile from '../../../hooks/Teacher/useEditProfile'
+const Spinner = lazy(()=> import('../../../components/sections/Spinner'))
 
 function Account() {
   const [showToast, setShowToast] = useState({});
@@ -27,18 +28,21 @@ function Account() {
 
   useEffect(() => {
     resgisterToastSetter(setShowToast);
+    document.title = 'حساب کاربری'
   }, []);
   return (
     <>
       <div className="edit-form-wrapper mt-8 lg:mt-0">
-        {!isProfileLoading && (
+        {!isProfileLoading ? (
           <EditForm
             inputPatterns={inputPatterns}
             onAction={updateUser}
             title="تغییر حساب کاربری"
             isPending={isUpdating}
           />
-        )}
+        ) : <div className="flex justify-center items-center">
+          <Spinner size="lg" />
+          </div>}
       </div>
       {showToast?.visible && <Toast {...showToast} />}
     </>

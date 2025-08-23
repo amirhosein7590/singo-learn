@@ -9,7 +9,7 @@ function Footer() {
           <div className="row singo-learn flex flex-col md:flex-row md:items-center lg:items-center lg:flex-row mb-6 align-middle">
             <Button to="/" classes="mb-2 lg:mb-0">
               <img
-                src="../../public/images/logo.jpg"
+                src="/images/logo.png"
                 className="w-[130px]  h-[100px]"
                 alt="singo learn"
               />

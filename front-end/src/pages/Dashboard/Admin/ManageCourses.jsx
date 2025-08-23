@@ -101,6 +101,7 @@ function ManageCourses() {
     alertSetter(setShowAlert);
     resgisterToastSetter(setShowToast);
     modalSetter(setShowModal);
+    document.title = 'مدیریت دوره ها'
   }, []);
   return (
     <>

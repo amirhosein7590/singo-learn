@@ -5,7 +5,8 @@ import useInfiniteQuery from "../hooks/useInfiniteQuery";
 import { resgisterToastSetter } from "../utils/ToastController";
 import PriceToPersian from "../utils/PriceToPersian";
 import ToPersianDigit from "../utils/ToPersianDigit";
-import { useLocation } from "react-router";
+import { lazy } from "react";
+const Spinner = lazy(() => import("../components/sections/Spinner"));
 
 function Courses() {
   useEffect(() => {
@@ -22,7 +23,7 @@ function Courses() {
   const [showToast, setShowToast] = useState({});
 
   const { allData, isLoading, loadMoreRef, isFetchingNextPage } =
-    useInfiniteQuery("courses",null, "/courses", null, false);
+    useInfiniteQuery("courses", null, "/courses", null, false);
 
   return (
     <>
@@ -197,8 +198,17 @@ function Courses() {
                 ))}
 
           <div ref={loadMoreRef} className="observer opacity-0 w-1 h-2"></div>
-          {isFetchingNextPage && <p>Loading more...</p>}
-          {isLoading && <p>Loading...</p>}
+          {isFetchingNextPage && (
+            <div className="flex justify-center items-center">
+              <Spinner size="lg" />
+            </div>
+          )}
+          
+          {isLoading && (
+            <div className="flex justify-center items-center">
+              <Spinner size="lg" />
+            </div>
+          )}
         </div>
       </div>
     </>

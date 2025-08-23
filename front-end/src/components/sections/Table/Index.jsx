@@ -1,5 +1,30 @@
-import { memo, useEffect } from "react";
+/**
+ * Generic table component for displaying data with actions.
+ * 
+ * @param {Array} thead - Table headers
+ * @param {Array} tbody - Table body cells (flattened)
+ * @param {boolean} scroll - Enable vertical scroll
+ * @param {Function} onAction - Callback triggered when an action is clicked or file selected
+ * @param {boolean} actionPending - True if any row action is in progress
+ * @param {boolean} isFetchingNextPage - True if fetching more data (infinite scroll)
+ * @param {Object} loadMoreRef - Ref attached to bottom row for intersection observer
+ * @param {Object} pendingKeysRef - Ref to track pending actions for specific rows
+ * 
+ * @returns {JSX.Element} Table with headers, rows, actions, and infinite scroll support
+ * 
+ * @description
+ *  - Chunks tbody array based on thead length to form rows
+ *  - Uses TableRow component for each row
+ *  - Lazy-loads Spinner when fetching next page
+ *  - Displays fallback row if no data is available
+ *  - Attaches loadMoreRef for infinite scrolling
+ *  - Handles onAction for all button and file input actions
+ */
+
+import { memo } from "react";
 import TableRow from "./TableRow";
+import { lazy } from "react";
+const Spinner = lazy(()=> import('../Spinner'))
 
 function Table({
   thead,
@@ -9,7 +34,7 @@ function Table({
   actionPending,
   isFetchingNextPage,
   loadMoreRef,
-  pendingKeysRef
+  pendingKeysRef,
 }) {
   const chunkArray = (array, size) => {
     const result = [];
@@ -43,6 +68,12 @@ function Table({
           </tr>
         </thead>
         <tbody>
+           {isFetchingNextPage && (
+            <tr>
+              <td><Spinner size="lg" /></td>
+            </tr>
+          )}
+
           {tbody.length > 0 ? (
             chunkArray(tbody, thead.length).map((row, rowIndex) => (
               <TableRow
@@ -57,11 +88,7 @@ function Table({
             <tr className="text-center"><td className="text-sm lg:text-[16px]">اطلاعاتی جهت نمایش وجود ندارد</td></tr>
           )}
           <tr className="observer w-1 h-2 opacity-0" ref={loadMoreRef}></tr>
-          {isFetchingNextPage && (
-            <tr>
-              <td>loading ...</td>
-            </tr>
-          )}
+         
         </tbody>
       </table>
     </div>

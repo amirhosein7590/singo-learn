@@ -38,6 +38,7 @@ function Offs() {
     alertSetter(setShowAlert);
     resgisterToastSetter(setShowToast);
     modalSetter(setShowModal);
+    document.title = 'مدیریت تخفیف ها'
   }, []);
 
   const buttons = [

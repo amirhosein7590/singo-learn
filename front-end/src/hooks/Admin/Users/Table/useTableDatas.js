@@ -1,3 +1,20 @@
+/**
+
+useTableDatas - Generates table data for the users list.
+
+@description
+
+Maps allUsers into table rows including text fields and action buttons.
+
+Converts phone numbers to Persian digits.
+
+Action buttons include viewCourses, edit, ban, and remove with specific styles.
+
+@returns {Object}
+
+tableDatas: Object containing thead and tbody for the table component.
+*/
+
 import { useMemo } from "react";
 import BASE_TABLE_DATAS from "../../../../constants/Table/Admin/Users";
 import ToPersianDigit from "../../../../utils/ToPersianDigit";

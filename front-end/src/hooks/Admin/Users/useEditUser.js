@@ -1,3 +1,22 @@
+/**
+
+useEditUser - Custom hook to edit user details.
+
+@description
+
+Sends a PUT request to /users/:id with updated user data.
+
+Shows toast messages for success or error.
+
+Invalidates the users query on success to refresh the table.
+
+@returns {Object}
+
+editUser: Function to update user information.
+
+editUserLoading: Boolean indicating if the edit is in progress.
+*/
+
 import { showToastHandler } from "../../../utils/ToastController";
 import useAxiosMutate from "../../useAxiosMutate";
 import { useQueryClient } from "@tanstack/react-query";

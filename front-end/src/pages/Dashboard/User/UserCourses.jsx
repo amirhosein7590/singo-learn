@@ -1,4 +1,4 @@
-import {memo} from "react";
+import {memo, useEffect} from "react";
 import useAxiosQuery from "../../../hooks/useAxiosQuery";
 import UserCourseItem from "../../../components/sections/UserCourseItem";
 import Button from "../../../components/ui/Button";
@@ -16,6 +16,10 @@ function UserCourses() {
     },
     true
   );
+
+  useEffect(()=>{
+    document.title = 'دوره های من'
+  },[])
 
   return (
     <>
@@ -36,7 +40,7 @@ function UserCourses() {
             متاسفانه شما هیچ دوره ای خریداری نکرده اید
           </p>
           <div className="image_wrapper">
-            <img src="../../public/images/empty-basket.webp" alt="" />
+            <img src="/images/empty-basket.webp" alt="" />
           </div>
 
           <div className="button_wrapper bg-[var(--dark-purple)] text-white flex justify-center mt-8 rounded-xl py-2.5 lg:py-0 px-4">

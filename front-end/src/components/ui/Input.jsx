@@ -5,9 +5,9 @@ function Input(props) {
     setShowPassword((prev) => !prev);
     let visibleIcon = e.currentTarget.children[0];
     if (showPassword) {
-      visibleIcon.src = "../../public/svg/inVisible.svg";
+      visibleIcon.src = "/svg/inVisible.svg";
     } else {
-      visibleIcon.src = "../../public/svg/visible.svg";
+      visibleIcon.src = "/svg/visible.svg";
     }
   };
 
@@ -40,7 +40,7 @@ function Input(props) {
             } left-2 cursor-pointer`}
             onClick={(e) => changeVisibilityPasswrod(e)}
           >
-            <img src="../../public/svg/inVisible.svg" alt="" />
+            <img src="/svg/inVisible.svg" alt="" />
           </i>
         </>
       ) : props.type == "file" ? (

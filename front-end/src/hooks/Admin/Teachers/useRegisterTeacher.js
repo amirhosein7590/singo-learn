@@ -1,3 +1,24 @@
+/**
+
+useRegisterTeacher - Hook for registering a new teacher.
+
+@description
+
+Sends a POST request to /register with teacher data and role='teacher'.
+
+Displays success or error toast notifications.
+
+Invalidates the teachers query on success to refresh the table.
+
+@param {Object} queryClient - React Query client to invalidate queries.
+
+@returns {Object}
+
+registerTeacher: Function to register a new teacher.
+
+registerTeacherLoading: Boolean indicating if the registration is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 

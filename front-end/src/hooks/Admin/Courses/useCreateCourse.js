@@ -1,3 +1,22 @@
+/**
+ * Custom hook for creating a new course
+ * 
+ * Handles image and icon uploads using `useCreateImage`, then sends course data to backend
+ * Combines multiple async operations: upload image, upload icon, create course
+ * Invalidates react-query cache for "sessions" after successful creation
+ * 
+ * @function useCreateCourse
+ * @returns {Object}
+ *  - createCourse: Function to create a course, accepts object with image, icon, and other fields
+ *  - createCoursePending: Boolean indicating if any step (image/icon upload or course creation) is in progress
+ * 
+ * @example
+ * const { createCourse, createCoursePending } = useCreateCourse();
+ * createCourse({ image: [file], icon: [file], title, price, ... });
+ */
+
+
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

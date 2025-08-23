@@ -1,3 +1,25 @@
+/**
+ * Input configuration patterns for teacher account creation form
+ * 
+ * Defines comprehensive form structure and validation rules for creating new teacher accounts
+ * Includes fields for authentication, personal information, contact details, and professional specialization
+ * Features strong password validation and Persian name pattern matching
+ * 
+ * @constant {Array<Object>} BASE_CREATE_TEACHER_INPUT_PATTERNS - Teacher creation form configuration
+ * @property {Object} password - Strong password validation with complexity requirements
+ * @property {Object} fullname - Persian name validation with minimum length requirement
+ * @property {Object} phonenumber - Iranian mobile number validation (09XXXXXXXXX format)
+ * @property {Object} stack - Professional specialization dropdown with predefined options
+ * @property {Object} courseIds - Multiple course selection for teacher assignment
+ * 
+ * @note
+ * - Password requires: uppercase, lowercase, number, symbol, and minimum 8 characters
+ * - Fullname validation uses Persian Unicode range (\\u0600-\\u06FF) and minimum 5 characters
+ * - Phone number follows Iranian format (09 followed by 9 digits)
+ * - Stack options cover common development specializations in Persian
+ * - Course selection supports multiple assignments for teachers
+ */
+
 const BASE_CREATE_TEACHER_INPUT_PATTERNS = [
   {
     name: "username",

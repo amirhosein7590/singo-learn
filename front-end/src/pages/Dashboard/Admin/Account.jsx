@@ -9,6 +9,7 @@ import {
 import useEditAdmin from "../../../hooks/Admin/useEditAdmin";
 import { useLocation } from "react-router";
 import BASE_ADMIN_PROFILE_INPUT_PATTERNS from "../../../constants/InputPatterns/Admin/AdminProfile";
+const Spinner = lazy(() => import("../../../components/sections/Spinner"));
 
 function AdminAccount() {
   const location = useLocation();
@@ -44,23 +45,31 @@ function AdminAccount() {
   };
 
   useEffect(() => {
-    resgisterToastSetter(setShowToast);
     if (profileError) {
       let error = profileError.response.data.error;
       showToastHandler(error, "error");
     }
   }, [profileError]);
 
+  useEffect(() => {
+    resgisterToastSetter(setShowToast);
+    document.title = "حساب کاربری";
+  }, []);
+
   return (
     <>
       <div className="edit-form-wrapper mt-8 lg:mt-0">
-        {!isProfileLoading && (
+        {!isProfileLoading ? (
           <EditForm
             inputPatterns={inputPatterns}
             onAction={onUserUpdate}
             title="تغییر حساب کاربری"
             isPending={isUpdating}
           />
+        ) : (
+          <div className="flex justify-center items-center h-full w-full">
+            <Spinner size="lg" />
+          </div>
         )}
       </div>
 

@@ -1,3 +1,20 @@
+/**
+
+useEditInputPattern - Prepares input patterns for editing a teacher.
+
+@description
+
+Maps BASE_EDIT_TEACHER_INPUT_PATTERN and sets default values based on a given teacher.
+
+For multi-select course inputs, marks courses that the teacher is already assigned to.
+
+For single-select stack inputs, sets the initially selected option.
+
+@returns {Object}
+
+editTeacherInputHandler: Function that accepts a teacher object and returns input patterns.
+*/
+
 import BASE_EDIT_TEACHER_INPUT_PATTERN from "../../../../constants/InputPatterns/Admin/Teachers/EditTeacher";
 import useAxiosQuery from "../../../useAxiosQuery";
 

@@ -10,13 +10,13 @@ function Index() {
     {
       id: 1,
       to: "/dashboard/teacher",
-      icon: "../../../../public/svg/home.svg",
+      icon: "/svg/home.svg",
       text: "حساب کاربری",
     },
     {
       id: 2,
       to: "/dashboard/teacher/sessions",
-      icon: "../../../../public/svg/sessions.svg",
+      icon: "/svg/sessions.svg",
       text: "جلسات",
     },
   ];

@@ -18,7 +18,7 @@ function Modal({
   onClose,
   isEdit,
   inputPatterns = [], // inputs for edit
-  isPending = false,
+  isPending,
   onAction,
   title = "",
   tableData = [],
@@ -60,7 +60,7 @@ function Modal({
             >
               <img
                 className="w-[24px] h-[24px]"
-                src="../../../public/svg/close.svg"
+                src="/svg/close.svg"
                 alt=""
               />
             </Button>

@@ -30,7 +30,7 @@ function StdCommentItems({ name, opinion, courses }) {
       <div className="video flex z-0 relative w-full lg:w-1/2 justify-center lg:justify-start mx-4 mt-6 lg:mt-0">
         <video
           className="w-full z-0 h-[300px] relative rounded-xl shadow-[var(--cart-shadow)]"
-          poster="./public/images/logo.jpg"
+          poster="/images/logo.png"
           controls
           src="https://upcdn.io/G22nht2/raw/uploads/2025/08/21/invideo-ai-720%20Testimonial%20for%20Singo%20Learn%20Course%202025-07-01%20(3).mp4"
         ></video>

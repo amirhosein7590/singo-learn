@@ -1,3 +1,20 @@
+/**
+ * Input configuration patterns for teacher account editing form
+ * 
+ * Simplified version for teacher profile editing - excludes password field for security
+ * Pre-populated with existing teacher data for seamless editing experience
+ * Maintains same validation rules as creation form for consistency
+ * 
+ * @constant {Array<Object>} BASE_EDIT_TEACHER_INPUT_PATTERN - Teacher editing form configuration
+ * @property {string} defaultValue - Pre-filled values from existing teacher profile
+ * 
+ * @note
+ * - Password field intentionally omitted for security reasons
+ * - Default values populated from existing teacher data
+ * - Maintains all validation rules except password
+ * - Course selection reflects current teacher assignments
+ */
+
 const BASE_EDIT_TEACHER_INPUT_PATTERN = [
   {
     name: "username",

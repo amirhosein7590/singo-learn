@@ -1,3 +1,22 @@
+/**
+
+useEditOff - Custom hook to edit a discount for a specific course.
+
+@description
+
+Sends a PUT request to /offs/:id to update the discount percentage.
+
+Shows success or error messages using showToastHandler.
+
+Invalidates the "offs" query to refresh the data after successful update.
+
+@returns {Object}
+
+editOff: Function to update a course's discount.
+
+editOffLoading: Boolean indicating loading state.
+*/
+
 import useAxiosMutate from "../../../hooks/useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

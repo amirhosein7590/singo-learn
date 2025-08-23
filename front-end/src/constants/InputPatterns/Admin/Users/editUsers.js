@@ -1,3 +1,39 @@
+/**
+ * Input configuration patterns for editing an existing user
+ * 
+ * Transforms base input patterns by injecting existing user data into appropriate fields
+ * Used by EditForm component for pre-populating form fields in edit mode
+ * Includes username, fullname, email, and phone number fields
+ * 
+ * @constant {Array<Object>} BASE_EDIT_USER_INPUT_PATTERN - Array of input field configurations for editing
+ * @property {string} name - Unique identifier matching backend field names
+ * @property {string} type - Input type ('text', 'email')
+ * @property {string} defaultValue - Initial value populated from server data
+ * @property {string} classes - CSS classes for styling the input element
+ * @property {Object} label - Label configuration object
+ * @property {string} label.message - Label text displayed to the user
+ * @property {string} label.classes - CSS classes for styling the label
+ * @property {Object} rules - Validation rules using react-hook-form validation schema
+ * @property {string} rules.required - Required field validation message
+ * @property {Object} rules.pattern - Regex pattern validation
+ * @property {RegExp} rules.pattern.value - Regex pattern for input
+ * @property {string} rules.pattern.message - Error message for invalid input
+ * 
+ * @example
+ * // Typical usage in EditForm:
+ * <EditForm
+ *   title="ویرایش کاربر"
+ *   inputPatterns={BASE_EDIT_USER_INPUT_PATTERN}
+ *   onAction={handleUpdateUser}
+ * />
+ * 
+ * @note
+ * - All text fields are pre-populated with server data via defaultValue
+ * - Validation rules are the same as in creation form
+ * - No password field included by default; can be added separately if needed
+ */
+
+
 const BASE_EDIT_USER_INPUT_PATTERN = [
   {
     name: "username",

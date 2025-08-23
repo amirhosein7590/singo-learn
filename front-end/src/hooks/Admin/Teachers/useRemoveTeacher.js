@@ -1,3 +1,22 @@
+/**
+
+useRemoveTeacher - Custom hook to remove a teacher.
+
+@description
+
+Sends a DELETE request to /teachers/:id to remove a teacher.
+
+Displays toast messages for success or error.
+
+Invalidates the teachers query on success to refresh the table.
+
+@returns {Object}
+
+removeTeacher: Function to delete a teacher.
+
+removeTeacherLoading: Boolean indicating if deletion is in progress.
+*/
+
 import { useQueryClient } from "@tanstack/react-query";
 import useAxiosMutate from "../../useAxiosMutate";
 import {showToastHandler } from "../../../utils/ToastController";

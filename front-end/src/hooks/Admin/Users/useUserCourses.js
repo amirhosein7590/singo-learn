@@ -1,3 +1,24 @@
+/**
+
+useUserCourses - Fetches courses of a specific user.
+
+@description
+
+Uses useAxiosQuery to fetch courses based on userId.
+
+Provides loading and error states.
+
+@param {string} userId - ID of the user whose courses are being fetched.
+
+@returns {Object}
+
+userCoursesData: Array of courses for the user.
+
+userCoursesLoading: Boolean indicating loading state.
+
+userCoursesError: Error object if query fails.
+*/
+
 import useAxiosQuery from "../../useAxiosQuery";
 
 function useUserCourses(userId) {

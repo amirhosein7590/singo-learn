@@ -19,13 +19,13 @@ function Index() {
     {
       id: 1,
       to: "/dashboard/user",
-      icon: "../../../../public/svg/home.svg",
+      icon: "/svg/home.svg",
       text: "حساب کاربری",
     },
     {
       id: 2,
       to: "/dashboard/user/courses",
-      icon: "../../../../public/svg/studentCat.svg",
+      icon: "/svg/studentCat.svg",
       text: "دوره های من",
     },
   ];

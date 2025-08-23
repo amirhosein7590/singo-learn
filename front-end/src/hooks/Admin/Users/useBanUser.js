@@ -1,3 +1,22 @@
+
+/**
+
+useBanUser - Custom hook to ban or unban a user.
+
+@description
+
+Sends a POST request to /ban with user data.
+
+Shows toast messages for success or error.
+
+Invalidates the users query on success to refresh the table.
+
+@returns {Object}
+
+banUser: Function to toggle ban status for a user.
+
+banUserLoading: Boolean indicating if the mutation is in progress.
+*/
 import { showToastHandler } from "../../../utils/ToastController";
 import useAxiosMutate from "../../useAxiosMutate";
 import { useQueryClient } from "@tanstack/react-query";

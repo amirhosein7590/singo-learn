@@ -1,3 +1,22 @@
+/**
+
+useCreateVideo - Custom hook to handle session-video uploads.
+
+@description
+
+Uses useMutation from react-query to upload video files to Bytescale API.
+
+Handles FormData creation and appends the video file before sending POST request.
+
+Shows a toast message if the upload fails.
+
+@returns {Object}
+
+isPending: Boolean indicating if the video upload is in progress.
+
+addVideo: Async function to upload a single video file.
+*/
+
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { showToastHandler } from "../../../utils/ToastController";

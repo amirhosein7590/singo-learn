@@ -16,6 +16,7 @@ import useEditUser from "../../../hooks/Admin/Users/useEditUser";
 import useEditInputPattern from "../../../hooks/Admin/Users/Table/useEditInputPattern";
 import useBanUser from "../../../hooks/Admin/Users/useBanUser";
 import useRemoveUser from "../../../hooks/Admin/Users/useRemoveUser";
+const Spinner = lazy(() => import("../../../components/sections/Spinner"));
 
 function ManageUsers() {
   const [showToast, setShowToast] = useState({});
@@ -49,6 +50,7 @@ function ManageUsers() {
     alertSetter(setShowAlert);
     resgisterToastSetter(setShowToast);
     modalSetter(setShowModal);
+    document.title = "مدیریت کاربران";
   }, []);
 
   const addPending = (userId, action) => {
@@ -136,13 +138,17 @@ function ManageUsers() {
     <>
       <div className="wrapper flex flex-col">
         <div className="add-teacher py-3 px-6 flex flex-col">
-          {!allUsersLoading && (
+          {!allUsersLoading ? (
             <EditForm
               title={"ایجاد کاربر"}
               inputPatterns={BASE_CREATE_USER_INPUT_PATTERNS}
               isPending={createUserLoading}
               onAction={addUser}
             />
+          ) : (
+            <div className="flex justify-center items-center h-full w-full">
+              <Spinner size="lg" />
+            </div>
           )}
         </div>
         <div className="py-3 px-6">

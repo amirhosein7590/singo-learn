@@ -1,3 +1,22 @@
+/**
+
+useCreateSession - Custom hook to handle creation of a new session.
+
+@description
+
+Uses useAxiosMutate to send POST request to /sessions endpoint.
+
+Shows toast messages for success or error responses.
+
+Invalidates session query in react-query cache on success.
+
+@returns {Object}
+
+createSession: Function to create a new session.
+
+createSessionLoading: Boolean indicating if session creation is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

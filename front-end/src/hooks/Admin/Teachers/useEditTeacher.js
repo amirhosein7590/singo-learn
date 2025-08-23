@@ -1,3 +1,22 @@
+/**
+
+useEditTeacher - Custom hook to edit teacher details.
+
+@description
+
+Sends a PUT request to /teachers/:id with updated teacher data.
+
+Shows toast messages for success or error.
+
+Invalidates the teachers query on success to refresh the table.
+
+@returns {Object}
+
+editTeacher: Function to update teacher information.
+
+editTeacherPending: Boolean indicating if the edit is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

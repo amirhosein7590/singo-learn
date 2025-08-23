@@ -1,3 +1,22 @@
+/**
+
+useRemoveSeasion - Custom hook to handle deletion of a seasion.
+
+@description
+
+Uses useAxiosMutate to send DELETE request to /sessions/:id endpoint.
+
+Shows toast messages for success or error responses.
+
+Invalidates seasions query in react-query cache on success.
+
+@returns {Object}
+
+removeSeasion: Function to delete a seasion by ID.
+
+removeSeasionLoading: Boolean indicating if seasion deletion is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

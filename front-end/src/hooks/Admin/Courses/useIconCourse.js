@@ -1,3 +1,16 @@
+/**
+ * Custom hook for uploading and updating course icon
+ * 
+ * Similar to `useImageCourse` but updates the course icon instead
+ * Uses `useCreateImage` to upload icon to external host and updates backend
+ * 
+ * @function useIconCourse
+ * @returns {Object} 
+ *  - editIcon: Function to update course icon by courseId and file
+ *  - editIconLoading: Boolean indicating loading state
+ */
+
+
 import { useQueryClient } from "@tanstack/react-query";
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";

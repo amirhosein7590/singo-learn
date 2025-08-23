@@ -1,3 +1,15 @@
+/**
+ * Provides full shopping cart management.
+ * Supports adding/removing courses, checking if a course is in the cart, purchasing courses,
+ * and retrieving total cart prices.
+ *
+ * @returns {Object} - Includes:
+ *   addToCart(courseId, setShowToast), removeFormCart(courseId), isInCart(courseId), 
+ *   purchase(courseIds), isPurchasedCourse(courseId), totalPrices(),
+ *   plus query/mutation states like addCartPending, purchasePending, etc.
+ */
+
+
 import { useQueryClient } from "@tanstack/react-query";
 import useAxiosMutate from "./useAxiosMutate";
 import useAxiosQuery from "./useAxiosQuery";

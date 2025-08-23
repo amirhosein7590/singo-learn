@@ -5,6 +5,8 @@ import CourseItem from "../components/sections/CourseItem";
 import PriceToPersian from "../utils/PriceToPersian";
 import { resgisterToastSetter } from "../utils/ToastController";
 import ToPersianDigit from "../utils/ToPersianDigit";
+import { lazy } from "react";
+const Spinner = lazy(() => import("../components/sections/Spinner"));
 
 function Home() {
   useEffect(() => {
@@ -12,8 +14,13 @@ function Home() {
     resgisterToastSetter(setShowToast);
   }, []);
 
-  const { allData,} =
-    useInfiniteQuery("courses", null, "/courses", null, false);
+  const { allData, isLoading } = useInfiniteQuery(
+    "courses",
+    null,
+    "/courses",
+    null,
+    false,
+  );
 
   const [showToast, setShowToast] = useState({});
 
@@ -22,7 +29,7 @@ function Home() {
       <section className="flex flex-col">
         <div className="row flex flex-col lg:flex-row items-center">
           <div className="banner w-full lg:w-1/2 flex justify-center lg:order-2">
-            <img src="./public/images/banner.jpeg" alt="" />
+            <img src="/images/banner.jpeg" alt="" />
           </div>
           <div className="text mt-6 w-full lg:w-1/2">
             <h1 className="vazir-bold text-[23px] md:text-[40px] lg:text-[60px] mb-4 w-full">
@@ -197,27 +204,31 @@ function Home() {
 
         <div className="courses mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
           {allData &&
-            allData
-              .map((course) => (
-                <CourseItem
-                  key={course.id}
-                  title={course.title}
-                  courseId={course.id}
-                  price={
-                    course.price == 0 ? "رایگان" : PriceToPersian(course.price)
-                  }
-                  icon={course.icon}
-                  duration={PriceToPersian(course.duration)}
-                  stdCount={PriceToPersian(course.studentsCount)}
-                  showToast={{ ...showToast }}
-                  originalPrice={
-                    course?.originalPrice &&
-                    PriceToPersian(course.originalPrice)
-                  }
-                  discount={course?.discount && ToPersianDigit(course.discount)}
-                  setShowToast={setShowToast}
-                />
-              ))}
+            allData.slice(0,10).map((course) => (
+              <CourseItem
+                key={course.id}
+                title={course.title}
+                courseId={course.id}
+                price={
+                  course.price == 0 ? "رایگان" : PriceToPersian(course.price)
+                }
+                icon={course.icon}
+                duration={PriceToPersian(course.duration)}
+                stdCount={PriceToPersian(course.studentsCount)}
+                showToast={{ ...showToast }}
+                originalPrice={
+                  course?.originalPrice && PriceToPersian(course.originalPrice)
+                }
+                discount={course?.discount && ToPersianDigit(course.discount)}
+                setShowToast={setShowToast}
+              />
+            ))}
+
+          {isLoading && (
+            <div className="flex justify-center items-center">
+              <Spinner size="lg" />
+            </div>
+          )}
         </div>
       </main>
     </>

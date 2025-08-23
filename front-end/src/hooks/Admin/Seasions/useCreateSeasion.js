@@ -1,3 +1,22 @@
+/**
+
+useCreateSeasion - Custom hook to handle creation of a new seasion.
+
+@description
+
+Uses useAxiosMutate to send POST request to /sessions endpoint.
+
+Shows toast messages for success or error responses.
+
+Invalidates seasion query in react-query cache on success.
+
+@returns {Object}
+
+createSeasion: Function to create a new seasion.
+
+createSeasionLoading: Boolean indicating if seasion creation is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

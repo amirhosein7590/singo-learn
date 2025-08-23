@@ -1,3 +1,22 @@
+/**
+
+useRemoveUser - Custom hook to remove a user.
+
+@description
+
+Sends a DELETE request to /users/:id to remove a user.
+
+Shows toast messages for success or error.
+
+Invalidates the users query on success to refresh the table.
+
+@returns {Object}
+
+removeUser: Function to delete a user.
+
+removeUserLoading: Boolean indicating if deletion is in progress.
+*/
+
 import { showToastHandler } from "../../../utils/ToastController";
 import useAxiosMutate from "../../useAxiosMutate";
 import { useQueryClient } from "@tanstack/react-query";

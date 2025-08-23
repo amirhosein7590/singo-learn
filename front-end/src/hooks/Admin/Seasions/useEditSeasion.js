@@ -1,3 +1,22 @@
+/**
+
+useEditSeasion - Custom hook to handle editing an existing seasion.
+
+@description
+
+Uses useAxiosMutate to send PUT request to /sessions/:id endpoint.
+
+Shows toast messages for success or error responses.
+
+Invalidates seasions query in react-query cache on success.
+
+@returns {Object}
+
+editSeasion: Function to edit a seasion with given data and seasion ID.
+
+editSeasionLoading: Boolean indicating if seasion editing is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

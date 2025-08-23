@@ -1,3 +1,35 @@
+
+/**
+ * Custom hook to transform raw course data into table-ready structure.
+ * 
+ * This hook converts an array of courses into a table format that can be directly
+ * consumed by a Table component. It maps course fields to table cells, formats
+ * price, support status, and attaches action buttons or file inputs for editing
+ * course details, images, and icons.
+ * 
+ * @param {Array} courses - Array of course objects fetched from the server
+ * 
+ * @returns {Object} tableDatas - Object containing thead and tbody for table
+ * @property {Array} tableDatas.thead - Table headers
+ * @property {Array} tableDatas.tbody - Flattened array of table row cells including:
+ *  - Fields: title, price, duration, studentsCount, isSupport
+ *      - price is formatted to Persian currency using PriceToPersian
+ *      - isSupport is converted to readable text
+ *  - Actions:
+ *      - editIcon: file input for updating course icon
+ *      - editImage: file input for updating course image
+ *      - remove: button to delete course
+ *      - edit: button to edit course details
+ *  - Each action includes:
+ *      - id: unique identifier for the action
+ *      - entityData: original course object
+ *      - action: action type (edit, remove, editIcon, editImage)
+ *      - type: "button" or "file"
+ *      - text: label for the button/input
+ *      - classes: Tailwind CSS classes for styling
+ *      - validationPattern: rules for file inputs, including max size and accepted formats
+ */
+
 import { useMemo } from "react";
 import TABLE_DATAS from "../../../../constants/Table/Admin/Courses";
 import PriceToPersian from "../../../../utils/PriceToPersian";

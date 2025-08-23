@@ -1,3 +1,21 @@
+/**
+
+useTableDatas - Generates table data for the teachers list.
+
+@description
+
+Maps allTeachersData into table rows including text fields and action buttons.
+
+Handles conversion of phone numbers to Persian digits.
+
+Action buttons include viewCourses, edit, ban, and remove with specific styles.
+
+@returns {Object}
+
+tableDatas: Object containing thead and tbody for the table component.
+*/
+
+
 import { useMemo } from "react";
 import BASE_TABLE_DATAS from "../../../../constants/Table/Admin/Teachers";
 import ToPersianDigit from '../../../../utils/ToPersianDigit'

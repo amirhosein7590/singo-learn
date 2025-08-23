@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 const Alert = lazy(() => import("./Alert"));
 import { alertSetter, showAlertHandler } from "../../utils/AlertController";
 import { useQueryClient } from "@tanstack/react-query";
+const Spinner = lazy(() => import("../sections/Spinner"));
 
 function DashboardSideBar({ fullname, phonenumber, links }) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
 
   const logOut = () => {
     localStorage.removeItem("userInfos");
-    queryClient.invalidateQueries({queryKey : ['purchase']})
+    queryClient.invalidateQueries({ queryKey: ["purchase"] });
     navigate("/login");
   };
 
@@ -70,13 +71,29 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
       <div className="flex relative flex-col p-2 lg:py-1 lg:px-5 rounded-md lg:shadow-[var(--cart-shadow)]">
         <div className="user-infos hidden lg:flex flex-col items-center py-4 border-b border-b-gray-300">
           <div className="profile w-[100px] h-[100px] flex justify-center items-center text-4xl rounded-full bg-[#bdbdbd] text-white">
-            {fullname?.slice(0, 1)}
+            {fullname ? fullname.slice(0, 1) : <Spinner size="sm" />}
           </div>
           <div className="fullname text-lg text-center mt-4">
-            <p>{fullname}</p>
+            <p>
+              {fullname ? (
+                fullname
+              ) : (
+                <div role="status" class="max-w-sm animate-pulse">
+                  <div class="h-2.5 bg-gray-200 rounded-full w-48 mb-4"></div>
+                </div>
+              )}
+            </p>
           </div>
           <div className="phonenumber text-center mt-1">
-            <p className="text-[#00000099]">{phonenumber}</p>
+            <p className="text-[#00000099]">
+              {phonenumber ? (
+                phonenumber
+              ) : (
+                <div role="status" class="max-w-sm animate-pulse">
+                  <div class="h-2.5 bg-gray-200 rounded-full w-48 mb-4"></div>
+                </div>
+              )}
+            </p>
           </div>
         </div>
 
@@ -87,7 +104,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
           >
             <img
               className="w-[18px] ml-1 h-[18px]"
-              src="../../../public/svg/three-dots-vertical.svg"
+              src="/svg/three-dots-vertical.svg"
               alt="منو"
             />
             منوی حساب کاربری
@@ -137,7 +154,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
                 >
                   <img
                     className="ml-2"
-                    src="../../../public/svg/logout.svg"
+                    src="/svg/logout.svg"
                     alt=""
                   />
                   خروج
@@ -180,7 +197,7 @@ function DashboardSideBar({ fullname, phonenumber, links }) {
             >
               <img
                 className="ml-2"
-                src="../../../public/svg/logout.svg"
+                src="/svg/logout.svg"
                 alt=""
               />
               خروج

@@ -1,3 +1,28 @@
+/**
+
+useCreateSessionInputs - Custom hook to generate input patterns for creating a session.
+
+@description
+
+Uses useListCourses to fetch courses and maps them into options for the "courseId" select input.
+
+While courses are loading or next page is being fetched, replaces select input with a loading placeholder.
+
+@returns {Object}
+
+createSessionInputs: Array of input patterns ready for form use.
+
+fetchNextCourse: Function to fetch next page of courses for infinite scroll.
+
+hasNextCourse: Boolean indicating if more courses are available.
+
+isFetchingNextCourse: Boolean indicating if next page of courses is being fetched.
+
+courses: Array of fetched courses.
+
+coursesLoading: Boolean indicating if courses are currently loading.
+*/
+
 import { useMemo } from "react";
 import CreateSession from "../../../../constants/InputPatterns/Admin/Sessions/CreateSession";
 import useListSessions from "../useListSessions";

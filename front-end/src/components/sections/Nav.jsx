@@ -38,7 +38,7 @@ function Nav() {
         <div className="nav-right">
           <Button classes="hidden lg:block" to="/">
             <img
-              src="../../public/images/logo.jpg"
+              src="/images/logo.png"
               className="w-[100px] h-[80px]"
               alt="singo learn"
             />

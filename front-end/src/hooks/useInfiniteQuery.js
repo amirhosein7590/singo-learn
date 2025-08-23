@@ -1,3 +1,27 @@
+/**
+ * Generic custom hook for infinite pagination queries
+ * 
+ * Wraps React Query's `useInfiniteQuery` with added features:
+ * - Dynamic URL parameter selection (selectedId)
+ * - Custom observer for infinite scroll (customeObserver)
+ * - Auto-fetch next page when element visible
+ * 
+ * @function useInfiniteQuery
+ * @param {string} key - Query key for react-query caching
+ * @param {any} deps - Dependencies for query
+ * @param {string} url - API endpoint
+ * @param {Object|null} headers - Optional headers
+ * @param {boolean} isPrivate - Use private axios instance
+ * @param {boolean} enabled - Enable or disable query
+ * @param {string|boolean} selectedId - Dynamic URL ID parameter
+ * @param {number} limit - Items per page
+ * @param {boolean} customeObserver - Parent component handles intersection observer
+ * @returns {Object} - All infinite query result fields, plus:
+ *   - allData: Flattened array of all pages
+ *   - loadMoreRef: Ref for intersection observer
+ */
+
+
 import { useEffect, useRef } from "react";
 import { useInfiniteQuery as useRQInfiniteQuery } from "@tanstack/react-query";
 import axiosPublic from "../api/axiosPublic";

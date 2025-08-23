@@ -1,3 +1,22 @@
+/**
+
+useAddMultipleOff - Custom hook to apply a discount to all courses at once.
+
+@description
+
+Handles sending a POST request to /offs/all with a discount percentage.
+
+Validates the percentage before sending and shows success or error messages using showToastHandler.
+
+Invalidates the "offs" query after success to refresh the data.
+
+@returns {Object}
+
+addMultipleOff: Function to trigger the discount application.
+
+addMultipleOffLoading: Boolean indicating loading state.
+*/
+
 import useAxiosMutate from "../../../hooks/useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

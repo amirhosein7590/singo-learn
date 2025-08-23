@@ -1,3 +1,46 @@
+/**
+ * Input configuration patterns for course creation/editing form
+ * 
+ * Defines the form structure, validation rules, and UI configuration for course management forms
+ * Used by EditForm component to dynamically generate form fields with validation
+ * 
+ * @constant {Array<Object>} BASE_CREATE_COURSE_INPUT_PATTERNS - Array of input field configurations
+ * @property {string} name - Unique identifier for the form field (matches backend field names)
+ * @property {string} type - Input type ('text', 'number', 'file', 'select', 'editor')
+ * @property {string} classes - CSS classes for styling the input element
+ * @property {Object} label - Label configuration object
+ * @property {string} label.message - Label text displayed to the user
+ * @property {string} label.classes - CSS classes for styling the label
+ * @property {string} [id] - HTML id attribute for file inputs (used for label association)
+ * @property {string} [border] - Border styling override ('hidden' to remove border)
+ * @property {Object} rules - Validation rules using react-hook-form validation schema
+ * @property {string} rules.required - Required field validation message
+ * @property {Object} [rules.pattern] - Regex pattern validation
+ * @property {RegExp} rules.pattern.value - Regular expression for validation
+ * @property {string} rules.pattern.message - Error message for pattern validation
+ * @property {Object} [rules.validate] - Custom validation functions (for file inputs)
+ * @property {Function} rules.validate.lessThan5Meg - File size validation (5MB limit)
+ * @property {Function} rules.validate.acceptFormats - File format validation
+ * @property {Array} [options] - Options for select inputs (only for type: 'select')
+ * @property {boolean} [multiple] - Multiple selection flag (only for type: 'select')
+ * @property {string} [placeholder] - Placeholder text for select inputs
+ * 
+ * @example
+ * // Usage in EditForm component:
+ * <EditForm 
+ *   inputPatterns={BASE_CREATE_COURSE_INPUT_PATTERNS}
+ *   onAction={handleCourseSubmit}
+ *   title="ایجاد دوره جدید"
+ * />
+ * 
+ * @note
+ * - Field names must match backend API expectations for course data
+ * - File inputs have special validation for size (5MB) and format (image types)
+ * - Select input for support status uses string values "true"/"false" to match form data requirements
+ * - Editor field (description) uses a rich text editor component for HTML content
+ * - Validation messages are in Persian to match user interface language
+ */
+
 const BASE_CREATE_COURSE_INPUT_PATTERNS = [
   {
     name: "title",

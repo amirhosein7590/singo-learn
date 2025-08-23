@@ -18,37 +18,37 @@ function Admin() {
       id: 1,
       to: "/dashboard/admin",
       text: "حساب کاربری",
-      icon: "../../../../public/svg/home.svg",
+      icon: "/svg/home.svg",
     },
     {
         id : 2,
         to: "/dashboard/admin/teachers",
         text : "مدرسان",
-        icon : "../../../../public/svg/teacher.svg"
+        icon : "/svg/teacher.svg"
     },
     {
         id : 3,
         to: "/dashboard/admin/courses",
         text : "دوره ها",
-        icon : "../../../../public/svg/online-course.svg"
+        icon : "/svg/online-course.svg"
     },
     {
         id : 4,
         to: "/dashboard/admin/users",
         text : "کاربران",
-        icon : "../../../../public/svg/users.svg"
+        icon : "/svg/users.svg"
     },
     {
         id : 5,
         to: "/dashboard/admin/sessions",
         text : "جلسات",
-        icon : "../../../../public/svg/sessions.svg"
+        icon : "/svg/sessions.svg"
     },
     {
         id : 6,
         to: "/dashboard/admin/offs",
         text : "تخفیف ها",
-        icon : "../../../../public/svg/discount.svg"
+        icon : "/svg/discount.svg"
     },
   ];
 

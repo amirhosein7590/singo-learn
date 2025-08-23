@@ -1,3 +1,20 @@
+/**
+ * Custom hook for uploading images to external host
+ * 
+ * Handles image uploads using Bytescale API (or any external file host)
+ * Returns uploaded image URL to be used in other hooks (`useImageCourse`, `useIconCourse`, etc.)
+ * 
+ * @function useCreateImage
+ * @returns {Object}
+ *  - addImage: Async function to upload a single file, returns uploaded file data
+ *  - isPending: Boolean indicating upload is in progress
+ * 
+ * @example
+ * const { addImage, isPending } = useCreateImage();
+ * const result = await addImage(file); // returns { files: [{ fileUrl: '...' }] }
+ */
+
+
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { showToastHandler } from "../../../utils/ToastController";

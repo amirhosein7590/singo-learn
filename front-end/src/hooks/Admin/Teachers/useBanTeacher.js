@@ -1,3 +1,22 @@
+/**
+
+useBanTeacher - Custom hook to ban or unban a teacher.
+
+@description
+
+Sends a POST request to /ban with teacher ID and ban status.
+
+Shows toast messages for success or error.
+
+Invalidates the teachers query on success to refresh the table.
+
+@returns {Object}
+
+banTeacher: Function to toggle ban status for a teacher.
+
+banTeacherLoading: Boolean indicating if the mutation is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

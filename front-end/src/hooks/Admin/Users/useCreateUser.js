@@ -1,3 +1,22 @@
+/**
+
+useCreateUser - Hook for registering a new user.
+
+@description
+
+Sends a POST request to /register with user data and role='user'.
+
+Displays success or error toast notifications.
+
+Invalidates the users query on success to refresh the table.
+
+@returns {Object}
+
+addUser: Function to register a new user.
+
+createUserLoading: Boolean indicating if registration is in progress.
+*/
+
 import useAxiosMutate from "../../useAxiosMutate";
 import { showToastHandler } from "../../../utils/ToastController";
 import { useQueryClient } from "@tanstack/react-query";

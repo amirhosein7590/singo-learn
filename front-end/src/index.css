@@ -7,16 +7,16 @@
 }
 @font-face {
     font-family: Yekan Bakh;
-    src: url(../public/fonts/YekanBakh-Bold.bbd877a3.woff) , format(woff);
+    src: url(/fonts/YekanBakh-Bold.bbd877a3.woff) , format(woff);
 }
 @font-face {
     font-family: Yekan Bakh Fat;
-    src: url(../public/fonts/YekanBakh-Fat.e508fcc6.woff);
+    src: url(/fonts/YekanBakh-Fat.e508fcc6.woff);
 }
 
 @font-face {
     font-family: Yekan Bakh Heavy;
-    src: url(../public/fonts/YekanBakh-Heavy.630c4fa4.woff) , format(woof);
+    src: url(/fonts/YekanBakh-Heavy.630c4fa4.woff) , format(woof);
 }
 
 h1{

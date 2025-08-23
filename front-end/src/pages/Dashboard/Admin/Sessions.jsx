@@ -95,6 +95,7 @@ function Sessions() {
     alertSetter(setShowAlert);
     resgisterToastSetter(setShowToast);
     modalSetter(setShowModal);
+    document.title = 'مدیریت جلسات'
   }, []);
 
   return (

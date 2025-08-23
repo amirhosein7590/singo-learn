@@ -17,6 +17,7 @@ import useRemoveTeacher from "../../../hooks/Admin/Teachers/useRemoveTeacher";
 import useEditInputPattern from "../../../hooks/Admin/Teachers/Table/useEditInputPattern";
 import uesEditTeacher from "../../../hooks/Admin/Teachers/useEditTeacher";
 import useBanTeacher from "../../../hooks/Admin/Teachers/useBanTeacher";
+const Spinner = lazy(() => import("../../../components/sections/Spinner"));
 
 function ManageTeachers() {
   const {
@@ -60,6 +61,7 @@ function ManageTeachers() {
     resgisterToastSetter(setShowToast);
     alertSetter(setShowAlert);
     modalSetter(setShowModal);
+    document.title = "مدیریت مدرسان";
   }, []);
 
   const addPending = (teacherId, action) => {
@@ -136,7 +138,7 @@ function ManageTeachers() {
     <>
       <div className="wrapper flex flex-col">
         <div className="add-teacher py-3 px-6 flex flex-col">
-          {!coursesLoading && (
+          {!coursesLoading ? (
             <EditForm
               title={"ایجاد مدرس"}
               inputPatterns={createTeacherInputPattern}
@@ -146,6 +148,10 @@ function ManageTeachers() {
               hasNextPage={hasNextPage}
               fetchNextPage={fetchNextPage}
             />
+          ) : (
+            <div className="flex justify-center items-center h-full w-full">
+              <Spinner size="lg" />
+            </div>
           )}
         </div>
         <div className="py-3 px-6">
