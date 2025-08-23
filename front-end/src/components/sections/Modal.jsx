@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 import EditForm from "../sections/EditForm";
 import Table from "../sections/Table/Index";
 import Button from "../ui/Button";

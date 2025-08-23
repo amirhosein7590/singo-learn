@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import StdCommentItems from "../components/sections/stdCommentItems";
+import StdCommentItems from "../components/sections/StdCommentItems";
 import stdComments from "../data/StudentComments";
 
 function StudentsComments() {
