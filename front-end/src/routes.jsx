@@ -4,7 +4,7 @@ import Course from "./pages/Course";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import DefaultLayout from "./layouts/defaultLayout";
+import DefaultLayout from "./layouts/DefaultLayout";
 import StudentsCommnets from './pages/StudentsComments'
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Dashboard from './pages/Dashboard/Index'
