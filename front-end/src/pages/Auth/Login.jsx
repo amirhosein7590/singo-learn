@@ -156,7 +156,7 @@ function Login() {
               ثبت نام
             </Button>
           </div>
-          <h5 className="text-center my-7 text-2xl text-[#00000099]">
+          <h5 className="text-center my-7 text-xl lg:text-2xl text-[#00000099]">
             ورود به سینگو لرن
           </h5>
 
@@ -190,7 +190,7 @@ function Login() {
             classes="text-white bg-[var(--dark-purple)] py-1.5 text-[16px] rounded-sm shadow-[var(--cart-shadow)] mt-3"
             disabled={isPending}
           >
-            {isPending ? "درحال ارسال" : "ورود"}
+            {isPending ? "در حال ارسال ..." : "ورود"}
           </Button>
         </form>
       </AuthForm>

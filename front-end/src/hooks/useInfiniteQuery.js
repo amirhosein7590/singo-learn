@@ -74,7 +74,7 @@ function useInfiniteQuery(
           query.fetchNextPage();
         }
       },
-      { threshold: .5 }
+      { threshold: .1 }
     );
 
     observer.observe(loadMoreRef.current);

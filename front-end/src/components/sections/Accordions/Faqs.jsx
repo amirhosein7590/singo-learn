@@ -12,7 +12,7 @@ function Faqs({ question, answer , onClick }) {
             isShow && "rounded-lg shadow-[var(--cart-shadow)]"
           }`}
         >
-          <p>{question}</p>
+          <p className="text-sm lg:text-[16px]">{question}</p>
           <div className="arrow-icon">
           <svg
             onClick={() => onClick(setIsShow)}
@@ -42,7 +42,7 @@ function Faqs({ question, answer , onClick }) {
             //   transition={{ duration: 0.4 }}
               exit={{ paddingBlock: "0", maxHeight: "0" }}
             >
-              <p className="text-[#00000099]">{answer}</p>
+              <p className="text-[#00000099] text-sm leading-7 lg:text-[16px] ">{answer}</p>
             </motion.div>
           )}
         </AnimatePresence>

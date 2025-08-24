@@ -26,9 +26,9 @@
  * - Handles initial selection setup through useEffect hooks
  */
 
-import { useState, memo, useEffect } from "react";
+import { useState, memo, useEffect , useRef, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRef } from "react";
+const Spinner = lazy(()=> import('../sections/Spinner'))
 
 function SelectBox({
   name,
@@ -140,7 +140,7 @@ function SelectBox({
               ref={observerRef}
               className="observer w-[1px] h-[1px] opacity-0"
             ></div>
-            {isFetchingNextPage && <div>loading ...</div>}
+            {isFetchingNextPage && <div className="flex justify-center items-center"><Spinner size="sm" /></div>}
           </motion.ul>
         )}
       </AnimatePresence>

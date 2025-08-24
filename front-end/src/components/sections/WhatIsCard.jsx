@@ -7,7 +7,7 @@ function WhatIsCard({title , description}) {
         <img src="/svg/decoration.svg" alt="" />
         <h2 className="text-lg lg:text-2xl mr-2">{title}</h2>
       </div>
-      <p className="answer text-sm lg:text-[16px] text-[#000000DE]">{description}</p>
+      <p className="answer text-sm leading-7 lg:text-[16px] text-[#000000DE]">{description}</p>
     </div>
   );
 }

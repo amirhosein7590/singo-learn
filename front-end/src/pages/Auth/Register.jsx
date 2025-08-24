@@ -196,7 +196,7 @@ function Register() {
             ثبت نام
           </Button>
         </div>
-        <h5 className="text-center my-7 text-2xl text-[#00000099]">
+        <h5 className="text-center my-7 text-xl lg:text-2xl text-[#00000099]">
           ثبت نام در سینگو لرن
         </h5>
 

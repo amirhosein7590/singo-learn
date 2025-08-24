@@ -16,7 +16,7 @@ function Footer() {
             </Button>
 
             <div className="texts">
-              <h3 className="text-[#616161] text-xl -mt-3 lg:mt-0 mb-3">
+              <h3 className="text-[#616161] text-lg lg:text-xl -mt-3 lg:mt-0 mb-3">
                 آکادمی سینگو لرن
               </h3>
               <p className="text-[#616161]">
@@ -26,7 +26,7 @@ function Footer() {
           </div>
 
           <div className="row description">
-            <p>
+            <p className="text-sm leading-7 lg:text-[16px]">
               هدف سینگو لرن ارائه بهترین دوره های آموزش برنامه نویسی به
               دانشجویان برای ورود به بازار کار است و برای رسیدن به این هدف یک
               سری استانداردها تعیین شده و به صورت سختگیرانه روی دوره ها اعمال
@@ -44,7 +44,7 @@ function Footer() {
 
         <div className="left-section w-full lg:w-1/2 flex flex-col items-center">
           <div className="row site-sections flex flex-col mt-5 w-full lg:w-1/2">
-            <p className="text-[#616161] text-xl mb-5">بخش های سایت</p>
+            <p className="text-[#616161] text-lg lg:text-xl mb-5">بخش های سایت</p>
             <ul className="flex flex-col">
               <li className="flex items-center my-2 lg:m-0">
                 <div className="w-2 h-2 bg-[#aaa]"></div>
