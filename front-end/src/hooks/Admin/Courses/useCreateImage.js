@@ -20,20 +20,14 @@ import { useMutation } from "@tanstack/react-query";
 import { showToastHandler } from "../../../utils/ToastController";
 
 function useCreateImage() {
-  const headers = {
-    Authorization: `Bearer public_G22nht29PccNxn4bRcskXEovAAjf`,
-  };
 
   const { mutateAsync, isPending } = useMutation({
     mutationKey: ["Image"],
     mutationFn: async (data) => {
       try {
         let res = await axios.post(
-          "https://api.bytescale.com/v2/accounts/G22nht2/uploads/form_data",
+          "https://upload.uploadcare.com/base/",
           data,
-          {
-            headers,
-          }
         );
         let image = await res.data;
         return image;
@@ -45,7 +39,9 @@ function useCreateImage() {
 
   const addImage = async (file) => {
     let formData = new FormData();
-    formData.append("files", file);
+    formData.append("file", file);
+    formData.append('UPLOADCARE_STORE' , 'auto')
+    formData.append('UPLOADCARE_PUB_KEY' , 'd1e05329a7009bb7b3c7')
     return await mutateAsync(formData);
   };
 

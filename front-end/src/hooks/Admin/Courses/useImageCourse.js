@@ -38,7 +38,8 @@ function useImageCourse() {
   const editImage = async (courseId, files) => {
     const file = files?.[0];
     let res = await addImage(file);
-    let fileUrl = await res.files[0].fileUrl;
+    let resFile = await res.file;
+    let fileUrl = `https://ucarecdn.com/${resFile}/`
     mutateAsync({image : fileUrl}, {
       urlParams: { id: courseId },
       onSuccess: (data) => {

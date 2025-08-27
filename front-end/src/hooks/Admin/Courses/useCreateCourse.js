@@ -41,8 +41,8 @@ function useCreateCourse() {
   const createCourse = async ({ image, icon, ...others }) => {
     let imageRes = await addImage(image[0]);
     let iconRes = await addIcon(icon[0]);
-    let imageUrl = imageRes.files[0].fileUrl;
-    let iconUrl = iconRes.files[0].fileUrl;
+    let imageUrl = `https://ucarecdn.com/${imageRes.file}/`
+    let iconUrl = `https://ucarecdn.com/${iconRes.file}/`;
 
     mutate(
       { image: imageUrl, icon: iconUrl, ...others },
