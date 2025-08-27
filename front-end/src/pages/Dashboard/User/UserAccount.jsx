@@ -18,7 +18,7 @@ function UserAccount() {
   return (
     <div className="flex flex-col rounded-lg py-7 px-6 shadow-[var(--cart-shadow)] mt-12 lg:mt-0 bg-white ">
       {context ? (
-        <h4 className="text-2xl mb-7">سلام {context} عزیز ❤️</h4>
+        <h4 className="text-lg lg:text-2xl mb-7">سلام {context} عزیز ❤️</h4>
       ) : (
         <div role="status" class="max-w-sm animate-pulse">
           <div class="h-2.5 bg-gray-200 rounded-full w-48 mb-4"></div>

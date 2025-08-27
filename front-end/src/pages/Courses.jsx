@@ -37,9 +37,9 @@ function Courses() {
     <>
       <div className="course-wrapper flex flex-col justify-between items-center">
         <div className="md:w-full flex flex-col lg:flex-row lg:items-center lg:justify-between">
-          <div className="title flex flex-col lg:flex-row mb-5">
+          <div className="title flex flex-row mb-5">
             <img src="/svg/decoration.svg" alt="" />
-            <h2 className="text-2xl">دوره های آموزش برنامه نویسی</h2>
+            <h2 className="text-lg mr-2 lg:text-2xl">دوره های آموزش برنامه نویسی</h2>
           </div>
           <div className="filter flex items-center">
             <Button
