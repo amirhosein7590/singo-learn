@@ -1,3 +1,34 @@
+/** Faqs Accordion (components/sections/Accordions/Faqs.jsx)
+ * Collapsible FAQ item with question header and animated answer body.
+ * Uses Framer Motion for height/padding transitions and rotates the chevron on toggle.
+ *
+ * State:
+ * - `isShow` (local): controls expanded/collapsed state.
+ *
+ * Interactions:
+ * - Clicking the chevron calls `onClick(setIsShow)` allowing the parent to control
+ *   the toggle behavior (e.g., single-open logic) while still updating local state.
+ *
+ * Animation:
+ * - `AnimatePresence` handles mount/unmount of the answer.
+ * - The content transitions `maxHeight` and `padding-block` for a smooth accordion feel.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} props.question - FAQ question text.
+ * @param {string} props.answer - FAQ answer text (plain text/inline HTML-safe).
+ * @param {(setIsShow: React.Dispatch<React.SetStateAction<boolean>>) => void} props.onClick
+ *   External toggle handler. Receives the component's `setIsShow` to flip state.
+ * @returns {JSX.Element}
+ *
+ * @remarks
+ * - Accessibility: the clickable chevron is an SVG; consider adding `role="button"`,
+ *   `tabIndex={0}`, and keyboard handlers (`Enter`/`Space`) for better a11y.
+ * - The animated `maxHeight` is fixed to ~180px; long answers may be clipped.
+ *   Consider auto-measuring content height (e.g., `scrollHeight`) for dynamic sizing.
+ */
+
+
 import { memo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 

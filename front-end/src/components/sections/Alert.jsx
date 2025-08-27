@@ -1,3 +1,26 @@
+/**
+ * Alert Component
+ * Modal dialog for displaying confirmation messages with animated icons.
+ *
+ * @param {"warning"|"error"|"success"} icon - Type of alert (maps to SVG icon).
+ * @param {string} title - Main text shown in the alert.
+ * @param {string} description - Optional description (currently unused in markup).
+ * @param {Function} onConfirm - Callback when the confirm button is clicked.
+ * @param {Function} onCancel - Callback when the cancel button is clicked.
+ * @param {string} confirmText - Label for the confirm button.
+ * @param {string} cancelText - Label for the cancel button.
+ *
+ * @returns {JSX.Element} Animated modal with icon, title, and confirm/cancel buttons.
+ *
+ * @description
+ * - Locks body scroll while open.
+ * - Uses `framer-motion` for smooth animations (fade, scale, spring).
+ * - Renders icon based on `icon` prop.
+ * - Provides two action buttons with customizable labels.
+ * - Wrapped in `AnimatePresence` for entry/exit animation.
+ */
+
+
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "../ui/Button";
 import { memo, useEffect } from "react";

@@ -1,8 +1,33 @@
+/**
+ * CartItem Component
+ * Displays a single course item inside the shopping cart with its details and remove option.
+ *
+ * @component
+ *
+ * @param {string} courseIcon - Course thumbnail/icon image URL.
+ * @param {string} title - Course title.
+ * @param {string|number} price - Final price (formatted).
+ * @param {string|number} [originalPrice] - Original price before discount (optional).
+ * @param {string|number} id - Unique course ID.
+ * @param {Object} showToast - Toast configuration (visibility, message, icon).
+ *
+ * @returns {JSX.Element} A styled cart item with course details and remove button.
+ *
+ * @description
+ * - Fetches cart-related actions from `useCart` hook.
+ * - Allows removing a course from the cart:
+ *   - Shows success toast if removed successfully.
+ *   - Shows error toast if removal fails.
+ * - Displays both original (strikethrough) and final price.
+ * - Shows loading state on remove button (`در حال ارسال ...`).
+ * - Optionally renders `Toast` if `showToast.visible` is true.
+ */
+
+
 import Button from "../ui/Button";
 import { lazy, memo, useEffect } from "react";
 import useCart from "../../hooks/useCart";
 import { showToastHandler } from "../../utils/ToastController";
-import { useNavigate } from "react-router";
 const Toast = lazy(() => import("../sections/Toast"));
 
 function CartItem({ courseIcon, title, price, id, showToast, originalPrice }) {
@@ -12,7 +37,6 @@ function CartItem({ courseIcon, title, price, id, showToast, originalPrice }) {
     removeCourseError,
     removeFromCartData,
   } = useCart();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (removeFromCartData?.success) {

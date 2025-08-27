@@ -1,3 +1,49 @@
+/**
+ * ManageTeachers Component
+ * -------------------------
+ * Admin dashboard page for managing teachers.  
+ * Provides features to register, edit, ban/unban, view assigned courses, and remove teachers.  
+ * Uses modular hooks, global controllers, and reusable UI components.
+ *
+ * @component
+ * @returns {JSX.Element} Teachers management panel with:
+ * - Teacher registration form
+ * - Paginated & scrollable teachers table
+ * - Modal for viewing courses or editing teacher info
+ * - Alert for confirmation dialogs
+ * - Toast for notifications
+ *
+ * @state
+ * @property {Object} showToast - Controls toast notifications visibility and content.
+ * @property {boolean} showModal - Controls modal visibility.
+ * @property {boolean} showAlert - Controls alert visibility.
+ *
+ * @hooks
+ * - useListCourses: Fetches courses list used for teacher registration.
+ * - useRegisterTeacher: Registers new teachers and manages state.
+ * - useTeachersList: Fetches all teachers with infinite scroll support.
+ * - useRemoveTeacher: Deletes teacher accounts.
+ * - useEditInputPattern: Generates input patterns for editing teacher info.
+ * - useEditTeacher: Updates teacher profile data.
+ * - useBanTeacher: Bans/unbans teachers from the system.
+ * - useCreateInputPattern: Prepares form fields for teacher registration.
+ * - useTableDatas: Generates structured data for teacher table.
+ *
+ * @functions
+ * @function addPending(teacherId, action) - Tracks ongoing teacher actions.
+ * @function removePending(teacherId, action) - Removes pending state when action completes.
+ * @function actionHandler(infos) - Centralized action handler for teachers:
+ *   - "viewCourses": Opens modal showing all teacher's courses.
+ *   - "edit": Opens modal with editable teacher fields.
+ *   - "ban": Toggles teacher’s banned state.
+ *   - "remove": Opens confirmation alert before deletion.
+ *
+ * @effects
+ * - Registers modal, toast, and alert setters with global controllers.
+ * - Sets document title to "مدیریت مدرسان".
+ */
+
+
 import { lazy, memo, useEffect, useState, useRef } from "react";
 import EditForm from "../../../components/sections/EditForm";
 import useListCourses from "../../../hooks/Admin/Courses/useListCourses";

@@ -1,3 +1,24 @@
+/**
+ * Nav Component
+ *
+ * The main navigation bar for the site.
+ *
+ * @component
+ *
+ * @description
+ * - Displays the site logo, main navigation links, and cart button.
+ * - Handles responsive behavior: hamburger menu for mobile view.
+ * - Shows the current number of items in the cart (if user is logged in and not a teacher).
+ * - Provides login/dashboard button based on user role and authentication state.
+ * - Uses localStorage to persist user information and updates on location change.
+ * - Handles menu toggling with state and passes it to the SideMenu component.
+ *
+ * @notes
+ * - Integrates with custom useAxiosQuery hook to fetch cart data.
+ * - Cart and user dashboard links are dynamically rendered based on userInfos from localStorage.
+ * - Navigation buttons are aware of active routes to apply styling.
+ */
+
 import { useState, memo, useEffect } from "react";
 import Button from "../ui/Button";
 import SideMenu from "./SideMenu";

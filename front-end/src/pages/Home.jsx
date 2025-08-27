@@ -1,3 +1,11 @@
+/**
+ * Home Page
+ * 
+ * Displays homepage banner, main CTA buttons, and a list of latest courses.
+ * Uses CourseItem component for course cards (limited to 10 newest courses).
+ * Registers toast setter on mount.
+ */
+
 import { useEffect, useState } from "react";
 import Button from "../components/ui/Button";
 import useInfiniteQuery from "../hooks/useInfiniteQuery";

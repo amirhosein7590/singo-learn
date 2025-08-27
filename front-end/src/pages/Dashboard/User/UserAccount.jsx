@@ -1,3 +1,11 @@
+/**
+ * Renders the main user account panel.
+ * Shows a greeting, a motivational message, and a link to the "My Courses" section.
+ *
+ * @component
+ * @returns {JSX.Element} A styled user account dashboard section.
+ */
+
 import { memo, useEffect } from "react";
 import { useOutletContext } from "react-router";
 import Button from "../../../components/ui/Button";

@@ -1,3 +1,64 @@
+/**
+ * @file Offs.jsx
+ * @description
+ * Admin panel page for **managing course discounts (offs)**.  
+ * Allows administrators to apply single or bulk discounts, edit existing ones, and remove them.
+ *
+ * @component Offs
+ * @returns {JSX.Element} The full discount management interface for administrators.
+ *
+ * @features
+ * - **Apply Single Discount**:
+ *   - Uses `EditForm` with `useCreateInputPattern` to assign a discount to a specific course.
+ *   - Supports pagination when selecting from available courses (`fetchNextCourse`, `hasNextCourse`).
+ *
+ * - **Apply Bulk Discount**:
+ *   - Provides an additional button to apply a discount across **all courses** simultaneously.
+ *   - Uses `useAddMultipleOff` for backend integration.
+ *
+ * - **Discounts Table**:
+ *   - Displays all created discounts in a paginated `Table`.  
+ *   - Infinite scrolling supported (`loadMoreOff`, `isFetchingNextOff`).
+ *   - Row actions include **edit** and **remove**.
+ *
+ * - **Action Handling**:
+ *   - **edit**: Opens a `Modal` with dynamic input patterns from `useEditInputPatterns`.  
+ *     Allows the admin to update discount details.
+ *   - **remove**: Displays an `Alert` confirmation before permanently deleting a discount.
+ *
+ * - **Global State Controllers**:
+ *   - `modalSetter`, `alertSetter`, and `resgisterToastSetter` bind modals, alerts, and toasts to local state.
+ *   - Ensures consistent UI feedback for actions.
+ *
+ * - **Pending State Tracking**:
+ *   - `pendingKeysRef` tracks which discount IDs are currently under an operation (edit/remove).  
+ *   - `actionPending` maps async loaders for visual feedback during removal.
+ *
+ * - **Document Title**:
+ *   - Automatically updates the browser tab title to `"مدیریت تخفیف ها"`.
+ *
+ * @hooks
+ * - `useCreateInputPattern`: Provides inputs and pagination for discount creation.
+ * - `useAddSingleOff`: Creates a discount for one course.
+ * - `useAddMultipleOff`: Applies a discount across all courses.
+ * - `useTableDatas`: Fetches and maps discounts into table-ready format.
+ * - `useEditOff`: Updates discount details.
+ * - `useEditInputPatterns`: Generates input fields for editing discounts.
+ * - `useRemoveOff`: Removes a discount.
+ *
+ * @optimizations
+ * - **Lazy Loading**: Modal, Toast, and Alert are dynamically imported to reduce initial page load.
+ * - **Ref-based Action Tracking**: Efficiently tracks ongoing edit/remove operations without unnecessary re-renders.
+ *
+ * @usage
+ * ```jsx
+ * import Offs from "./Offs";
+ *
+ * <Route path="/dashboard/admin/offs" element={<Offs />} />
+ * ```
+ */
+
+
 import { lazy, useState, useEffect , useRef } from "react";
 const Modal = lazy(() => import("../../../components/sections/Modal"));
 import { modalSetter, showModalHandler } from "../../../utils/ModalController";

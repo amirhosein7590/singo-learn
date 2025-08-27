@@ -1,3 +1,69 @@
+/**
+ * @file Sessions.jsx
+ * @description 
+ * This file implements the **Admin Sessions Management** page.  
+ * It allows administrators to manage **course sessions (Seasions)** and their corresponding **lectures (Sessions)**.  
+ * The page provides features to **create, edit, and delete sessions/seasions**, while displaying them in a dynamic table with pagination.
+ *
+ * @component Sessions
+ * @returns {JSX.Element} A page for managing course sessions and related entities in the admin panel.
+ *
+ * @features
+ * - **Add New Seasion**: 
+ *   Uses `EditForm` to create a new course seasion (chapter) with configurable input fields.  
+ *   Pagination is supported when fetching courses to attach the seasion to.
+ *
+ * - **Add New Session**: 
+ *   Provides a second `EditForm` to create an actual session (lecture).  
+ *   Supports pagination for sessions and integrates validation patterns via `useCreateSessionInput`.
+ *
+ * - **Seasion Table**: 
+ *   Displays all existing seasions in a scrollable and paginated `Table` component.  
+ *   Includes actions like **edit** and **remove**, each wired to handlers and state tracking.
+ *
+ * - **Action Handling**:
+ *   - **Remove**: Opens a confirmation `Alert` modal before deleting.  
+ *   - **Edit**: Opens a `Modal` with pre-filled input patterns (using `useEditSeasionInput`) to update seasion details.  
+ *     Handles transformation of string-based values (like `"false"`) into booleans.
+ *
+ * - **Global State Handlers**:  
+ *   Utilizes centralized setters (`alertSetter`, `modalSetter`, `resgisterToastSetter`) for managing modals, alerts, and toast notifications globally.
+ *
+ * - **Pending State Tracking**:  
+ *   A `pendingKeysRef` Set tracks which seasion/session is currently under an action (like delete or edit) to provide fine-grained UI feedback.  
+ *   `actionPending` consolidates async operation loading states.
+ *
+ * - **Lazy Loaded UI Components**:  
+ *   `Modal`, `Toast`, and `Alert` are dynamically imported to improve performance.
+ *
+ * - **Document Title**:  
+ *   Automatically updates the browser tab title to `"مدیریت جلسات"` for better UX.
+ *
+ * @hooks
+ * - `useCreateSeasionInputs`: Provides inputs and pagination for creating new seasions.  
+ * - `useCreateSessionInput`: Provides inputs and pagination for creating new sessions.  
+ * - `useSeasionTableDatas`: Fetches and formats seasion data into table-ready `thead` and `tbody`.  
+ * - `useCreateSeasion`: Handles creation of a seasion with async loading state.  
+ * - `useCreateSession`: Handles creation of a session with async pending state.  
+ * - `useEditSeasionInput`: Generates input patterns for editing a seasion.  
+ * - `useRemoveSeasion`: Handles deletion of a seasion.  
+ * - `useEditSeasion`: Handles updating seasion details.  
+ *
+ * @optimizations
+ * - **Memoization**: Wrapped in `memo` to prevent unnecessary re-renders when props/state do not change.  
+ * - **Lazy Imports**: Heavy components (Modal, Toast, Alert) are only loaded when needed.  
+ * - **Ref-based Tracking**: Instead of state-based arrays, `useRef` is used for tracking pending actions efficiently without extra re-renders.
+ *
+ * @usage
+ * ```jsx
+ * import Sessions from "./Sessions";
+ * 
+ * // Inside Admin Router
+ * <Route path="/admin/sessions" element={<Sessions />} />
+ * ```
+ */
+
+
 import { useEffect, useState, lazy, useRef } from "react";
 import EditForm from "../../../components/sections/EditForm";
 import Table from "../../../components/sections/Table/Index";

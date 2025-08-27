@@ -1,3 +1,44 @@
+/** VideoCart (components/sections/Accordions/Session/VideoCart.jsx)
+ * Represents a single video item within a course session.
+ * Displays video metadata (order, title, duration) and, if accessible,
+ * shows action buttons to either watch or download the video.
+ *
+ * State:
+ * - `isShowVideo`: toggles modal/player visibility when "Watch Video" is clicked.
+ *
+ * Interactions:
+ * - If `isPurchasedCourse(courseId)` returns true OR `isFree` is true, 
+ *   the action buttons are displayed:
+ *   - "Watch Video": sets `isShowVideo = true`, triggers lazy-loaded `<Video />`.
+ *   - "Download Video": provides an `<a>` tag with `download` attribute linking to `videoUrl`.
+ *
+ * UI:
+ * - Top section: order number in styled box, video title, and duration with clock icon.
+ * - Action buttons styled with the shared `<Button />` component.
+ * - On show, `<Video />` modal/component is lazily loaded for performance.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} props.courseId - ID of the course to check ownership with `isPurchasedCourse`.
+ * @param {string} props.title - Title of the video.
+ * @param {string} props.videoUrl - Source URL of the video file.
+ * @param {number} props.duration - Duration of the video in minutes.
+ * @param {number} props.order - Order number of the video in the session.
+ * @param {(courseId: string) => boolean} props.isPurchasedCourse - Function that checks if the user owns this course.
+ * @param {boolean} props.isFree - Whether this video is freely accessible.
+ * @returns {JSX.Element}
+ *
+ * @remarks
+ * - `Video` component is lazily loaded via `React.lazy` to improve initial page load.
+ * - Download link (`<a download>`) relies on `videoUrl`; ensure proper CORS/headers 
+ *   to allow downloads in all browsers.
+ * - No access restriction UI is shown if the user doesn’t own the course and `isFree` is false.
+ *   Consider rendering a disabled state or "locked" indicator for clarity.
+ * - `Button` is reused here but contains `<a>` inside in one case; 
+ *   ensure consistent semantics for accessibility.
+ */
+
+
 import { lazy, memo, useState } from "react";
 import Button from "../../../ui/Button";
 const Video = lazy(()=> import('../../Video'))

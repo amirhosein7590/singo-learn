@@ -1,3 +1,68 @@
+/**
+ * @file ManageUsers.jsx
+ * @description
+ * Admin panel page for **managing platform users**.  
+ * Provides CRUD operations, user banning, and viewing purchased courses.  
+ * Integrates forms, tables, and modals to give administrators full control over user accounts.
+ *
+ * @component ManageUsers
+ * @returns {JSX.Element} The complete user management interface for administrators.
+ *
+ * @features
+ * - **Create User**:
+ *   - Uses `EditForm` with `BASE_CREATE_USER_INPUT_PATTERNS` to create new users.
+ *   - Displays loading spinner (`Spinner`) while user data is being fetched initially.
+ *
+ * - **Users Table**:
+ *   - Displays all registered users in a scrollable, paginated `Table`.  
+ *   - Each row supports actions: **edit, ban/unban, remove, view purchased courses**.
+ *   - Integrates with infinite scrolling (`loadMoreRef` + `isFetchingNextUser`).
+ *
+ * - **Action Handling**:
+ *   - **viewCourses**: Fetches user’s purchased courses and shows them inside a `Modal`.
+ *   - **edit**: Opens a `Modal` with pre-filled input patterns (`useEditInputPattern`) to update user details.
+ *   - **ban**: Toggles the user’s ban status (`isBanned`) via `useBanUser`.
+ *   - **remove**: Displays a confirmation `Alert` before permanently removing a user.
+ *
+ * - **User Courses Modal**:
+ *   - If an admin selects *View Courses*, a modal shows all purchased courses with a dynamic `thead` and `tbody`.
+ *   - Modal closes automatically when the user navigates away.
+ *
+ * - **Global State Controllers**:
+ *   - `alertSetter`, `modalSetter`, and `resgisterToastSetter` bind the state management of alerts, modals, and toasts.
+ *   - Toasts provide feedback for operations (success/error).
+ *
+ * - **Pending State Tracking**:
+ *   - `pendingKeysRef` maintains a set of ongoing operations (`ban`, `remove`) to prevent duplicate actions.
+ *   - `actionPending` tracks asynchronous loading states to visually disable buttons.
+ *
+ * - **Document Title**:
+ *   - Sets the browser tab title to `"مدیریت کاربران"` when mounted.
+ *
+ * @hooks
+ * - `useUsersList`: Fetches paginated list of all users.
+ * - `useUserCourses`: Fetches a specific user’s purchased courses.
+ * - `useCreateUser`: Creates a new user.
+ * - `useEditUser`: Updates user details.
+ * - `useBanUser`: Bans or unbans a user.
+ * - `useRemoveUser`: Removes a user.
+ * - `useTableDatas`: Maps users to table data.
+ * - `useEditInputPattern`: Generates dynamic inputs for editing users.
+ *
+ * @optimizations
+ * - **Lazy Loading**: Modal, Toast, Alert, and Spinner are dynamically imported to reduce initial bundle size.
+ * - **Ref-based Action Tracking**: Prevents unnecessary re-renders when tracking pending states.
+ * - **Conditional Rendering**: Shows a loading spinner until users are available for rendering.
+ *
+ * @usage
+ * ```jsx
+ * import ManageUsers from "./ManageUsers";
+ *
+ * <Route path="/dashboard/admin/users" element={<ManageUsers />} />
+ * ```
+ */
+
+
 import { lazy, useEffect, useState, useRef } from "react";
 const Modal = lazy(() => import("../../../components/sections/Modal"));
 import { modalSetter, showModalHandler } from "../../../utils/ModalController";

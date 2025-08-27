@@ -1,3 +1,15 @@
+/**
+ * Renders a single user course item inside the "My Courses" section.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string|number} props.id - Unique identifier for the course, used for navigation.
+ * @param {string} props.icon - URL of the course icon to display.
+ * @param {string} props.title - Title of the course.
+ * @returns {JSX.Element} A styled container that shows the course details and a link button.
+ */
+
+
 import Button from "../ui/Button";
 
 function UserCourseItem({ id, icon, title }) {

@@ -1,3 +1,28 @@
+/**
+ * SideMenu Component
+ *
+ * Mobile & tablet responsive menu for navigation.
+ *
+ * @component
+ *
+ * @description
+ * - Displays a full-screen overlay with a sliding side menu when in mobile/tablet view.
+ * - Uses Framer Motion for smooth animations (fade-in overlay, slide-in menu).
+ * - Includes navigation links: Home, Courses, Student Comments, About Us.
+ * - Each link shows an icon and is active-route aware to highlight the current page.
+ * - Can be toggled open/closed via a close button (X icon) or by clicking the overlay.
+ *
+ * @props
+ * @param {function} menuShowHandler - Function to toggle the visibility of the menu.
+ * @param {boolean} isMenuShown - Boolean that indicates whether the menu is currently shown.
+ *
+ * @notes
+ * - The animation transition is set to 0.5s with easeInOut for smoothness.
+ * - Overlay prevents interaction with the page behind the menu when open.
+ * - Fully reusable with Nav component or any other place where a mobile menu is needed.
+ */
+
+
 import Button from "../ui/Button";
 import { memo } from "react";
 import { AnimatePresence, motion } from "framer-motion";

@@ -1,3 +1,24 @@
+/**
+ * Register Page
+ * Handles user registration with validation and server mutation.
+ *
+ * @returns {JSX.Element} Registration form inside `AuthForm`.
+ *
+ * @description
+ * - Sets document title to "ثبت نام".
+ * - Uses `react-hook-form` for form handling and validation.
+ * - Submits new user data with role set to `"user"`.
+ * - Uses `useMutate("register")` for API request.
+ * - On success:
+ *   - Shows success toast.
+ *   - Redirects to `/login`.
+ * - On error:
+ *   - Displays error toast with server message.
+ * - Contains navigation buttons for switching between Login/Register.
+ * - Supports password visibility toggle.
+ */
+
+
 import { useEffect, useState } from "react";
 import AuthForm from "../../components/sections/AuthForm";
 import { useForm, Controller } from "react-hook-form";
@@ -6,6 +27,7 @@ import Input from "../../components/ui/Input";
 import useMutate from "../../hooks/useAxiosMutate";
 import { useNavigate } from "react-router";
 import { showToastHandler } from "../../utils/ToastController";
+import inputPatterns from '../../constants/InputPatterns/Auth/Register'
 
 function Register() {
   useEffect(() => {
@@ -33,92 +55,7 @@ function Register() {
 
  const {mutate , isPending} = useMutate('register' , null , '/register' , null , 'post' , false)
 
-  const inputPatterns = [
-    {
-      name: "username",
-      type: "text",
-      label: {
-        message: "نام کاربری را وارد کنید",
-        classes: "mb-2",
-      },
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      rules: {
-        required: "نام کاربری نمیتواند خالی باشد",
-        pattern: {
-          value: /^.{5,}$/,
-          message: "نام کاربری کوتاه است",
-        },
-      },
-    },
-    {
-      name: "fullname",
-      type: "text",
-      label: {
-        message: "نام و نام خانوادگی را وارد کنید",
-        classes: "mb-2",
-      },
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      rules: {
-        required: "نام و نام خانوادگی نمیتواند خالی باشد",
-        pattern: {
-          value: /^[\u0600-\u06FF\s]{5,}$/,
-          message:
-            "نام و نام خانوادگی نمیتواند کمتر از 5 کاراکتر و حروف انگلیسی باشد",
-        },
-      },
-    },
-    {
-      name: "password",
-      type: "password",
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      label: {
-        message: "رمز عبور را وارد کنید",
-        classes: "mb-2",
-      },
-      rules: {
-        required: "رمز عبور نمی تواند خالی باشد",
-        pattern: {
-          value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-          message:
-            "رمز عبور باید حداقل یک حرف بزرگ و کوچک ، یک سمبل و عدد داشته باشد",
-        },
-      },
-    },
 
-    {
-      name: "email",
-      type: "email",
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      label: {
-        message: "ایمیل را وارد کنید",
-        classes: "mb-2",
-      },
-      rules: {
-        required: "ایمیل نمی تواند خالی باشد",
-        pattern: {
-          value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-          message: "ایمیل وارد شده معتبر نمی باشد",
-        },
-      },
-    },
-
-    {
-      name: "phonenumber",
-      type: "text",
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      label: {
-        message: "شماره موبایل را وارد کنید",
-        classes: "mb-2",
-      },
-      rules: {
-        required: "شماره موبایل نمی تواند خالی باشد",
-        pattern: {
-          value: /^09[0-9]{9}$/,
-          message: "شماره موبایل وارد شده معتبر نمی باشد",
-        },
-      },
-    },
-  ]; // input pattern for validation and use in Controlled Component
 
   const submit = (data) => {
     let newUser = { ...data, role: "user" };

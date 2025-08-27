@@ -1,3 +1,24 @@
+/**
+ * CourseItem Component
+ * 
+ * Renders a single course card with icon, title, duration, student count, price, discount, 
+ * and buttons for adding to cart or viewing the course.
+ * Handles toast notifications for add-to-cart success or errors.
+ * 
+ * @component
+ * @param {Object} props
+ * @param {string} props.icon - Course icon URL.
+ * @param {string} props.title - Course title.
+ * @param {string|number} props.price - Course price ("Free" or numeric string).
+ * @param {string|number} props.duration - Course duration in hours.
+ * @param {number} props.stdCount - Number of enrolled students.
+ * @param {number} props.courseId - Unique course ID.
+ * @param {Object} props.showToast - Object controlling toast visibility and content.
+ * @param {Function} props.setShowToast - Setter function to update showToast state.
+ * @param {string} [props.originalPrice] - Original price if discount is applied.
+ * @param {number} [props.discount] - Discount percentage for the course.
+ */
+
 import Button from "../ui/Button";
 import useCart from "../../hooks/useCart";
 import { lazy, memo, useEffect } from "react";

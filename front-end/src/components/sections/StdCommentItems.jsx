@@ -1,3 +1,15 @@
+/**
+ * StdCommentItems Component
+ *
+ * Displays a single student comment, including:
+ * - Student details (name and courses)
+ * - Video testimonial
+ *
+ * @param {string} name - Name of the student
+ * @param {string} opinion - Text of the student's opinion
+ * @param {string} courses - Courses the student has completed
+ */
+
 import { memo } from "react";
 
 function StdCommentItems({ name, opinion, courses }) {

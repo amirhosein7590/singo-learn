@@ -1,3 +1,19 @@
+/**
+ * Admin Account Page
+ *
+ * This is the default page rendered inside the admin dashboard (`index: true`).  
+ * It allows the admin to view and update their own account information only.  
+ * 
+ * Restrictions:
+ * - The admin cannot edit other users’ information from this page.
+ * - Access is limited to the authenticated admin user.
+ *
+ * Usage:
+ * - Automatically rendered when the admin navigates to `/dashboard/admin`.
+ * - Displays and provides editing options for the admin's personal account details.
+ */
+
+
 import { lazy, memo, useEffect, useMemo, useState } from "react";
 import EditForm from "../../../components/sections/EditForm";
 import useAdminProfle from "../../../hooks/Admin/useAdminProfile";

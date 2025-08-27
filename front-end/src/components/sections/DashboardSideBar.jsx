@@ -1,3 +1,38 @@
+/**
+ * DashboardSideBar Component
+ * 
+ * Sidebar component for admin, instructor, and user panels.
+ * Provides navigation links to different pages within the dashboard
+ * and handles user logout functionality.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} props.fullname - Full name of the logged-in user.
+ * @param {string} props.phonenumber - Phone number of the logged-in user.
+ * @param {Array<Object>} props.links - Array of link objects for navigation.
+ * @param {string|number} props.links[].id - Unique identifier for the link.
+ * @param {string} props.links[].text - Text label of the link.
+ * @param {string} props.links[].to - URL path to navigate when clicked.
+ * @param {string} props.links[].icon - Icon URL for the link.
+ *
+ * @description
+ * Features:
+ * - Displays user info (name and phone) in desktop view.
+ * - Renders a mobile-friendly toggle button for smaller screens.
+ * - Animates mobile menu using Framer Motion.
+ * - Handles logout with confirmation alert.
+ * - Supports responsive layout adjustments.
+ * - Uses lazy-loaded Alert and Spinner components for improved performance.
+ *
+ * @notes
+ * - Mobile menu state is managed with isMobileMenuOpen.
+ * - Mobile view detection is based on window width <= 820px.
+ * - Logout invalidates 'purchase' queries in react-query and navigates to login.
+ * - showAlert state is controlled via alertSetter and showAlertHandler utility functions.
+ * - AnimatePresence handles mounting/unmounting animation for the mobile menu.
+ */
+
+
 import Button from "../ui/Button";
 import { memo, useEffect, useState, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";

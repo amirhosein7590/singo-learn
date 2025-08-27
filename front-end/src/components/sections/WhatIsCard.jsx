@@ -1,3 +1,18 @@
+/**
+ * WhatIsCard component that displays a card with a title and description.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} props.title - The title text displayed on the card.
+ * @param {string} props.description - The description text displayed below the title.
+ *
+ * @example
+ * <WhatIsCard title="React" description="A JavaScript library for building user interfaces." />
+ *
+ * @returns {JSX.Element} A styled card containing a title and description.
+ */
+
+
 import { memo } from "react";
 
 function WhatIsCard({title , description}) {

@@ -1,3 +1,44 @@
+/** Course Page (Course.jsx)
+ * Course Page Component
+ *
+ * Renders a full course view: hero (icon/video/overview), purchase CTA, a collapsible
+ * course description, a Sessions accordion list, and a FAQs accordion list.
+ * Integrates with cart and user purchase state, shows toasts, and handles auth errors.
+ *
+ * Data:
+ * - Reads route param `courseId`.
+ * - Fetches course details with embedded sessions: `/courses/:courseId?_embed=sessions`.
+ * - Builds small metric cards (support, duration, sessions count, students count).
+ *
+ * Cart:
+ * - Uses `useCart()` to detect purchase/cart state and to add current course to cart.
+ * - On success/error of add-to-cart, displays toast; if backend signals `{ login:false }`
+ *   it redirects to `/login`.
+ *
+ * UI:
+ * - Price block shows original price (if any) with strike-through and current price/free.
+ * - "Continue" button toggles extended description height (`showContinue`).
+ * - Renders `<Session />` for each session and `<Faqs />` for FAQs, passing a
+ *   click handler that toggles their internal `isShow`.
+ *
+ * Perf & UX:
+ * - Lazily loads the Toast component.
+ * - Registers a toast setter once on mount via `resgisterToastSetter`.
+ * - Memoization of children occurs inside those components; this container renders lists.
+ *
+ * @component
+ * @returns {JSX.Element}
+ *
+ * @remarks
+ * - `order={session.videos.order}` passes `order` from an array (`videos`)—likely a bug.
+ *   Consider passing `video.order` inside the map or computing order elsewhere.
+ * - Video poster uses `course.image` while the `src` is a placeholder; ensure a valid
+ *   preview URL or remove controls when no actual video is available.
+ * - Toast registration/effects depend on `addCartData` and `addCartError`; ensure those
+ *   objects are stable (from react-query) to avoid duplicate toasts.
+ */
+
+
 import { useNavigate, useParams } from "react-router";
 import useCart from "../hooks/useCart";
 import useAxiosQuery from "../hooks/useAxiosQuery";

@@ -1,3 +1,21 @@
+/**
+ * Toast Component
+ * Temporary notification displayed at the top of the screen.
+ *
+ * @param {string} message - The notification text to display.
+ * @param {string} icon - Icon name (SVG path is resolved using this).
+ * @param {Function} onClose - Callback triggered after timeout or when closing manually.
+ *
+ * @returns {JSX.Element} Animated toast with icon and message.
+ *
+ * @description
+ * - Auto-dismisses after 3 seconds using `setTimeout`.
+ * - Uses `framer-motion` for enter/exit animations (slide & scale).
+ * - Displays an icon alongside the message.
+ * - Positioned fixed at the top-center of the viewport.
+ */
+
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 

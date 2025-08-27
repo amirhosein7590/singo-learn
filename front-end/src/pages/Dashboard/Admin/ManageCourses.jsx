@@ -1,3 +1,47 @@
+/**
+ * ManageCourses Component
+ * ------------------------
+ * Admin dashboard page for managing courses.  
+ * Provides features to create, edit, update icons/images, and remove courses.  
+ * Utilizes modular hooks, reusable components, and global modal/alert/toast controllers.
+ *
+ * @component
+ * @returns {JSX.Element} Courses management panel with:
+ * - Course creation form
+ * - Paginated & scrollable courses table
+ * - Modal for editing course details
+ * - Alert for confirmation dialogs
+ * - Toast for notifications
+ *
+ * @state
+ * @property {Object} showToast - Controls visibility and content of toast notifications.
+ * @property {boolean} showModal - Controls modal visibility for editing courses.
+ * @property {boolean} showAlert - Controls alert visibility for confirming destructive actions.
+ *
+ * @hooks
+ * - useListCourses: Fetches list of courses with infinite pagination support.
+ * - useCreateCourse: Handles course creation requests.
+ * - useRemoveCourse: Deletes courses from the system.
+ * - useEditCourse: Updates existing course details.
+ * - useImageCourse / useIconCourse: Updates course cover image and icon respectively.
+ * - useEditInputPattern: Generates form fields for editing course.
+ * - useTableDatas: Prepares structured data for the table component.
+ *
+ * @functions
+ * @function addPending(courseId, action) - Tracks pending state for specific course actions.
+ * @function removePending(courseId, action) - Removes pending state after action completion.
+ * @function actionHandler(infos) - Centralized handler for all course-related actions:
+ *   - "remove": Opens alert confirmation before deletion.
+ *   - "edit": Opens modal with editable course fields.
+ *   - "editIcon": Uploads new course icon.
+ *   - "editImage": Uploads new course image.
+ *
+ * @effects
+ * - Registers modal, toast, and alert setters with global controllers.
+ * - Sets document title to "مدیریت دوره ها".
+ */
+
+
 import { act, lazy, useEffect, useRef, useState } from "react";
 const Modal = lazy(() => import("../../../components/sections/Modal"));
 import { modalSetter, showModalHandler } from "../../../utils/ModalController";

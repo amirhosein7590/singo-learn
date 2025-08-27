@@ -1,3 +1,10 @@
+/**
+ * StudentsComments Page
+ *
+ * Renders a list of all student comments using StdCommentItems component.
+ * Sets the document title to "نظرات دانشجویان" when mounted.
+ */
+
 import { useEffect } from "react";
 import StdCommentItems from "../components/sections/StdCommentItems";
 import stdComments from "../data/StudentComments";

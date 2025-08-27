@@ -1,3 +1,28 @@
+/**
+ * Cart Page
+ * Displays all courses in the user's shopping cart with pricing summary and purchase action.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} Cart page with course list, total price, purchase button, or empty cart state.
+ *
+ * @description
+ * - Redirects teacher users to `/dashboard/teacher`.
+ * - Loads cart data, total prices, and purchase actions from `useCart` hook.
+ * - Shows list of `CartItem` components for each course in cart.
+ * - Calculates and displays:
+ *   - Total price (`جمع کل`).
+ *   - Final payable price (`قابل پرداخت`).
+ * - Allows purchasing all courses:
+ *   - On success → shows success toast.
+ *   - On error → shows error toast.
+ * - Handles different states:
+ *   - Courses available → Shows cart items + pricing summary.
+ *   - Empty cart → Shows "سبد خرید شما خالی است" message with illustration and button to explore courses.
+ * - Integrates global toast system via `registerToastSetter` and `showToastHandler`.
+ */
+
+
 import { lazy, useEffect, useState } from "react";
 import useCart from "../hooks/useCart";
 import CartItem from "../components/sections/CartItem";

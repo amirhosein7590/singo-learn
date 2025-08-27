@@ -1,3 +1,13 @@
+/**
+ * AboutUs Page Component
+ *
+ * Renders the "About Us" page with multiple sections and features.
+ * Each section has a title and a list of feature items.
+ *
+ * @component
+ * @returns {JSX.Element} The About Us page layout
+ */
+
 import { memo, useEffect } from "react";
 import SectionTitle from "../components/sections/About_Us/SeactionTitle";
 import FeatureItem from "../components/sections/About_Us/FeatureItem";

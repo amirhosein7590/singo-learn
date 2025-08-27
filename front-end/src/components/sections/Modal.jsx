@@ -1,3 +1,29 @@
+/**
+ * Modal Component
+ * Versatile modal for editing entities or displaying table data.
+ *
+ * @param {Function} onClose - Callback to close the modal.
+ * @param {boolean} isEdit - If true, shows `EditForm`; otherwise, shows `Table`.
+ * @param {Array<Object>} inputPatterns - Input configuration for edit mode.
+ * @param {boolean} isPending - Indicates if an action inside the form is pending.
+ * @param {Function} onAction - Callback for submitting form actions.
+ * @param {string} title - Modal title text.
+ * @param {Object} tableData - Table configuration `{ thead, tbody }` for view mode.
+ * @param {boolean} isFetchingNextPage - True if more data is being loaded.
+ * @param {boolean} hasNextPage - True if more data is available to fetch.
+ * @param {Function} fetchNextPage - Callback to load more data in edit mode.
+ *
+ * @returns {JSX.Element} Animated modal containing either a form or a table.
+ *
+ * @description
+ * - Locks body scroll while open.
+ * - Backdrop closes modal when clicked (but inner content stops propagation).
+ * - Uses `framer-motion` for backdrop and modal entrance animations.
+ * - In edit mode → renders `EditForm` with inputs, infinite scroll & pending states.
+ * - In view mode → renders a `Table` if data exists, otherwise fallback text.
+ */
+
+
 import { motion, AnimatePresence } from "framer-motion";
 import { memo, useEffect } from "react";
 import EditForm from "../sections/EditForm";

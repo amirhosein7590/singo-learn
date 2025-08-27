@@ -1,3 +1,41 @@
+/** Session Accordion (components/sections/Accordions/Session/Index.jsx)
+ * Collapsible session block showing a session header and a list of its videos.
+ * Each video renders as a `VideoCart` with title, duration, order, and access state.
+ *
+ * State:
+ * - `isShow` (local): whether the session's video list is expanded.
+ *
+ * Interactions:
+ * - Clicking the chevron calls `onClick(setIsShow)` so the parent controls toggle policy
+ *   (e.g., allow multiple open vs single open) while this component updates its state.
+ *
+ * Animation:
+ * - The video list is wrapped in `AnimatePresence` with a height/spacing transition.
+ * - `maxHeight` is computed as `videos.length * 130.8px` to accommodate items.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} props.seasion - Session label (e.g., "فصل اول"). (Note: property name is "seasion".)
+ * @param {string} props.title - Session title.
+ * @param {(setIsShow: React.Dispatch<React.SetStateAction<boolean>>) => void} props.onClick
+ *   External toggle handler. Receives the component's `setIsShow`.
+ * @param {Array<{id:string,title:string,duration:number,videoUrl:string,order:number}>} props.videos
+ *   List of videos in this session.
+ * @param {(courseId: string) => boolean} props.isPurchasedCourse
+ *   Predicate to check if the current user owns the course.
+ * @param {string} props.courseId - Course identifier, passed down to `VideoCart`.
+ * @param {boolean} props.isFree - Whether the session/videos are free-to-watch.
+ * @returns {JSX.Element}
+ *
+ * @remarks
+ * - The height heuristic (`130.8px` per video) can break if card heights/styles change
+ *   or on responsive layouts. Prefer measuring the container’s `scrollHeight` or using
+ *   Framer Motion’s layout animations without explicit `maxHeight`.
+ * - The header’s chevron uses an SVG; add button semantics/keyboard handlers for a11y.
+ * - Ensure `PriceToPersian` receives numbers; durations/orders are formatted per item.
+ */
+
+
 import { memo, useState } from "react";
 import VideoCart from "./VideoCart";
 import PriceToPersian from "../../../../utils/PriceToPersian";

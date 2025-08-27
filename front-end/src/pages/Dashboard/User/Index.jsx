@@ -1,3 +1,22 @@
+/**
+ * User Dashboard Main Layout
+ * ----------------------------------------
+ * This is the main layout component for the User Panel.
+ * It wraps all user routes and provides a sidebar with navigation links
+ * and a main content area that renders the currently selected route.
+ *
+ * @component
+ * @returns {JSX.Element} User dashboard layout with sidebar and outlet for nested routes.
+ *
+ * @description
+ * - Fetches the user profile using `useAxiosQuery` with userId and token from localStorage.
+ * - Defines sidebar links for "Account" and "My Courses".
+ * - Renders `DashboardSideBar` on the left and an `Outlet` for nested routes on the right.
+ * - Uses `memo` to prevent unnecessary re-renders if props/state remain unchanged.
+ * - Converts phone numbers to Persian digits using `ToPersianDigit` utility.
+ */
+
+
 import { Outlet } from "react-router";
 import DashboardSideBar from "../../../components/sections/DashboardSideBar";
 import useAxiosQuery from "../../../hooks/useAxiosQuery";

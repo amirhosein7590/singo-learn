@@ -1,3 +1,24 @@
+/**
+ * Login Page
+ * Handles user authentication (login) with form validation and server mutation.
+ *
+ * @returns {JSX.Element} Login form inside `AuthForm`.
+ *
+ * @description
+ * - Sets document title to "ورود".
+ * - Uses `react-hook-form` for validation and controlled inputs.
+ * - Submits credentials using `useMutate("login")`.
+ * - On success:
+ *   - Stores `role`, `userId`, `token`, and `refreshToken` in localStorage.
+ *   - Shows success toast.
+ *   - Redirects to home (`/`).
+ * - On error:
+ *   - Displays error toast with message from server.
+ * - Includes "Login" and "Register" navigation buttons.
+ * - Provides password visibility toggle (`showPassword` state).
+ */
+
+
 import { useEffect, useState } from "react";
 import Input from "../../components/ui/Input";
 import { useForm, Controller } from "react-hook-form";
@@ -6,6 +27,7 @@ import useMutate from "../../hooks/useAxiosMutate";
 import AuthForm from "../../components/sections/AuthForm";
 import { showToastHandler } from "../../utils/ToastController";
 import { useNavigate } from "react-router";
+import inputPatterns from "../../constants/InputPatterns/Auth/Login";
 
 function Login() {
   useEffect(() => {
@@ -57,42 +79,6 @@ function Login() {
   };
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const inputPatterns = [
-    {
-      name: "username",
-      type: "text",
-      label: {
-        message: "نام کاربری را وارد کنید",
-        classes: "mb-2",
-      },
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      rules: {
-        required: "نام کاربری نمیتواند خالی باشد",
-        pattern: {
-          value: /^.{5,}$/,
-          message: "نام کاربری کوتاه است",
-        },
-      },
-    },
-    {
-      name: "password",
-      type: "password",
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      label: {
-        message: "رمز عبور را وارد کنید",
-        classes: "mb-2",
-      },
-      rules: {
-        required: "رمز عبور نمی تواند خالی باشد",
-        pattern: {
-          value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-          message:
-            "رمز عبور باید حداقل یک حرف بزرگ و کوچک ، یک سمبل و عدد داشته باشد",
-        },
-      },
-    },
-  ]; // input pattern for validation and use in Controlled Component
 
   return (
     <>

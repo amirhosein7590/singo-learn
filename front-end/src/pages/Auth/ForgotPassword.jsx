@@ -1,3 +1,21 @@
+/**
+ * ForgotPassword Page
+ * Handles password recovery request via API.
+ *
+ * @returns {JSX.Element} Forgot password form inside `AuthForm`.
+ *
+ * @description
+ * - Uses `react-hook-form` for validation and controlled input.
+ * - Sends recovery request using `useMutate("forgotPassword")`.
+ * - On success:
+ *   - Shows success toast with server response message.
+ * - On error:
+ *   - Displays error toast with server-provided error.
+ * - Includes navigation buttons for Login/Register.
+ * - Provides password visibility toggle (`showPassword` state).
+ */
+
+
 import { useForm, Controller } from "react-hook-form";
 import AuthForm from "../../components/sections/AuthForm";
 import Button from "../../components/ui/Button";
@@ -5,6 +23,7 @@ import useMutate from "../../hooks/useAxiosMutate";
 import Input from "../../components/ui/Input";
 import { useEffect, useState } from "react";
 import { showToastHandler } from "../../utils/ToastController";
+import inputPatterns from "../../constants/InputPatterns/Auth/ForgotPassword";
 
 function ForgotPassword() {
   const {
@@ -43,41 +62,6 @@ function ForgotPassword() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const inputPatterns = [
-    {
-      name: "username",
-      type: "text",
-      label: {
-        message: "نام کاربری را وارد کنید",
-        classes: "mb-2",
-      },
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      rules: {
-        required: "نام کاربری نمیتواند خالی باشد",
-        pattern: {
-          value: /^.{5,}$/,
-          message: "نام کاربری کوتاه است",
-        },
-      },
-    },
-    {
-      name: "newPassword",
-      type: "password",
-      classes: "border border-1 border-[#aaaa] rounded-sm py-2 px-4 text-lg",
-      label: {
-        message: "رمز عبور جدید را وارد کنید",
-        classes: "mb-2",
-      },
-      rules: {
-        required: "رمز عبور نمی تواند خالی باشد",
-        pattern: {
-          value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-          message:
-            "رمز عبور باید حداقل یک حرف بزرگ و کوچک ، یک سمبل و عدد داشته باشد",
-        },
-      },
-    },
-  ]; // input pattern for validation and use in Controlled Component
   return (
     <>
       <AuthForm>

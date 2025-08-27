@@ -1,3 +1,16 @@
+/**
+ * SectionTitle Component
+ *
+ * Displays a section title with a decorative icon and renders
+ * child elements underneath.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} props.title - The section title
+ * @param {React.ReactNode} props.children - Nested content (e.g., feature items)
+ * @returns {JSX.Element} The section title layout
+ */
+
 import { memo } from "react";
 
 function SectionTitle({ title, children }) {

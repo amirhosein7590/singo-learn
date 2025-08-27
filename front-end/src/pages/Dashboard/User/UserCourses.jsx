@@ -1,3 +1,22 @@
+/**
+ * User Courses Page
+ * ----------------------------------------
+ * This component displays all courses purchased by the user.
+ *
+ * @component
+ * @returns {JSX.Element} List of purchased courses or an empty state with a CTA.
+ *
+ * @description
+ * - Fetches purchased courses using `useAxiosQuery` with userId and token from localStorage.
+ * - Sets document title to "دوره های من" on mount.
+ * - If the user has purchased courses:
+ *    - Maps over `purchasedCourses.courses` and renders a `UserCourseItem` for each course.
+ * - If the user has not purchased any courses:
+ *    - Displays a friendly empty state with an image and a button to browse courses.
+ * - Uses `memo` to avoid unnecessary re-renders if props/state remain unchanged.
+ */
+
+
 import {memo, useEffect} from "react";
 import useAxiosQuery from "../../../hooks/useAxiosQuery";
 import UserCourseItem from "../../../components/sections/UserCourseItem";

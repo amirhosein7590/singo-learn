@@ -1,3 +1,18 @@
+/**
+ * Footer Component
+ *
+ * A reusable footer component displayed on all pages of the site.
+ *
+ * @component
+ *
+ * @description
+ * - Displays the site logo and a short description of the platform.
+ * - Provides links to main sections of the site (Courses, About Us, Student Comments).
+ * - Includes social media buttons for Instagram, Telegram, and GitHub.
+ * - Displays site ownership credit with a link to the creator's GitHub.
+ * - Fully responsive with different layouts for mobile and desktop views.
+ */
+
 import {memo} from "react";
 import Button from "../ui/Button";
 
