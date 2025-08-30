@@ -152,7 +152,7 @@ function CourseItem({
         <div className="border-t pt-5 mt-auto flex justify-center border-t-[#0000001f]">
           <Button
             to={`/courses/${courseId}`}
-            classes="border !text-sm rounded-lg py-2 border-[var(--dark-purple)] text-[var(--dark-purple)]"
+            classes="border !text-sm !px-[5px] rounded-lg py-2 border-[var(--dark-purple)] text-[var(--dark-purple)]"
           >
             دانشجوی دوره هستید . مشاهده دوره ؟
           </Button>
