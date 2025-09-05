@@ -96,7 +96,8 @@ const BASE_ADMIN_PROFILE_INPUT_PATTERNS = [
       rules: {
         required: "شماره موبایل نمی تواند خالی باشد",
         pattern: {
-          value: /^09[۰-۹0-9]{9}$/,
+          value: /^[0۰٠][9۹٩][0-9۰-۹٠-٩]{9}$/u
+,
           message: "شماره موبایل وارد شده معتبر نمی باشد",
         },
       },
