@@ -40,7 +40,7 @@ const BASE_CREATE_SEASION_INPUT_PATTERN = [
     rules: {
       required: "شماره فصل نمیتواند خالی باشد",
       pattern: {
-        value: /^.{5,}$/,
+        value: /^.{3,}$/,
         message: "شماره فصل کوتاه است",
       },
     },
@@ -66,7 +66,7 @@ const BASE_CREATE_SEASION_INPUT_PATTERN = [
     rules: {
       required: "عنوان فصل نمیتواند خالی باشد",
       pattern: {
-        value: /^.{5,}$/,
+        value: /^.{3,}$/,
         message: "عنوان فصل کوتاه است",
       },
     },

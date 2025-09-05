@@ -46,7 +46,7 @@ const BASE_TEACHER_PROFILE_INPUT_PATTERNS = [
       rules: {
         required: "نام کاربری نمیتواند خالی باشد",
         pattern: {
-          value: /^.{5,}$/,
+          value: /^.{3,}$/,
           message: "نام کاربری کوتاه است",
         },
       },
@@ -95,7 +95,7 @@ const BASE_TEACHER_PROFILE_INPUT_PATTERNS = [
       rules: {
         required: "شماره موبایل نمی تواند خالی باشد",
         pattern: {
-          value: /^09[0-9]{9}$/,
+          value: /^09[۰-۹0-9]{9}$/,
           message: "شماره موبایل وارد شده معتبر نمی باشد",
         },
       },

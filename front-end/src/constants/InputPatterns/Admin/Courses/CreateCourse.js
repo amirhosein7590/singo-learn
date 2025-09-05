@@ -53,7 +53,7 @@ const BASE_CREATE_COURSE_INPUT_PATTERNS = [
     rules: {
       required: "عنوان دوره نمیتواند خالی باشد",
       pattern: {
-        value: /^.{5,}$/,
+        value: /^.{3,}$/,
         message: "عنوان دوره کوتاه است",
       },
     },

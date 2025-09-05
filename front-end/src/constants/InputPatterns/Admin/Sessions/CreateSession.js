@@ -64,7 +64,7 @@ const BASE_CREATE_SESSION_INPUT_PATTERN = [
     rules: {
       required: "عنوان جلسه نمیتواند خالی باشد",
       pattern: {
-        value: /^.{5,}$/,
+        value: /^.{3,}$/,
         message: "عنوان جلسه نمیتواند کمتر از ",
       },
     },
