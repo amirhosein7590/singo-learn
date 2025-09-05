@@ -120,7 +120,7 @@ export function useCart() {
 
   const totalPrices = () => {
     return allCoursesInCart?.cart.reduce((acc, curr) => {
-      acc += curr.price;
+      acc += Number(curr.price);
       return acc;
     }, 0);
   };

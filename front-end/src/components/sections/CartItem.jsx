@@ -23,7 +23,6 @@
  * - Optionally renders `Toast` if `showToast.visible` is true.
  */
 
-
 import Button from "../ui/Button";
 import { lazy, memo, useEffect } from "react";
 import useCart from "../../hooks/useCart";
@@ -48,10 +47,19 @@ function CartItem({ courseIcon, title, price, id, showToast, originalPrice }) {
     }
   }, [removeFromCartData, removeCourseError]);
 
+  const iconLoadingError = (event) => {
+    event.target.src = "/svg/course-icon-fallback.svg";
+  };
+
   return (
     <div className="cart flex flex-col lg:flex-row p-4 shadow-[var(--cart-shadow)] my-4 rounded-xl w-full">
       <div className="cart__icon w-full lg:w-2/12 flex items-center">
-        <img className="w-[80px] h-[80px]" src={courseIcon} alt="" />
+        <img
+          className="w-[80px] h-[80px]"
+          src={courseIcon}
+          onError={(event) => iconLoadingError(event)}
+          alt=""
+        />
       </div>
 
       <div className="cart-detail w-full lg:w-10/12">

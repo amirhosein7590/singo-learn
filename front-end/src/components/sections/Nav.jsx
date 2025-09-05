@@ -55,7 +55,7 @@ function Nav() {
   
   return (
     <>
-      <nav className="flex justify-around items-center w-10/12 mx-auto p-1.5 bg-white">
+      <nav className="flex justify-around items-center w-full lg:w-10/12 mx-auto p-1.5 bg-white">
         <div className="nav-right">
           <Button classes="hidden lg:block" to="/">
             <img
