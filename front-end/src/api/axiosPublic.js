@@ -5,7 +5,8 @@ import axios from "axios";
  */
 
 const axiosPublic = axios.create({
-    baseURL : 'https://singo-learn-server.onrender.com'
+    baseURL : 'https://singo-learn-server.ir'
 })
+
 
 export default axiosPublic;
