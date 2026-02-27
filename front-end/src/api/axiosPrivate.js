@@ -6,7 +6,7 @@ import axios from "axios";
  */
 
 const axiosPrivate = axios.create({
-  baseURL: "https://singo-learn-server.onrender.com",
+  baseURL: "https://singo-learn-server.ir",
 });
 
 
@@ -32,7 +32,7 @@ axiosPrivate.interceptors.response.use(
         originalReq._retry = true; // set _retry for first time
         const userInfos = JSON.parse(localStorage.getItem("userInfos"));
         const response = await axios.post(
-          "https://singo-learn-server.onrender.com/refresh-token",
+          "https://singo-learn-server.ir/refresh-token",
           {
             userId: userInfos.userId,
             role: userInfos.role,
@@ -54,3 +54,4 @@ axiosPrivate.interceptors.response.use(
 );
 
 export default axiosPrivate;
+
