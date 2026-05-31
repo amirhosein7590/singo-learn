@@ -1,6 +1,6 @@
 # Singo Learn
 
-[Live Demo](https://singo-learn.vercel.app)
+[Live Demo](https://singo-learn-server.ir)
 
 **Singo Learn** is a fully responsive e-learning platform built with **pure React** (no Next.js). This project was developed as a portfolio piece to showcase advanced React skills, including state management, routing, forms, and dynamic UI interactions.
 
@@ -27,7 +27,7 @@ Singo Learn allows three types of users:
 ## Tech Stack
 
 - **Frontend**: React, React Router, React Query, Axios, Framer Motion, React Hook Form, TinyMCE
-- **Backend**: Mock API using `json-server` (deployed on [singo-learn-server](https://github.com/yourusername/singo-learn-server))
+- **Backend**: Mock API using `json-server` (deployed on [singo-learn-server](https://github.com/amirhosein7590/singo-learn-server))
 - **State & Forms**: React Query, React Hook Form
 - **Animations**: Framer Motion
 - **Editor**: TinyMCE
@@ -60,18 +60,5 @@ src/
 3. npm install
 4. npm run dev
 5. open http://localhost:5173
-
-## limitation / notes
-
-1. No additional environment variables are required.
-2. The frontend connects to a mock backend hosted separately (singo-learn-server).
-3. The backend is a mock API using json-server, so some authentication features like http-only cookies are not implemented.
-4. Access tokens and refresh tokens are stored in localStorage.
-5. Currently, only one admin account exists, and additional admin accounts cannot be created.
-6. Some backend limitations exist, such as the admin being stored in the users table, which allows unintended course purchases.
-7. If you notice that the website loads very slowly at first, please note that this issue is **not related to the frontend implementation**.  
-   Currently, the backend is hosted on [Render.com](https://render.com) using the **Free Plan**.  
-   On this plan, the server is automatically put to sleep after a period of inactivity.  
-   As a result, the **first request after inactivity can be slow** (cold start), but subsequent requests will respond normally and much faster.
 
 8. These limitations are purely due to the mock backend setup and are not reflective of frontend capabilities
